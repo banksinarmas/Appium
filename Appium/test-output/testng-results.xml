@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="4" passed="4">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="87643" started-at="2018-04-17T11:56:15Z" finished-at="2018-04-17T11:57:43Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="87643" started-at="2018-04-17T11:56:15Z" finished-at="2018-04-17T11:57:43Z">
+      <class name="userprofile.ChangeEasyPin">
+        <test-method status="PASS" signature="Setup()[pri:0, instance:userprofile.ChangeEasyPin@64f6106c]" name="Setup" is-config="true" duration-ms="14062" started-at="2018-04-17T11:56:15Z" finished-at="2018-04-17T11:56:30Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method status="PASS" signature="Test00_Login_Page()[pri:0, instance:userprofile.ChangeEasyPin@64f6106c]" name="Test00_Login_Page" duration-ms="8839" started-at="2018-04-17T11:56:30Z" finished-at="2018-04-17T11:56:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test00_Login_Page -->
+        <test-method status="PASS" signature="Test01_After_Login_Page()[pri:0, instance:userprofile.ChangeEasyPin@64f6106c]" name="Test01_After_Login_Page" duration-ms="46245" started-at="2018-04-17T11:56:38Z" depends-on-methods="userprofile.ChangeEasyPin.Test00_Login_Page" finished-at="2018-04-17T11:57:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test01_After_Login_Page -->
+        <test-method status="PASS" signature="Test02_Update_EasyPin_Page()[pri:0, instance:userprofile.ChangeEasyPin@64f6106c]" name="Test02_Update_EasyPin_Page" duration-ms="3948" started-at="2018-04-17T11:57:25Z" depends-on-methods="userprofile.ChangeEasyPin.Test01_After_Login_Page" finished-at="2018-04-17T11:57:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test02_Update_EasyPin_Page -->
+        <test-method status="PASS" signature="Test03_Enter_Password_Page()[pri:0, instance:userprofile.ChangeEasyPin@64f6106c]" name="Test03_Enter_Password_Page" duration-ms="3719" started-at="2018-04-17T11:57:29Z" depends-on-methods="userprofile.ChangeEasyPin.Test02_Update_EasyPin_Page" finished-at="2018-04-17T11:57:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test03_Enter_Password_Page -->
+        <test-method status="PASS" signature="logout()[pri:0, instance:userprofile.ChangeEasyPin@64f6106c]" name="logout" is-config="true" duration-ms="10802" started-at="2018-04-17T11:57:32Z" finished-at="2018-04-17T11:57:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- logout -->
+      </class> <!-- userprofile.ChangeEasyPin -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

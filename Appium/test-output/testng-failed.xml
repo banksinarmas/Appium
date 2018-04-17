@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="10" guice-stage="DEVELOPMENT" name="Failed suite [UserProfile]" parallel="instances">
+  <test thread-count="10" name="ChangeEasyPin(failed)" parallel="instances">
+    <classes>
+      <class name="userprofile.ChangeEasyPin">
+        <methods>
+          <include name="Setup"/>
+          <include name="Test00_Login_Page"/>
+          <include name="Test00_Login_Page"/>
+          <include name="Test01_After_Login_Page"/>
+          <include name="Test01_After_Login_Page"/>
+          <include name="Test02_Update_EasyPin_Page"/>
+          <include name="Test02_Update_EasyPin_Page"/>
+          <include name="Test03_Enter_Password_Page"/>
+          <include name="logout"/>
+        </methods>
+      </class> <!-- userprofile.ChangeEasyPin -->
+    </classes>
+  </test> <!-- ChangeEasyPin(failed) -->
+</suite> <!-- Failed suite [UserProfile] -->
