@@ -5,10 +5,10 @@
     <classes>
       <class name="userprofile.ChangeEasyPin">
         <methods>
-          <include name="Setup"/>
           <include name="Test00_Login_Page"/>
           <include name="Test01_After_Login_Page"/>
           <include name="Test02_Update_EasyPin_Page"/>
+          <include name="Setup"/>
           <include name="Test03_Enter_Password_Page"/>
           <include name="logout"/>
         </methods>

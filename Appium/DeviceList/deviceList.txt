@@ -1,3 +1,3 @@
-#deviceName,udid,systemPort
-Android_emulator,emulator-5554,7000
-ASUS_X008DA,192.168.1.53:6000,7001
+#deviceName,udid,systemPort,url
+Android_emulator,emulator-5554,7000,127.0.0.1:4723
+ASUS_X008DA,GBAXGF01Y768Z8M,7001,127.0.0.1:4724

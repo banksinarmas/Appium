@@ -13,6 +13,8 @@
           <include name="Test02_Update_EasyPin_Page"/>
           <include name="Test02_Update_EasyPin_Page"/>
           <include name="Test03_Enter_Password_Page"/>
+          <include name="Test03_Enter_Password_Page"/>
+          <include name="logout"/>
           <include name="logout"/>
         </methods>
       </class> <!-- userprofile.ChangeEasyPin -->

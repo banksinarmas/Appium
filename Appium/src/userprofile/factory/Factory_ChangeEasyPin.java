@@ -12,13 +12,13 @@ import userprofile.ChangeEasyPin;
 public class Factory_ChangeEasyPin {
 
 	@Factory(dataProvider="deviceList")
-	private Object[] aetraCreateInstances(String deviceName,String udid,String systemPort) throws IOException {
-		return new Object[] {new ChangeEasyPin(deviceName,udid,systemPort)};
+	private Object[] aetraCreateInstances(String deviceName,String udid,String systemPort,String url) throws IOException {
+		return new Object[] {new ChangeEasyPin(deviceName,udid,systemPort,url)};
 	}
 
 	@DataProvider(name="deviceList")
 	private static Object[][] aetraDataProvider() throws FileNotFoundException {
-		Object[][] dataArray = LoadDeviceTest.loadFromFile("deviceList.txt",3);
+		Object[][] dataArray = LoadDeviceTest.loadFromFile("deviceList.txt",4);
 		return dataArray;
 	}
 }
