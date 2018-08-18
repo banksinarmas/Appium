@@ -17,7 +17,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class CreateTimeDeposit {
 
 	private static AndroidDriver<WebElement> driver;
-	private static WebDriverWait wait10,wait30,wait60;
+	private static  WebDriverWait wait5,wait10,wait20,wait30,wait60,wait120;
 
 	//AppiumManager apm = new AppiumManager();
 
@@ -25,7 +25,7 @@ public class CreateTimeDeposit {
 	public void Setup() throws Exception 
 	{
 		//	apm.appiumServerForAndroid();
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
 
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("deviceName","Emulator");
@@ -37,17 +37,22 @@ public class CreateTimeDeposit {
 		capabilities.setCapability("automationName","uiautomator2");
 		driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
+		wait5= new WebDriverWait(driver, 5);
 		wait10= new WebDriverWait(driver, 10);
+		wait20= new WebDriverWait(driver, 20);
 		wait30= new WebDriverWait(driver, 30);
 		wait60= new WebDriverWait(driver, 60);
+		wait120= new WebDriverWait(driver, 120);
 	}
 
 	@Test
 	public void Test00_Login_Page() throws Exception
 	{
 		try {
-			wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
-
+			wait20.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
+			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"]"))).click();
+			driver.findElement(By.xpath("//*[@text='OK']")).click();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -67,42 +72,44 @@ public class CreateTimeDeposit {
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		tdElement.click();
 
-		Thread.sleep(500);	
-		driver.swipe(50, 1500, 50, 200, 3000);
-		Thread.sleep(500);
-		driver.swipe(50, 1500, 50, 200, 3000);
-		Thread.sleep(500);		
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Time Deposit Information'] | //*[@text='Informasi Deposito Berjangka']"))).isDisplayed();
 
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='CREATE TIME DEPOSIT'] | //*[@text ='Deposito Berjangka Baru']"))).click();
-
+       List<WebElement> listWE = driver.findElements(By.xpath("//*[@text='CREATE TIME DEPOSIT'] | //*[@text='Deposito Berjangka Baru']"));
+		while (!(listWE.size()>0)){
+        	driver.swipe(50, 1500, 50, 200, 3000);
+            listWE  = driver.findElements(By.xpath("//*[@text='CREATE TIME DEPOSIT'] | //*[@text='Deposito Berjangka Baru']"));
+        }
+		
+		if(listWE.size()>0)listWE.get(0).click();
+	
 	}
 
 	@Test(dependsOnMethods="Test01_After_Login_Page")
 	public void Test02_Time_Deposit_Page() throws Exception
 	{
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')]"))).isDisplayed();
+		
+		wait120.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')]"))).isDisplayed();
 
 		List<WebElement> selAcc = driver.findElements(By.xpath("//*[@text='Select account'] | //*[@text='Pilih akun']"));
 		selAcc.get(selAcc.size()-1).click();
 
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')]")));
 
+		Thread.sleep(2000);
 		List<WebElement> accBox =driver.findElements(By.className("android.widget.TextView"));
-		accBox.get(2).click();
+		accBox.get(1).click();
 
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')]"))).isDisplayed();
-		driver.findElement(By.className("android.widget.EditText")).sendKeys("500000");;
+		driver.findElement(By.className("android.widget.EditText")).sendKeys("500000");
 
 		driver.findElement(By.xpath("//*[@text='Select time period'] | //*[@text='Pilih jangka waktu']")).click();
 
-		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')]")));
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'1 bulan')] | //*[contains(@text,'1 month')]"))).click();
 		driver.findElement(By.xpath("//*[contains(@text,'1 bulan')] | //*[contains(@text,'1 month')]")).click();
-
+		
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')]"))).isDisplayed();
 
 		driver.swipe(21, 1200, 21, 750, 2000);
-
-		Thread.sleep(500);
 
 		driver.findElement(By.xpath("//*[@text='Automatic roll-over'] | //*[@text='Diperpanjang otomatis']")).click();
 
@@ -113,24 +120,21 @@ public class CreateTimeDeposit {
 	@Test(dependsOnMethods="Test02_Time_Deposit_Page")
 	public void Test03_Auto_Rollover_Time_Deposit_TnC_Page() throws Exception
 	{
-
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='Syarat dan Ketentuan Deposito Berjangka Online'] | //*[@content-desc='Online Time Deposit Terms and Conditions']"))).isDisplayed();
-		driver.findElement(By.xpath("//*[@text='I Agree'] | //*[@text='Saya Setuju']")).click();
-
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Terms and conditions']"))).isDisplayed();
+		driver.findElement(By.xpath("//*[@text='I AGREE'] | //*[@text='Saya Setuju']")).click();
 	}
+	
 	@Test(dependsOnMethods="Test03_Auto_Rollover_Time_Deposit_TnC_Page")
 	public void Test04_Auto_Rollover_Time_Deposit_Summary_Page() throws Exception
 	{
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUMMARY'] | //*[@text='Ringkasan']"))).isDisplayed();
-
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUMMARY'] | //*[@text='Ringkasan']"))).isDisplayed();
 		driver.findElement(By.xpath("//*[@text='CREATE TIME DEPOSIT'] | //*[@text='Membuat Deposito Berjangka']")).click();
-
 	}
 	
 	@Test(dependsOnMethods="Test04_Auto_Rollover_Time_Deposit_Summary_Page")
 	public void Test05_Auto_Rollover_Time_Deposit_EasyPin_Page() throws Exception
 	{
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 
 		driver.findElement(By.className("android.widget.EditText")).sendKeys("123456");
 		
@@ -140,24 +144,24 @@ public class CreateTimeDeposit {
 	@Test(dependsOnMethods="Test05_Auto_Rollover_Time_Deposit_EasyPin_Page")
 	public void Test06_Auto_Rollover_Time_Deposit_Result_Page() throws Exception
 	{
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Time Deposit creation')] | //*[contains(@text,'Pembuatan Deposito Berjangka')]"))).isDisplayed();
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Time Deposit creation')] | //*[contains(@text,'Pembuatan Deposito Berjangka')]"))).isDisplayed();
 	
-		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		driver.findElement(By.xpath("//*[@text='OK']")).click();			
+		driver.findElement(By.xpath("//*[@text='OK']")).click();
 
 	}
 	
 	@AfterClass
 	public void logout() throws Exception
 	{	
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
 		
 		driver.findElement(By.className("android.widget.TextView")).click();
 			
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='KELUAR'] | //*[@text='LOG OUT']"))).click();
+		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='KELUAR'] | //*[@text='LOG OUT']"))).click();
 
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOGIN']"))).isDisplayed();
+		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOGIN']"))).isDisplayed();
 
 	}
 

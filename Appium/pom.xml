@@ -19,7 +19,6 @@
 	</build>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
-		<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
 		<dependency>
 			<groupId>io.appium</groupId>
 			<artifactId>java-client</artifactId>
@@ -37,15 +36,5 @@
 			<version>6.14.3</version>
 			<scope>test</scope>
 		</dependency>
-
-
-
-
-
-
-
-
-
-
 	</dependencies>
 </project>

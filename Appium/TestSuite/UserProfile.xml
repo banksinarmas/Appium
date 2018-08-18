@@ -1,9 +1,0 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="UserProfile" data-provider-thread-count="10" parallel="instances" thread-count="10">
-	<test name="ChangeEasyPin" >
-		<classes>
-			<class name="userprofile.factory.Factory_ChangeEasyPin" />
-		</classes>
-	</test>
-</suite>

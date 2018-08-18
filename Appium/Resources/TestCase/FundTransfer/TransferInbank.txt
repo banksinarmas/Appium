@@ -1,0 +1,3 @@
+#easyPin,sourceAccount,toAccount,amount,desc
+123456,0008394903,0171029279,1000,inbank
+123456,0008394903,0171029279,1000,inbank
