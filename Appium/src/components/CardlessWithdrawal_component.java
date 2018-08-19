@@ -11,18 +11,21 @@ import framework.DeviceCapabilities;
 public class CardlessWithdrawal_component extends DeviceCapabilities{
 
 	
-	public static void cardlessMenu() {
+	public static void cardlessWdrMenu() {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']")));
 		
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		driver.findElement(By.className("android.widget.TextView")).click();
 
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Cardless withdrawal'] | //*[@text='Tarik tunai tanpa kartu']"))).click();
 		
-/*		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys("087783088806");
-
-		driver.findElement(By.xpath("//*[@text='CONTINUE'] | //*[@text='LANJUT']")).click();
-		*/	
 	}
 	
 

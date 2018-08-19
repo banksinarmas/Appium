@@ -1,20 +1,21 @@
 package framework;
 
 import java.net.URL;
+import java.util.Properties;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
+import components.EasyPin_component;
 import io.appium.java_client.android.AndroidDriver;
 
 public class DeviceCapabilities {
 
 	protected static AndroidDriver<WebElement> driver;
 	protected static WebDriverWait wait5,wait10,wait20,wait30,wait60;
+	protected static String easyPin;
 	
 	@BeforeClass
 	protected void Setup() throws Exception 
@@ -34,5 +35,9 @@ public class DeviceCapabilities {
 		wait20= new WebDriverWait(driver, 20);
 		wait30= new WebDriverWait(driver, 30);
 		wait60= new WebDriverWait(driver, 60);
+		
+		Properties prop = LoadProperties.getProperties("credential.properties");
+		easyPin=prop.getProperty("easyPin");
+		EasyPin_component.loginEasyPin(easyPin);
 	}
 }

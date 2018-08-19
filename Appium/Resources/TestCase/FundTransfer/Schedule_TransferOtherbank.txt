@@ -1,0 +1,5 @@
+#sourceAccount,toAccount,amount,desc,method,recurrence,frequency
+//Schedule SKN
+0008394903,001001001,1000,sch skn,skn,once a week,2x
+//Schedule network
+0008394903,001001001,10000,sch network,network,one time,0x

@@ -28,15 +28,23 @@ public class FundTransfer_component extends DeviceCapabilities {
 	public static void selectPayee(String toAccount) {
 
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(toAccount);
-
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='CONTINUE'] | //*[@text='LANJUT']"))).click();
 		
-		//driver.findElement(By.xpath("//*[@text='CONTINUE'] | //*[@text='LANJUT']")).click();
+		driver.findElement(By.xpath("//*[@text='CONTINUE'] | //*[@text='LANJUT']")).click();
 	}
 
 	public static void selectAccount(String sourceAccount,String amount,String desc) {
 
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']"))).click();
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
+
+		try {
+			Thread.sleep(1200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.findElement(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']")).click();
+
+	//	wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']"))).click();
 
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
 
@@ -52,7 +60,17 @@ public class FundTransfer_component extends DeviceCapabilities {
 	}
 	public static void selectAccountSchedule(String sourceAccount,String amount,String desc) {
 
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']"))).click();
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
+
+		try {
+			Thread.sleep(1200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.findElement(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']")).click();
+		
+	//	wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']"))).click();
 
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
 
@@ -80,48 +98,45 @@ public class FundTransfer_component extends DeviceCapabilities {
 		List<WebElement> addFreq = driver.findElements(By.xpath("//*[@text='+']"));
 		
 		recurrence= recurrence.toLowerCase();
+		
+		class SchFrequency{
+			void set(int position){
+				List <WebElement> listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
+				while(!(listFreq.size()>0)) {
+					addFreq.get(position).click();	
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
+				}	
+			}
+		}
+		
 		if(recurrence.equals("one time")) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='One time'] | //*[@text='Tidak diulang']"))).click();
 	
 		}
 		else if(recurrence.equals("everyday")) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Everyday'] | //*[@text='Setiap hari']"))).click();
-			
-		List <WebElement> listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		while(!(listFreq.size()>0)) {
-			addFreq.get(0).click();	
-			listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		}
+		new SchFrequency().set(0);
 		
 		}
 		else if(recurrence.equals("once a week")) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Once a week'] | //*[@text='Seminggu sekali']"))).click();
-		
-		List <WebElement> listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		while(!(listFreq.size()>0)) {
-			addFreq.get(1).click();	
-			listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		}
+		new SchFrequency().set(1);
 			
 		}
 		else if(recurrence.equals("once every two weeks")) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Once every two weeks'] | //*[@text='2 Minggu sekali']"))).click();
-
-		List <WebElement> listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		while(!(listFreq.size()>0)) {
-			addFreq.get(2).click();	
-			listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		}	
+		new SchFrequency().set(2);
 			
 		}
 		else if(recurrence.equals("once a month")) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Once a month'] | //*[@text='Sebulan sekali']"))).click();
-
-		List <WebElement> listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		while(!(listFreq.size()>0)) {
-			addFreq.get(3).click();	
-			listFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
-		}
+		new SchFrequency().set(3);
 			
 		}	
 	
@@ -149,8 +164,9 @@ public class FundTransfer_component extends DeviceCapabilities {
 	}
 
 	public static void summary() {
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='TRANSFER SUMMARY'] | //*[@text='Ringkasan Transfer']")));
-	
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='TRANSFER SUMMARY'] | //*[@text='Ringkasan Transfer']"))).isDisplayed();
+		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']"))).click();
 
 	}
@@ -158,9 +174,11 @@ public class FundTransfer_component extends DeviceCapabilities {
 
 	public static void summarySchedule() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Transfer Confirmation'] | //*[@text='Ringkasan Transfer']")));
+		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		driver.swipe(50, 1500, 50, 200, 3000);
-		driver.findElement(By.xpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']")).click();
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']"))).click();
+
 	}
 
 	public static void result() {

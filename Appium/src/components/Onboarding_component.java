@@ -6,32 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import framework.DeviceCapabilities;
+import framework.FreshDeviceCapabilities;
 
-public class Onboarding_component extends DeviceCapabilities{
+public class Onboarding_component extends FreshDeviceCapabilities{
 
-	public static void loginEasyPin(String easyPin) {
-		
-		try {
-			wait20.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
 
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		try {
-			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"]"))).click();
-			driver.findElement(By.xpath("//*[@text='OK']")).click();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOGIN']"))).click();		
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
-		driver.findElementByClassName("android.widget.EditText").sendKeys(easyPin);
-
-		driver.findElement(By.xpath("//*[@text='CONTINUE'] | //*[@text='LANJUTKAN']")).click();
-	}
 	public static void landingPage() {
 		
 		try {
@@ -66,7 +45,17 @@ public class Onboarding_component extends DeviceCapabilities{
 		driver.findElement(By.xpath("//*[@text='LOGIN']")).click();
 		
 	}
-	
+	public static void inputOTP() throws Exception
+	{
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
+
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys("123456");
+
+		//driver.findElement(By.className("android.widget.EditText")).sendKeys(easyPin);
+
+		driver.findElement(By.xpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']")).click();
+
+	}
 	public static void createEasyPin(String easyPin) throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Create EasyPIN'] | //*[@text='Buat EasyPIN']"))).isDisplayed();
@@ -96,6 +85,8 @@ public class Onboarding_component extends DeviceCapabilities{
 
 		try {
 			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Menyerahkan'] | //*[@text='Submit']"))).click();	
+			wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button1"))).click();
+			wait20.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		} catch (Exception e) {
 			// TODO: handle exception

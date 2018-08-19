@@ -1,3 +1,7 @@
-#easyPin,sourceAccount,toAccount,amount,desc
-123456,0008394903,0171029279,1000,inbank
-123456,0008394903,0171029279,1000,inbank
+#sourceAccount,toAccount,amount,desc
+//Transfer konven to konven
+0008394903,0171029279,1000,to inbank
+//Transfer konven to syariah 
+0008394903,9999004056,2000,to sya
+//Transfer konven to forex USD 
+0008394903,0171028817,50000,to fx usd

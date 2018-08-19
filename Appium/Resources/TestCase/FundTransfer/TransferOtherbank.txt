@@ -1,0 +1,5 @@
+#method,sourceAccount,toAccount,amount,desc
+//SKN Transfer
+skn,0008394903,001001001,1000,trf skn
+//Network Transfer
+network,0008394903,001001001,10000,trf network

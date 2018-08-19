@@ -1,0 +1,5 @@
+#sourceAccount,amount,term,tdType
+//TD Konven
+0008394903,500000,6,aro
+0008394903,500000,3,non-aro
+0008394903,500000,12,aro-pi

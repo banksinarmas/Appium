@@ -1,0 +1,2 @@
+#billerName,subscriberNo,sourceAccount,amount,desc
+Baznas Zakat,12345,0008394903,1000,baznas

@@ -1,0 +1,2 @@
+#billerName,subscriberNo,sourceAccount,amount,desc
+Asuransi Sinarmas,12345678901234,0008394903,20000,asuransi

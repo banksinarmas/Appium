@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="0" passed="0">
+<testng-results skipped="0" failed="0" ignored="0" total="6" passed="6">
   <reporter-output>
   </reporter-output>
-  <suite name="FundTransfer" duration-ms="7" started-at="2018-08-18T11:27:57Z" finished-at="2018-08-18T11:27:57Z">
+  <suite name="Default suite" duration-ms="150202" started-at="2018-08-19T14:51:25Z" finished-at="2018-08-19T14:53:56Z">
     <groups>
     </groups>
-    <test name="TransferInbank" duration-ms="7" started-at="2018-08-18T11:27:57Z" finished-at="2018-08-18T11:27:57Z">
-    </test> <!-- TransferInbank -->
-  </suite> <!-- FundTransfer -->
+    <test name="Default test" duration-ms="150202" started-at="2018-08-19T14:51:25Z" finished-at="2018-08-19T14:53:56Z">
+      <class name="timeDeposit.CreateTimeDeposit">
+        <test-method status="PASS" signature="Setup()[pri:0, instance:timeDeposit.CreateTimeDeposit@42eca56e]" name="Setup" is-config="true" duration-ms="29003" started-at="2018-08-19T14:51:25Z" finished-at="2018-08-19T14:51:54Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method status="PASS" signature="Test01_After_Login_Page()[pri:0, instance:timeDeposit.CreateTimeDeposit@42eca56e]" name="Test01_After_Login_Page" duration-ms="58097" started-at="2018-08-19T14:51:54Z" finished-at="2018-08-19T14:52:52Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test01_After_Login_Page -->
+        <test-method status="PASS" signature="Test02_Time_Deposit_Page()[pri:0, instance:timeDeposit.CreateTimeDeposit@42eca56e]" name="Test02_Time_Deposit_Page" duration-ms="26912" started-at="2018-08-19T14:52:52Z" depends-on-methods="timeDeposit.CreateTimeDeposit.Test01_After_Login_Page" finished-at="2018-08-19T14:53:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test02_Time_Deposit_Page -->
+        <test-method status="PASS" signature="Test03_Time_Deposit_TnC_Page()[pri:0, instance:timeDeposit.CreateTimeDeposit@42eca56e]" name="Test03_Time_Deposit_TnC_Page" duration-ms="3411" started-at="2018-08-19T14:53:19Z" depends-on-methods="timeDeposit.CreateTimeDeposit.Test02_Time_Deposit_Page" finished-at="2018-08-19T14:53:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test03_Time_Deposit_TnC_Page -->
+        <test-method status="PASS" signature="Test04_Time_Deposit_Summary_Page()[pri:0, instance:timeDeposit.CreateTimeDeposit@42eca56e]" name="Test04_Time_Deposit_Summary_Page" duration-ms="11372" started-at="2018-08-19T14:53:23Z" depends-on-methods="timeDeposit.CreateTimeDeposit.Test03_Time_Deposit_TnC_Page" finished-at="2018-08-19T14:53:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test04_Time_Deposit_Summary_Page -->
+        <test-method status="PASS" signature="Test05_Time_Deposit_EasyPin_Page()[pri:0, instance:timeDeposit.CreateTimeDeposit@42eca56e]" name="Test05_Time_Deposit_EasyPin_Page" duration-ms="9898" started-at="2018-08-19T14:53:34Z" depends-on-methods="timeDeposit.CreateTimeDeposit.Test04_Time_Deposit_Summary_Page" finished-at="2018-08-19T14:53:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test05_Time_Deposit_EasyPin_Page -->
+        <test-method status="PASS" signature="Test06_Time_Deposit_Result_Page()[pri:0, instance:timeDeposit.CreateTimeDeposit@42eca56e]" name="Test06_Time_Deposit_Result_Page" duration-ms="11465" started-at="2018-08-19T14:53:44Z" depends-on-methods="timeDeposit.CreateTimeDeposit.Test05_Time_Deposit_EasyPin_Page" finished-at="2018-08-19T14:53:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test06_Time_Deposit_Result_Page -->
+      </class> <!-- timeDeposit.CreateTimeDeposit -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

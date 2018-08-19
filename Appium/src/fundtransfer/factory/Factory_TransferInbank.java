@@ -12,13 +12,13 @@ import fundtransfer.TransferInbank;
 public class Factory_TransferInbank {
 
 	   @Factory(dataProvider="inbank")
-	    private Object[] inbankCreateInstances(String easyPin,String sourceAccount, String toAccount,String amount,String desc) throws IOException {
-	       return new Object[] {new TransferInbank(easyPin,sourceAccount,toAccount,amount,desc)};
+	    private Object[] inbankCreateInstances(String sourceAccount, String toAccount,String amount,String desc) throws IOException {
+	       return new Object[] {new TransferInbank(sourceAccount,toAccount,amount,desc)};
 	    }
 	     
 	    @DataProvider(name="inbank")
 	    private static Object[][] inbankDataProvider() throws FileNotFoundException {
-	        Object[][] dataArray = LoadTestCase.loadFromFile("FundTransfer/TransferInbank.txt",5);
+	        Object[][] dataArray = LoadTestCase.loadFromFile("FundTransfer/TransferInbank.txt",4);
 	        return dataArray;
 	    }
 }

@@ -3,48 +3,32 @@ package fundtransfer;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import components.EasyPin_component;
 import components.FundTransfer_component;
-import components.Onboarding_component;
+import components.OTP_component;
 import framework.DeviceCapabilities;
 import framework.LoadProperties;
 
 
 public class TransferInbank extends DeviceCapabilities{
 
-/*	String sourceAccount = "0008394903";
-	String toAccount="0171029279";
-	String easyPin="123456";
-	String amount="1000";
-	String desc="inbank";
-	*/
-	
-	private String sourceAccount,toAccount,easyPin,amount,desc;
-	
+	private String sourceAccount,toAccount,amount,desc;	
+
 	public TransferInbank() throws IOException {
 		Properties prop=LoadProperties.getProperties("fundtransfer.properties");
-		this.sourceAccount=prop.getProperty("sourceAccount");
-		this.toAccount=prop.getProperty("toAccount");
-		this.easyPin=prop.getProperty("easyPin");
-		this.amount=prop.getProperty("amount");
-		this.desc=prop.getProperty("desc");
+		this.sourceAccount=prop.getProperty("inbankSourceAccount");
+		this.toAccount=prop.getProperty("inbankToAccount");
+		this.amount=prop.getProperty("inbankAmount");
+		this.desc=prop.getProperty("inbankDesc");
 	}
-	
-	public TransferInbank(String easyPin,String sourceAccount,String toAccount,String amount,String desc) {
+
+	public TransferInbank(String sourceAccount,String toAccount,String amount,String desc) throws IOException {
 		this.sourceAccount=sourceAccount;
 		this.toAccount=toAccount;
-		this.easyPin=easyPin;
 		this.amount=amount;
 		this.desc=desc;	
-	}
-	
-	@BeforeTest
-	private void Test00_Login_Page() throws Exception
-	{
-		Onboarding_component.loginEasyPin(easyPin);
 	}
 
 	@Test
@@ -73,7 +57,11 @@ public class TransferInbank extends DeviceCapabilities{
 	@Test(dependsOnMethods="Test04_Summary_Page")
 	private void Test05_Transfer_Inbank_EasyPin_Page() throws Exception
 	{
-		EasyPin_component.input(easyPin);
+		if(Long.parseLong(amount)>5000000)
+			OTP_component.input();
+		else
+			EasyPin_component.input(easyPin);
+
 
 	}
 	@Test(dependsOnMethods="Test05_Transfer_Inbank_EasyPin_Page")
@@ -81,5 +69,5 @@ public class TransferInbank extends DeviceCapabilities{
 	{
 		FundTransfer_component.result();
 	}
-	
+
 }
