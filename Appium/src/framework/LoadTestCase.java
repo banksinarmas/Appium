@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoadTestCase {
-	private static String folder="Resources/TestCase";
+	private static final String TESTCASE_FOLDER="Resources/TestCase";
 
 	public static Object[][] loadFromFile (String file,int numOfParams) throws FileNotFoundException{
-		FileInputStream fstream = new FileInputStream(folder+"/"+file);
+		FileInputStream fstream = new FileInputStream(TESTCASE_FOLDER+"/"+file);
 		Scanner sc = new Scanner(new InputStreamReader(fstream));
 		ArrayList<String[]> list = new ArrayList<String[]>();
 	

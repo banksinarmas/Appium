@@ -4,7 +4,7 @@
 <suite name="FundTransferOtherBank">
 	<test name="TransferOtherBank" group-by-instances="true">
 		<classes>
-			<class name="fundtransfer.factory.Factory_TransferOtherBank" />
+			<class name="fundtransfer.factory.Factory_TransferOtherbank" />
 		</classes>
 	</test>
 </suite>

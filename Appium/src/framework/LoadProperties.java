@@ -7,11 +7,11 @@ import java.util.Properties;
 
 public class LoadProperties {
 
-	private static String folder="Resources/Properties";
+	private static final String PROPERTIES_FOLDER="Resources/Properties";
 	
 	public static Properties getProperties(String filename) throws IOException {
 		Properties prop = new Properties();           
-		InputStream is = new FileInputStream(folder+"/"+filename);
+		InputStream is = new FileInputStream(PROPERTIES_FOLDER+"/"+filename);
 		prop.load(is);
 		return prop;		
 	}

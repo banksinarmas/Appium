@@ -1,19 +1,31 @@
 package components;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import framework.DeviceCapabilities;
+import framework.ScreenAction;
+import io.appium.java_client.android.AndroidDriver;
 
-public class CardlessWithdrawal_component extends DeviceCapabilities{
+public class CardlessWithdrawal_component {
 
+	private AndroidDriver<WebElement> driver;
+	private WebDriverWait wait10,wait30,wait60;
+	private FundTransfer_component fundTransfer_comp;
+	private ScreenAction screenAction;
 	
-	public static void cardlessWdrMenu() {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']")));
+	public CardlessWithdrawal_component(AndroidDriver<WebElement> driver) {
+		this.driver=driver;
 		
+		wait10=new WebDriverWait(driver, 10);
+		wait30=new WebDriverWait(driver, 30);
+		wait60=new WebDriverWait(driver, 60);
+		fundTransfer_comp=new FundTransfer_component(driver);
+	}
+	
+	public void cardlessWdrMenu() {
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']")));	
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		
 		try {
@@ -23,43 +35,33 @@ public class CardlessWithdrawal_component extends DeviceCapabilities{
 			e.printStackTrace();
 		}
 		driver.findElement(By.className("android.widget.TextView")).click();
-
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Cardless withdrawal'] | //*[@text='Tarik tunai tanpa kartu']"))).click();
-		
 	}
 	
 
-	public static void selectPhoneNo(String phoneNo) {
-
-		FundTransfer_component.selectPayee(phoneNo);
+	public void selectPhoneNo(String folder,String filename,String phoneNo) {
+		fundTransfer_comp.selectPayee(folder,filename,phoneNo);
 	}
 	
-	public static void selectAccount(String sourceAccount,String amount,String desc) {
-
-		FundTransfer_component.selectAccount(sourceAccount, amount, desc);
+	public void selectAccount(String folder,String filename,String sourceAccount,String amount,String desc) {
+		fundTransfer_comp.selectAccount(folder,filename,sourceAccount, amount, desc);
 	}
 	
-	public static void summary() {
-
+	public void summary(String folder,String filename) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Summary'] | //*[@text='Ringkasan']")));
 
+		screenAction.capture(folder, filename);
+		screenAction.verticalScroll();
 		driver.findElement(By.xpath("//*[@text='Penarikan'] | //*[@text='Withdrawal']")).click();
 
 	}
 	
-	public static void result() {
-
+	public void result(String folder,String filename) {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Cardless Withdrawal')]"))).isDisplayed();
-
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		List<WebElement> result = driver.findElements(By.xpath("//*[@text='OK']"));
-		while (!(result.size()>0)){
-			driver.swipe(50, 1500, 50, 200, 3000);
-			result  = driver.findElements(By.xpath("//*[@text='OK']"));
-		}
-
-		if(result.size()>0)result.get(0).click();
+		screenAction.capture(folder, filename);
+		screenAction.scrollUntilElementByXpath("//*[@text='OK']").click();
 
 	}
 }
