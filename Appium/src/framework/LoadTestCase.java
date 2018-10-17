@@ -17,7 +17,7 @@ public class LoadTestCase {
 		while (sc.hasNextLine())   
 		{
 			String strLine = sc.nextLine().toString().trim();
-			if(!strLine.contains("#")&&!strLine.contains("//"))		
+			if(!strLine.equals(null)&&!strLine.contains("#")&&!strLine.contains("//"))		
 				list.add(strLine.split(","));		
 		}
 		sc.close();

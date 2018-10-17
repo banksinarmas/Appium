@@ -17,26 +17,28 @@ public class AppiumServer {
 		this.port=port;	
 	}
 
-	public void startServer() {
+	public void startServer() {	
 
-		if(!this.isServerRunning(port)) {
+			try {
+				//Build the Appium service
+				builder = new AppiumServiceBuilder();
+				builder.withIPAddress("127.0.0.1");
+				builder.usingPort(port);
+				builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+				builder.withArgument(GeneralServerFlag.LOG_LEVEL, "info");
 
-			//Build the Appium service
-			builder = new AppiumServiceBuilder();
-			builder.withIPAddress("127.0.0.1");
-			builder.usingPort(port);
-			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-			builder.withArgument(GeneralServerFlag.LOG_LEVEL, "info");
-
-			//Start the server with the builder
-			service = AppiumDriverLocalService.buildService(builder);			
-			service.start();
-			System.out.println("Running appium in port :"+port);
-		}
-
-		else {
-			System.out.println("Appium already run in port :"+port);
-		}
+				//Start the server with the builder
+				service = AppiumDriverLocalService.buildService(builder);	
+				
+				System.out.println("Running appium in port :"+port);
+				service.start();
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Fail to appium run in port :"+port);
+			}
+		
 	}
 
 	private boolean isServerRunning (int port) {

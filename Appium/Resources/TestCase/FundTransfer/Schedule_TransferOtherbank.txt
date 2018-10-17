@@ -1,5 +1,5 @@
-#sourceAccount,toAccount,amount,desc,method,recurrence,frequency
-//Schedule SKN
-0008394903,001001001,1000,sch skn,skn,once a week,2x
-//Schedule network
-0008394903,001001001,10000,sch network,network,one time,0x
+#deviceID,port,systemPort,sourceAccount,toAccount,amount,desc,method,recurrence,frequency
+//autoregist46,android emulator
+emulator-5554,4723,8200,0008535116,001001001,1000,sch skn,skn,once a week,2x
+//diniajah,samsung J1
+4200b4cbb22cb3d5,4724,8201,0025882668,001001001,10000,sch network,network,one time,0x

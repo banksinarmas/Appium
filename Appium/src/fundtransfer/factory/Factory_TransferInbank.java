@@ -3,13 +3,8 @@ package fundtransfer.factory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.testng.IClass;
-import org.testng.IMethodInstance;
-import org.testng.ITest;
-import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
-import org.testng.annotations.Test;
 
 import framework.LoadTestCase;
 import fundtransfer.TransferInbank;
@@ -21,7 +16,7 @@ public class Factory_TransferInbank {
 	       return new Object[] {new TransferInbank(deviceID,Integer.parseInt(port),Integer.parseInt(systemPort),sourceAccount,toAccount,amount,desc)};
 	    }
 	     
-	    @DataProvider(name="inbank", parallel = true)
+	    @DataProvider(name="inbank")
 	    private static Object[][] inbankDataProvider() throws FileNotFoundException {
 	        Object[][] dataArray = LoadTestCase.loadFromFile("FundTransfer/TransferInbank.txt",7);
 	        

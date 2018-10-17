@@ -23,6 +23,7 @@ public class DriverSetup {
 		capabilities.setCapability("appPackage","com.ubyapp");
 		capabilities.setCapability("appActivity","com.ubyapp.MainActivity");
 		capabilities.setCapability("automationName","uiautomator2");
+		capabilities.setCapability("newCommandTimeout", 9000);
 		driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:"+port+"/wd/hub"), capabilities);
 
 	}

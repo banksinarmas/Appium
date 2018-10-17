@@ -41,11 +41,11 @@ public class EasyPin_component {
 			// TODO: handle exception
 		}
 		
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOG IN']"))).click();		
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOG IN']"))).click();		
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 		driver.findElementByClassName("android.widget.EditText").sendKeys(easyPin);	
-		screenAction.verticalScroll();	
-		driver.findElement(By.xpath("//*[@text='CONTINUE'] | //*[@text='LANJUTKAN']")).click();
+	
+		screenAction.scrollUntilElementByXpath("//*[@text='CONTINUE'] | //*[@text='LANJUTKAN']").click();
 	}
 	
 	public void input(String folder,String filename,String easyPin) throws Exception
@@ -53,7 +53,9 @@ public class EasyPin_component {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(easyPin);
 		screenAction.capture(folder, filename);
-		driver.findElement(By.xpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']")).click();
+	
+		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
+
 
 	}
 	

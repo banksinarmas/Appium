@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="ScheduleFundTransferOtherbank">
-	<test name="ScheduleTransferOtherbank" group-by-instances="true">
+	<test name="ScheduleTransferOtherbank" parallel="classes"  thread-count="8" >
 		<classes>
 			<class name="fundtransfer.factory.Factory_Schedule_TransferOtherbank" />
 		</classes>

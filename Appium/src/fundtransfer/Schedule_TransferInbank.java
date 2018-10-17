@@ -1,93 +1,96 @@
 package fundtransfer;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.testng.annotations.Test;
 
-import components.EasyPin_component;
-import components.FundTransfer_component;
-import components.OTP_component;
-import framework.DeviceCapabilities;
 import framework.LoadProperties;
+import onboarding.Login_LockdownDevice;
 
-public class Schedule_TransferInbank extends DeviceCapabilities{
-	
-/*	String sourceAccount = "0008394903";
-	String toAccount="0171029279";
-	String easyPin="123456";
-	String amount="1000";
-	String desc="sch inbank";
-	String recurrence="everyday";
-	String frequency="5x";*/
+public class Schedule_TransferInbank extends Login_LockdownDevice{
 	
 	private String sourceAccount,toAccount,amount,desc,recurrence,frequency;	
+	private final String FOLDER = "FundTransfer/Schedule/Inbank/"+deviceID;
 	
-	public Schedule_TransferInbank() throws IOException {
+	public Schedule_TransferInbank() throws IOException {	
+		super();
 		Properties prop=LoadProperties.getProperties("fundtransfer.properties");
 		this.sourceAccount=prop.getProperty("schInbankSourceAccount");
 		this.toAccount=prop.getProperty("schInbankToAccount");
 		this.amount=prop.getProperty("schInbankAmount");
 		this.desc=prop.getProperty("schInbankDesc");
 		this.recurrence=prop.getProperty("schInbankRecurrence");
-		this.frequency=prop.getProperty("schInbankFrequency");
+		this.frequency=prop.getProperty("schInbankFrequency");	
 	}
 	
-	public Schedule_TransferInbank(String sourceAccount,String toAccount,String amount,String desc,String recurrence,String frequency) throws IOException {
+	public Schedule_TransferInbank(String deviceID,int port,int systemPort,String sourceAccount,String toAccount,String amount,String desc,String recurrence,String frequency) throws IOException {
+		super(deviceID,port,systemPort);
 		this.sourceAccount=sourceAccount;
 		this.toAccount=toAccount;
 		this.amount=amount;
 		this.desc=desc;	
 		this.recurrence=recurrence;
-		this.frequency=frequency;
+		this.frequency=frequency;	
 	}
 	
-
 	@Test
-	public void Test01_After_Login_Page() throws Exception
-	{
-		FundTransfer_component.fundTransferMenu();
-	}
-	
-	@Test(dependsOnMethods="Test01_After_Login_Page")
-	public void Test02_Select_Payee_Page() throws Exception
-	{
-		FundTransfer_component.selectPayee(toAccount);
-	}
-
-	@Test(dependsOnMethods="Test02_Select_Payee_Page")
-	public void Test03_Select_Account_Page() throws Exception
-	{
-		FundTransfer_component.selectAccountSchedule(sourceAccount,amount,desc);
-	}
-
-	
-	@Test(dependsOnMethods="Test03_Select_Account_Page")
-	public void Test04_Schedule_Page() throws Exception
-	{
-		
-		FundTransfer_component.selectSchedule(recurrence,frequency);
-	}
-	
-	@Test(dependsOnMethods="Test04_Schedule_Page")
-	public void Test05_Summary_Page() throws Exception
-	{
-		FundTransfer_component.summarySchedule();
-	}
-
-	@Test(dependsOnMethods="Test05_Summary_Page")
-	public void Test06_Schedule_Transfer_Inbank_EasyPin_Page() throws Exception
+	private void Login(Method method) throws Exception
 	{	
+		super.login(method);
+	}
+	
+	@Test(dependsOnMethods="Login")
+	private void After_Login_Page(Method method) throws Exception
+	{	
+		System.out.println(deviceID+"_"+method.getName());
+		fundTransfer_comp.fundTransferMenu();
+	}	
+
+	@Test(dependsOnMethods="After_Login_Page")
+	public void Test01_Select_Payee_Page(Method method) throws Exception
+	{
+		System.out.println(deviceID+"_"+method.getName());
+		fundTransfer_comp.selectPayee(FOLDER,method.getName(),toAccount);
+	}
+
+	@Test(dependsOnMethods="Test01_Select_Payee_Page")
+	public void Test02_Select_Account_Page(Method method) throws Exception
+	{
+		System.out.println(deviceID+"_"+method.getName());
+		fundTransfer_comp.selectAccountSchedule(FOLDER,method.getName(),sourceAccount,amount,desc);
+	}
+	
+	@Test(dependsOnMethods="Test02_Select_Account_Page")
+	public void Test03_Schedule_Page(Method method) throws Exception
+	{
+		System.out.println(deviceID+"_"+method.getName());
+		fundTransfer_comp.selectSchedule(FOLDER,method.getName(),recurrence,frequency);
+	}
+	
+	@Test(dependsOnMethods="Test03_Schedule_Page")
+	public void Test04_Summary_Page(Method method) throws Exception
+	{
+		System.out.println(deviceID+"_"+method.getName());
+		fundTransfer_comp.summarySchedule(FOLDER,method.getName());
+	}
+
+	@Test(dependsOnMethods="Test04_Summary_Page")
+	public void Test05_Schedule_Transfer_Inbank_EasyPin_Page(Method method) throws Exception
+	{	
+		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
-			OTP_component.input();
+			otp_comp.input(FOLDER,method.getName());
 		else
-			EasyPin_component.input(easyPin);
+			easyPin_comp.input(FOLDER,method.getName(),easyPin);
 
 	}
-	@Test(dependsOnMethods="Test06_Schedule_Transfer_Inbank_EasyPin_Page")
-	public void Test07_Schedule_Transfer_Inbank_Result_Page() throws Exception
+	@Test(dependsOnMethods="Test05_Schedule_Transfer_Inbank_EasyPin_Page")
+	public void Test06_Schedule_Transfer_Inbank_Result_Page(Method method) throws Exception
 	{
-		FundTransfer_component.result();
+		System.out.println(deviceID+"_"+method.getName());
+		fundTransfer_comp.result(FOLDER,method.getName());
 	}
 	
 }

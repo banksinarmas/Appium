@@ -31,19 +31,36 @@ public class ScreenAction {
 		posY=screenSize.getHeight()/4;
 	}
 
+
+	public void vScroll() {
+		driver.swipe(posX, posY*2, posX, posY, 3000);
+	}
+
 	public void verticalScroll() {
 		if(screenSize.getHeight()<1000)
-			driver.swipe(posX, posY*2, posX, posY, 3000);
+			vScroll();
 	}
 
 	public WebElement scrollUntilElementByXpath(String xpathExpression) {
-		
+
 		List<WebElement> we = driver.findElements(By.xpath(xpathExpression));
 		while (!(we.size()>0)){
 			driver.swipe(posX, posY*2, posX, posY, 3000);
 			we  = driver.findElements(By.xpath(xpathExpression));
 		}
 		return we.get(0);
+	}
+
+	public void scrollUntilElementInvisibleByXpath(String xpathExpression) {
+
+		List<WebElement> we = driver.findElements(By.xpath(xpathExpression));
+		if(we.size()>0) {
+		while (we.size()>0){
+			driver.swipe(posX, posY*2, posX, posY, 3000);
+			we  = driver.findElements(By.xpath(xpathExpression));
+		}
+		}
+
 	}
 
 	public void capture(String folder,String filename) {

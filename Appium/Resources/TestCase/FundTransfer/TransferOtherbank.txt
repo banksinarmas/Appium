@@ -1,5 +1,5 @@
-#method,sourceAccount,toAccount,amount,desc
-//SKN Transfer
-skn,0008394903,001001001,1000,trf skn
-//Network Transfer
-network,0008394903,001001001,10000,trf network
+#deviceID,port,systemPort,transferMethod,sourceAccount,toAccount,amount,desc
+//autoregist46,android emulator
+emulator-5554,4723,8200,skn,0008535116,001001001,1000,trf skn
+//diniajah,samsung J1
+4200b4cbb22cb3d5,4724,8201,network,0025882668,001001001,10000,trf network

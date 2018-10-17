@@ -1,10 +1,5 @@
-#sourceAccount,toAccount,amount,desc
-//Transfer konven to konven
-//0008394903,0171029279,1000,to inbank
-//Transfer konven to syariah 
-//0008394903,9999004056,2000,to sya
-//Transfer konven to forex USD 
-//0008394903,0171028817,50000,to fx usd
-//Transfer konven to konven
-emulator-5554,4723,8200,0025882668,0171029279,1000,to inbank
-4200b4cbb22cb3d5,4724,8201,0008535116,0171029279,1000,to inbank
+#deviceID,port,systemPort,sourceAccount,toAccount,amount,desc
+//autoregist46,android emulator
+emulator-5554,4723,8200,0008535116,0171029279,1000,to inbank
+//diniajah,samsung J1
+4200b4cbb22cb3d5,4724,8201,0025882668,0171029279,1000,to inbank
