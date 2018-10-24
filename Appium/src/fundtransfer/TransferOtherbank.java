@@ -4,13 +4,21 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import components.EasyPin_component;
+import components.FundTransfer_component;
+import components.OTP_component;
 import framework.LoadProperties;
-import onboarding.Login_LockdownDevice;
+import framework.LockdownDevice;
 
-public class TransferOtherbank extends Login_LockdownDevice{
+public class TransferOtherbank extends LockdownDevice{
 
+	private EasyPin_component easyPin_comp;
+	private OTP_component otp_comp;
+	private FundTransfer_component fundTransfer_comp;
+	
 	private String sourceAccount,toAccount,amount,desc,transferMethod;	
 	
 	private final String FOLDER = "FundTransfer/Otherbank/"+deviceID;
@@ -34,10 +42,20 @@ public class TransferOtherbank extends Login_LockdownDevice{
 		this.transferMethod=transferMethod;
 	}
 	
+	@BeforeClass
+	private void loadComponent(){
+		
+		easyPin_comp= new EasyPin_component(driver);
+		otp_comp=new OTP_component(driver);
+		fundTransfer_comp= new FundTransfer_component(driver);
+		
+	}
+	
 	@Test
 	private void Login(Method method) throws Exception
 	{	
-		super.login(method);
+		System.out.println(deviceID+"_"+method.getName());
+		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
 	@Test(dependsOnMethods="Login")
@@ -65,7 +83,6 @@ public class TransferOtherbank extends Login_LockdownDevice{
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.selectTransferMethod(FOLDER,method.getName(),transferMethod);
-
 	}
 	
 	@Test(dependsOnMethods="Test03_Transfer_Method_Page")
@@ -73,7 +90,6 @@ public class TransferOtherbank extends Login_LockdownDevice{
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.summary(FOLDER,method.getName());
-
 	}
 
 	@Test(dependsOnMethods="Test04_Summary_Page")
@@ -91,6 +107,5 @@ public class TransferOtherbank extends Login_LockdownDevice{
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.result(FOLDER,method.getName());
-	}
-	
+	}	
 }

@@ -3,64 +3,92 @@ package billpayment;
 import java.io.IOException;
 import java.util.Properties;
 
+import java.lang.reflect.Method;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import components.BillPayment_component;
 import components.EasyPin_component;
-import framework.DeviceCapabilities;
 import framework.LoadProperties;
+import framework.LockdownDevice;
 
-public class Block1_Water extends DeviceCapabilities{
+public class Block1_Water extends LockdownDevice{
+	
+	private EasyPin_component easyPin_comp;
+	private BillPayment_component billPayment_comp;
 	
 	private String billerName,subscriberNo,sourceAccount;
+	
+	private final String FOLDER = "BillPayment/Block1_Water/"+deviceID;
 
 	public Block1_Water() throws IOException {
+		super();
 		Properties prop = LoadProperties.getProperties("billpayment.properties");
 		billerName=prop.getProperty("block1_billerName");
 		subscriberNo=prop.getProperty("block1_subscriberNo");
 		sourceAccount=prop.getProperty("block1_sourceAccount");
 	}
 	
-	public Block1_Water(String billerName,String subscriberNo,String sourceAccount) {
+	public Block1_Water(String deviceID,int port, int systemPort,String billerName,String subscriberNo,String sourceAccount) {
+		super(deviceID,port,systemPort);
 		this.billerName=billerName;
 		this.subscriberNo=subscriberNo;
 		this.sourceAccount=sourceAccount;
 	}
 	
+	@BeforeClass
+	private void loadComponent(){
+		easyPin_comp= new EasyPin_component(driver);
+		billPayment_comp= new BillPayment_component(driver);		
+	}
+
 	@Test
-	private void Test01_After_Login_Page() throws Exception
+	private void Login(Method method) throws Exception
+	{	
+		System.out.println(deviceID+"_"+method.getName());
+		easyPin_comp.loginEasyPin(easyPin);
+	}
+	
+	@Test(dependsOnMethods="Login")
+	private void After_Login_Page(Method method) throws Exception
 	{
-		BillPayment_component.waterPayment_billerMenu();
+		System.out.println(deviceID+"_"+method.getName());
+		billPayment_comp.waterPayment_billerMenu();
 	}
 
-	@Test(dependsOnMethods="Test01_After_Login_Page")
-	private void Test02_Inquiry_Page() throws Exception
-	{		
-		BillPayment_component.waterPayment_selectMerchantSubscriberNo(billerName, subscriberNo);
+	@Test(dependsOnMethods="After_Login_Page")
+	private void Test01_Inquiry_Page(Method method) throws Exception
+	{	
+		System.out.println(deviceID+"_"+method.getName());
+		billPayment_comp.waterPayment_selectMerchantSubscriberNo(FOLDER,method.getName(),billerName, subscriberNo);
 	}
 
-	@Test(dependsOnMethods="Test02_Inquiry_Page")
-	private void Test03_Select_Account_Page() throws Exception
+	@Test(dependsOnMethods="Test01_Inquiry_Page")
+	private void Test02_Select_Account_Page(Method method) throws Exception
 	{
-		BillPayment_component.block1_selectAccount(sourceAccount);
+		System.out.println(deviceID+"_"+method.getName());
+		billPayment_comp.block1_selectAccount(FOLDER,method.getName(),sourceAccount);
 	}
 
-	@Test(dependsOnMethods="Test03_Select_Account_Page")
-	private void Test04_Summary_Page() throws Exception
+	@Test(dependsOnMethods="Test02_Select_Account_Page")
+	private void Test03_Summary_Page(Method method) throws Exception
 	{
-		BillPayment_component.summary();
+		System.out.println(deviceID+"_"+method.getName());
+		billPayment_comp.summary(FOLDER,method.getName());
 	}
 
-	@Test(dependsOnMethods="Test04_Summary_Page")
-	private void Test05_Block1_Water_EasyPin_Page() throws Exception
+	@Test(dependsOnMethods="Test03_Summary_Page")
+	private void Test04_Block1_Water_EasyPin_Page(Method method) throws Exception
 	{
-		EasyPin_component.input(easyPin);
+		System.out.println(deviceID+"_"+method.getName());
+		easyPin_comp.input(FOLDER,method.getName(),easyPin);
 
 	}
-	@Test(dependsOnMethods="Test05_Block1_Water_EasyPin_Page")
-	private void Test06_Block1_Water_Result_Page() throws Exception
+	@Test(dependsOnMethods="Test04_Block1_Water_EasyPin_Page")
+	private void Test05_Block1_Water_Result_Page(Method method) throws Exception
 	{
-		BillPayment_component.result();
+		System.out.println(deviceID+"_"+method.getName());
+		billPayment_comp.result(FOLDER,method.getName());
 		
 	}
 

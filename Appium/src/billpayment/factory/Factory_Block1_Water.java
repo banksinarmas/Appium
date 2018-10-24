@@ -12,13 +12,13 @@ import framework.LoadTestCase;
 public class Factory_Block1_Water {
 
 	@Factory(dataProvider="block1")
-	private Object[] block1CreateInstances(String billerName, String subscriberNo,String sourceAccount) throws IOException {
-		return new Object[] {new Block1_Water(billerName,billerName,sourceAccount)};
+	private Object[] block1CreateInstances(String deviceID,String port,String systemPort,String billerName, String subscriberNo,String sourceAccount) throws IOException {
+		return new Object[] {new Block1_Water(deviceID,Integer.parseInt(port),Integer.parseInt(systemPort),billerName,billerName,sourceAccount)};
 	}
 
 	@DataProvider(name="block1")
 	private static Object[][] block1DataProvider() throws FileNotFoundException {
-		Object[][] dataArray = LoadTestCase.loadFromFile("BillPayment/Block1_Water.txt",3);
+		Object[][] dataArray = LoadTestCase.loadFromFile("BillPayment/Block1_Water.txt",6);
 		return dataArray;
 	}
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="TimeDeposit">
-	<test name="CreateTimeDeposit" group-by-instances="true">
+	<test name="CreateTimeDeposit" parallel="classes"  thread-count="8" >
 		<classes>
 			<class name="timeDeposit.factory.Factory_CreateTimeDeposit" />
 		</classes>

@@ -10,22 +10,19 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class CardlessWithdrawal_component {
 
-	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait10,wait30,wait60;
+	private WebDriverWait wait30,wait60;
 	private FundTransfer_component fundTransfer_comp;
 	private ScreenAction screenAction;
 	
 	public CardlessWithdrawal_component(AndroidDriver<WebElement> driver) {
-		this.driver=driver;
-		
-		wait10=new WebDriverWait(driver, 10);
 		wait30=new WebDriverWait(driver, 30);
 		wait60=new WebDriverWait(driver, 60);
 		fundTransfer_comp=new FundTransfer_component(driver);
+		screenAction=new ScreenAction(driver);
 	}
 	
 	public void cardlessWdrMenu() {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']")));	
+		WebElement cardlessElement = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='TARIK'] | //*[@text='CASH']")));	
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		
 		try {
@@ -34,8 +31,8 @@ public class CardlessWithdrawal_component {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver.findElement(By.className("android.widget.TextView")).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Cardless withdrawal'] | //*[@text='Tarik tunai tanpa kartu']"))).click();
+		
+		cardlessElement.click();
 	}
 	
 
@@ -51,8 +48,7 @@ public class CardlessWithdrawal_component {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Summary'] | //*[@text='Ringkasan']")));
 
 		screenAction.capture(folder, filename);
-		screenAction.verticalScroll();
-		driver.findElement(By.xpath("//*[@text='Penarikan'] | //*[@text='Withdrawal']")).click();
+		screenAction.scrollUntilElementByXpath("//*[@text='Penarikan'] | //*[@text='Withdrawal']").click();
 
 	}
 	
@@ -61,7 +57,9 @@ public class CardlessWithdrawal_component {
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		screenAction.capture(folder, filename);
-		screenAction.scrollUntilElementByXpath("//*[@text='OK']").click();
-
+		screenAction.scrollUntilElementInvisibleByXpath("//*[contains(@text,'MB-')]");
+		screenAction.capture(folder, filename+"_"+1);
+		
+		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 	}
 }

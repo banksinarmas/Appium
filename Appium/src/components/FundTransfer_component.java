@@ -24,7 +24,6 @@ public class FundTransfer_component  {
 		wait60 = new WebDriverWait(driver,60);
 
 		screenAction=new ScreenAction(driver);
-
 	}
 
 	public void fundTransferMenu() {
@@ -101,6 +100,7 @@ public class FundTransfer_component  {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Schedule your transfer'] | //*[@text='Tentukan tanggal transfer']")));
 		driver.findElement(By.xpath("//*[@text='Start date'] | //*[@text='Tanggal mulai']")).click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button1"))).click();
+		Thread.sleep(1000);
 		List<WebElement> addFreq = driver.findElements(By.xpath("//*[@text='+']"));	
 		recurrence= recurrence.toLowerCase();
 

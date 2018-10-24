@@ -4,12 +4,20 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import components.EasyPin_component;
+import components.FundTransfer_component;
+import components.OTP_component;
 import framework.LoadProperties;
-import onboarding.Login_LockdownDevice;
+import framework.LockdownDevice;
 
-public class Schedule_TransferInbank extends Login_LockdownDevice{
+public class Schedule_TransferInbank extends LockdownDevice{
+	
+	private EasyPin_component easyPin_comp;
+	private OTP_component otp_comp;
+	private FundTransfer_component fundTransfer_comp;
 	
 	private String sourceAccount,toAccount,amount,desc,recurrence,frequency;	
 	private final String FOLDER = "FundTransfer/Schedule/Inbank/"+deviceID;
@@ -35,10 +43,19 @@ public class Schedule_TransferInbank extends Login_LockdownDevice{
 		this.frequency=frequency;	
 	}
 	
+	@BeforeClass
+	private void loadComponent(){
+		
+		easyPin_comp= new EasyPin_component(driver);
+		otp_comp=new OTP_component(driver);
+		fundTransfer_comp= new FundTransfer_component(driver);
+	}
+	
 	@Test
 	private void Login(Method method) throws Exception
 	{	
-		super.login(method);
+		System.out.println(deviceID+"_"+method.getName());
+		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
 	@Test(dependsOnMethods="Login")

@@ -4,16 +4,23 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import components.EasyPin_component;
+import components.FundTransfer_component;
+import components.OTP_component;
 import framework.LoadProperties;
-import onboarding.Login_LockdownDevice;
+import framework.LockdownDevice;
 
 
-public class TransferInbank extends Login_LockdownDevice{
+public class TransferInbank extends LockdownDevice{
 
-	private String sourceAccount,toAccount,amount,desc;
+	private EasyPin_component easyPin_comp;
+	private OTP_component otp_comp;
+	private FundTransfer_component fundTransfer_comp;
 	
+	private String sourceAccount,toAccount,amount,desc;
 	private final String FOLDER = "FundTransfer/Inbank/"+deviceID;
 
 	public TransferInbank() throws IOException {
@@ -33,11 +40,22 @@ public class TransferInbank extends Login_LockdownDevice{
 		this.desc=desc;	
 	}
 
+	@BeforeClass
+	private void loadComponent(){
+		
+		easyPin_comp= new EasyPin_component(driver);
+		otp_comp=new OTP_component(driver);
+		fundTransfer_comp= new FundTransfer_component(driver);
+		
+	}
+	
 	@Test
 	private void Login(Method method) throws Exception
 	{	
-		super.login(method);
+		System.out.println(deviceID+"_"+method.getName());
+		easyPin_comp.loginEasyPin(easyPin);
 	}
+	
 	@Test(dependsOnMethods="Login")
 	private void After_Login_Page(Method method) throws Exception
 	{	

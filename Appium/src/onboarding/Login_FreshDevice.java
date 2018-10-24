@@ -1,55 +1,76 @@
 package onboarding;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import components.Onboarding_component;
-import framework.FreshDeviceCapabilities;
+import framework.FreshDevice;
 import framework.LoadProperties;
 
-public class Login_FreshDevice extends FreshDeviceCapabilities {
-	
+public class Login_FreshDevice extends FreshDevice{
+
 	private String username,password,easyPin;
+	private Onboarding_component onboarding_comp;
+	
+	private final String FOLDER = "Onboarding/Login_FreshDevice/"+deviceID;
+	
+	public Login_FreshDevice() throws IOException {
+		super();
+		Properties prop = LoadProperties.getProperties("credential.properties");
+		username=prop.getProperty("username");
+		password=prop.getProperty("password");
+		easyPin=prop.getProperty("easyPin");
+	}
+	
+	public Login_FreshDevice(String deviceID,int port,int systemPort,String username,String password,String easyPin) {
+		super(deviceID,port,systemPort);
+		this.username=username;
+		this.password=password;
+		this.easyPin=easyPin;
+	}
 	
 	@BeforeClass
-	private void config() throws IOException {
-	 Properties prop = LoadProperties.getProperties("credential.properties");
-	 username=prop.getProperty("username");
-	 password=prop.getProperty("password");
-	 easyPin=prop.getProperty("easyPin");
+	public void loadComponent(){
+		onboarding_comp = new Onboarding_component(driver);
 	}
 	
 	@Test
-	private void Test01_Landing_Page() throws Exception
-	{
-		Onboarding_component.landingPage();
+	public void Test01_Onboarding_Landing_Page(Method method) {
+		System.out.println(deviceID+"_"+method.getName());
+		onboarding_comp.landingPage(FOLDER,method.getName());
 	}
 	
-	@Test(dependsOnMethods="Test01_Landing_Page")
-	private void Test02_Login_Username_Password_Page() throws Exception
-	{
-		Onboarding_component.loginUsernamePassword(username, password);
+	@Test(dependsOnMethods="Test01_Onboarding_Landing_Page")
+	public void Test02_Login_Username_Password(Method method) {
+		System.out.println(deviceID+"_"+method.getName());
+		onboarding_comp.loginUsernamePassword(FOLDER,method.getName(),username, password);	
 	}
 	
-	@Test(dependsOnMethods="Test02_Login_Username_Password_Page")
-	private void Test03_Input_OTP_Page() throws Exception
-	{
-		Onboarding_component.inputOTP();
+	@Test(dependsOnMethods="Test02_Login_Username_Password")
+	public void Test03_Onboarding_Input_OTP(Method method) throws Exception {
+		System.out.println(deviceID+"_"+method.getName());
+		onboarding_comp.inputOTP(FOLDER,method.getName());
 	}
 	
-	@Test(dependsOnMethods="Test03_Input_OTP_Page")
-	private void Test04_Create_EasyPin_Page() throws Exception
-	{
-		Onboarding_component.createEasyPin(easyPin);
+	@Test(dependsOnMethods="Test03_Onboarding_Input_OTP")
+	public void Test04_Onboarding_Create_EasyPin(Method method) throws Exception {
+		System.out.println(deviceID+"_"+method.getName());
+		onboarding_comp.createEasyPin(FOLDER,method.getName(),easyPin);
 	}
 	
-	@Test(dependsOnMethods="Test04_Create_EasyPin_Page")
-	private void Test05_Dashboard_Page() throws Exception
-	{
-		Onboarding_component.dashboardFreshDevice();
+	@Test(dependsOnMethods="Test04_Onboarding_Create_EasyPin")
+	public void Test05_Dashboard_Page(Method method) {
+		System.out.println(deviceID+"_"+method.getName());
+		onboarding_comp.dashboardFreshDevice(FOLDER,method.getName());	
 	}
 	
+	@Test(dependsOnMethods="Test05_Dashboard_Page")
+	public void Test06_Logout(Method method) throws Exception {
+		System.out.println(deviceID+"_"+method.getName());
+		onboarding_comp.logout();
+	}
 }
