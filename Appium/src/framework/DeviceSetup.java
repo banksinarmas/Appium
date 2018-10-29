@@ -20,6 +20,7 @@ public class DeviceSetup {
 		capabilities.setCapability("appPackage","com.ubyapp");
 		capabilities.setCapability("appActivity","com.ubyapp.MainActivity");
 		capabilities.setCapability("automationName","uiautomator2");
+		capabilities.setCapability("newCommandTimeout", 360);
 		
 		return new AndroidDriver<WebElement>(new URL("http://127.0.0.1:"+port+"/wd/hub"), capabilities);
 	}
@@ -34,6 +35,7 @@ public class DeviceSetup {
 		capabilities.setCapability("appPackage","com.ubyapp");
 		capabilities.setCapability("appActivity","com.ubyapp.MainActivity");
 		capabilities.setCapability("automationName","uiautomator2");
+		capabilities.setCapability("newCommandTimeout", 360);
 		
 		return new AndroidDriver<WebElement>(new URL("http://127.0.0.1:"+port+"/wd/hub"), capabilities);
 	}

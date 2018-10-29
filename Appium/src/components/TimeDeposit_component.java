@@ -91,7 +91,7 @@ public class TimeDeposit_component {
 		
 		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='CREATE TIME DEPOSIT'] | //*[@text='Membuat Deposito Berjangka']").click();
-
+		
 	}
 
 	public void result(String folder,String filename) {
