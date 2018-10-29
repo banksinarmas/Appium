@@ -18,7 +18,7 @@ public class Factory_Block2_Baznas {
 
 	@DataProvider(name="block2")
 	private static Object[][] block2DataProvider() throws FileNotFoundException {
-		Object[][] dataArray = LoadTestCase.loadFromFile("BillPayment/Block3_Asuransi.txt",8);
+		Object[][] dataArray = LoadTestCase.loadFromFile("BillPayment/Block2_Baznas.txt",8);
 		return dataArray;
 	}
 }

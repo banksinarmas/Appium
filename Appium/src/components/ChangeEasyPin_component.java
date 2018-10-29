@@ -42,13 +42,13 @@ public class ChangeEasyPin_component {
 		driver.findElement(By.id("android:id/button1")).click();			
 	}
 	
-	public void createNew(String folder,String filename,String easyPin) throws Exception
+	public void createNewEasyPin(String folder,String filename,String newEasyPin) throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Buat EasyPIN baru'] | //*[@text='Enter new EasyPIN']"))).isDisplayed();
-		driver.findElement(By.className("android.widget.EditText")).sendKeys("123456");
+		driver.findElement(By.className("android.widget.EditText")).sendKeys(newEasyPin);
 	
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Konfirmasi EasyPIN'] | //*[@text='Confirm new EasyPIN']"))).isDisplayed();
-		driver.findElement(By.className("android.widget.EditText")).sendKeys("123456");
+		driver.findElement(By.className("android.widget.EditText")).sendKeys(newEasyPin);
 		
 		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();

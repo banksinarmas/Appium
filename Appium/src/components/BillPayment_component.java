@@ -116,17 +116,18 @@ public class BillPayment_component {
 	public void block3_selectAccount(String folder,String filename,String sourceAccount,String amount,String desc) {
 
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
+		
+		//select account
+		driver.findElement(By.xpath("//*[@text='Select account'] | //*[@text='Pilih akun']")).click();
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
+		
 		try {
 			Thread.sleep(1200);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//select account
-		driver.findElement(By.xpath("//*[@text='Select account'] | //*[@text='Pilih akun']")).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		//select bill period
 		driver.findElements(By.xpath("//*[@text='Bill Period'] | //*[@text='Periode tagihan']")).get(1).click();
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));

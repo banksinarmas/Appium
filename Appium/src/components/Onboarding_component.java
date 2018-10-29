@@ -94,7 +94,7 @@ public class Onboarding_component {
 				e.printStackTrace();
 			}
 			screenAction.capture(folder, filename+"_"+i);
-			screenAction.scrollUntilElementByXpath("//*[@text='Next'] | //*[@text='Lanjut']").click();				
+			screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='Lanjut']").click();				
 		}	
 		screenAction.capture(folder, filename+"_"+5);
 		try {

@@ -13,7 +13,7 @@ public class Factory_Block1_Water {
 
 	@Factory(dataProvider="block1")
 	private Object[] block1CreateInstances(String deviceID,String port,String systemPort,String billerName, String subscriberNo,String sourceAccount) throws IOException {
-		return new Object[] {new Block1_Water(deviceID,Integer.parseInt(port),Integer.parseInt(systemPort),billerName,billerName,sourceAccount)};
+		return new Object[] {new Block1_Water(deviceID,Integer.parseInt(port),Integer.parseInt(systemPort),billerName,subscriberNo,sourceAccount)};
 	}
 
 	@DataProvider(name="block1")

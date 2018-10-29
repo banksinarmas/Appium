@@ -38,6 +38,7 @@ public class Block1_Water extends LockdownDevice{
 	
 	@BeforeClass
 	private void loadComponent(){
+		
 		easyPin_comp= new EasyPin_component(driver);
 		billPayment_comp= new BillPayment_component(driver);		
 	}
@@ -82,14 +83,13 @@ public class Block1_Water extends LockdownDevice{
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.input(FOLDER,method.getName(),easyPin);
-
 	}
+	
 	@Test(dependsOnMethods="Test04_Block1_Water_EasyPin_Page")
 	private void Test05_Block1_Water_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.result(FOLDER,method.getName());
-		
 	}
 
 }

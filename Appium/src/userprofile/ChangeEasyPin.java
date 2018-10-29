@@ -28,7 +28,7 @@ public class ChangeEasyPin extends LockdownDevice {
 		
 	}
 
-	public ChangeEasyPin(String deviceID,int port, int systemPort,String currentPassword,String newEasyPin) {
+	public ChangeEasyPin(String deviceID,int port, int systemPort,String newEasyPin ,String  currentPassword) {
 		super(deviceID,port,systemPort);
 		
 		this.currentPassword= currentPassword;
@@ -58,7 +58,7 @@ public class ChangeEasyPin extends LockdownDevice {
 	private void Test01_Change_EasyPin_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
-		changeEasyPin_comp.createNew(FOLDER,method.getName(),newEasyPin);
+		changeEasyPin_comp.createNewEasyPin(FOLDER,method.getName(),newEasyPin);
 	}
 	@Test(dependsOnMethods= "Test01_Change_EasyPin_Page")
 	private void Test02_Validate_Password_Page(Method method) throws Exception
