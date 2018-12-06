@@ -16,7 +16,6 @@ public class FreshDevice {
 	
 	protected String deviceID;
 	private int port,systemPort;
-
 	
 	protected FreshDevice() throws IOException {
 		Properties deviceProp=LoadProperties.getProperties("device.properties");

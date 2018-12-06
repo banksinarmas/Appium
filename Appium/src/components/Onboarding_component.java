@@ -14,17 +14,19 @@ import io.appium.java_client.android.AndroidDriver;
 public class Onboarding_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait5,wait10,wait20,wait60;
+	private WebDriverWait wait5,wait10,wait15,wait20,wait60;
 	private ScreenAction screenAction;
+	private final String OTP_NUMBER="123456";
 
 	public Onboarding_component(AndroidDriver<WebElement> driver) {
 
 		this.driver=driver;
 		wait5= new WebDriverWait(driver, 5);
 		wait10 = new WebDriverWait(driver, 10);
+		wait15 = new WebDriverWait(driver, 15);
 		wait20 = new WebDriverWait(driver, 20);
 		wait60 = new WebDriverWait(driver, 60);
-		
+			
 		screenAction= new ScreenAction(driver);
 		
 	}
@@ -32,12 +34,18 @@ public class Onboarding_component {
 	public void landingPage(String folder,String filename) {
 
 		try {
-			wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='ALLOW']"))).click();
+			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow']"))).click();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		try {
-			wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"] | //*[@text='Jangan Tampilkan Lagi']"))).click();
+			wait5.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		try {
+			wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"] | //*[@text='Jangan Tampilkan Lagi']"))).click();
 			driver.findElement(By.xpath("//*[@text='OK']")).click();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -67,7 +75,8 @@ public class Onboarding_component {
 	public void inputOTP(String folder,String filename) throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys("123456");
+		System.out.println("OTP Number is "+OTP_NUMBER);
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(OTP_NUMBER);
 	
 		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
@@ -85,7 +94,9 @@ public class Onboarding_component {
 
 	}
 	public void dashboardFreshDevice(String folder,String filename) {
-
+		
+		//Cardless guide
+		/*
 		for(int i =1;i<=4;i++) {		
 			try {
 				Thread.sleep(1000);
@@ -104,7 +115,18 @@ public class Onboarding_component {
 			e.printStackTrace();
 		}
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
-		screenAction.capture(folder, filename+"_"+6);
+		screenAction.capture(folder, filename+"_"+6);*/
+		
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
+		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+
+		try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		screenAction.capture(folder, filename);
 
 	}
 

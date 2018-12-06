@@ -52,7 +52,7 @@ public class TimeDeposit_component {
 		selectAccBox.get(selectAccBox.size()-1).click();
 
 		//input amount
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
+		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		driver.findElement(By.className("android.widget.EditText")).sendKeys(amount);
 		

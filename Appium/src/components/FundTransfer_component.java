@@ -57,7 +57,7 @@ public class FundTransfer_component  {
 		}
 		//select account
 		driver.findElement(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']")).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
+		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
 		//input amount
@@ -80,7 +80,7 @@ public class FundTransfer_component  {
 		}
 		//select account
 		driver.findElement(By.xpath("//*[@text='Select your account'] | //*[@text='Pilih akun']")).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
+		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
 		//input amount

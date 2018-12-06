@@ -32,7 +32,7 @@ public class ChangeEasyPin_component {
 	}
 	
 	public void validatePassword(String folder,String filename,String currentPassword) {
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Perbarui EasyPIN'] | //*[@text='Update EasyPIN'] "))).sendKeys(currentPassword);
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Perbarui EasyPIN'] | //*[@text='Update EasyPIN'] "))).isDisplayed();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='android.widget.EditText']"))).sendKeys(currentPassword);
 		
 		screenAction.capture(folder, filename);

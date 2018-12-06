@@ -81,7 +81,8 @@ public class BillPayment_component {
 			e.printStackTrace();
 		}
 		driver.findElement(By.xpath("//*[@text='Please select an account'] | //*[@text='Pilih akun']")).click();;
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
+	
+		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		
 		screenAction.capture(folder, filename);
@@ -101,7 +102,7 @@ public class BillPayment_component {
 		}
 		//select account
 		driver.findElement(By.xpath("//*[@text='Select account'] | //*[@text='Pilih akun']")).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
+		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
 		//input amount
@@ -119,7 +120,7 @@ public class BillPayment_component {
 		
 		//select account
 		driver.findElement(By.xpath("//*[@text='Select account'] | //*[@text='Pilih akun']")).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'"+sourceAccount+"')]"))).click();
+		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available Balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		
 		try {
@@ -162,7 +163,7 @@ public class BillPayment_component {
 	}
 	
 	public void result(String folder,String filename) {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Payment')] | //*[contains(@text,'Pembayaran')]"))).isDisplayed();
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'payment')] | //*[contains(@text,'Payment')] //*[contains(@text,'Pembayaran')] | //*[contains(@text,'pembayaran')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		
 		screenAction.capture(folder, filename);

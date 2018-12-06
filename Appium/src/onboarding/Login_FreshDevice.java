@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -16,6 +20,7 @@ public class Login_FreshDevice extends FreshDevice{
 	private String username,password,easyPin;
 	private Onboarding_component onboarding_comp;
 	
+	private String releaseLockdownURL= "http://simigi.banksinarmas.com/ibank/server-init?action=inactiveDeviceLockdownXYZ&loginName=";
 	private final String FOLDER = "Onboarding/Login_FreshDevice/"+deviceID;
 	
 	public Login_FreshDevice() throws IOException {
@@ -34,7 +39,12 @@ public class Login_FreshDevice extends FreshDevice{
 	}
 	
 	@BeforeClass
-	public void loadComponent(){
+	public void loadComponent() throws HttpException, IOException{
+		
+		HttpClient client = new HttpClient();
+		HttpMethod method = new GetMethod(releaseLockdownURL+username);
+		client.executeMethod(method);
+		
 		onboarding_comp = new Onboarding_component(driver);
 	}
 	

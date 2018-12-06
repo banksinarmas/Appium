@@ -58,9 +58,20 @@ public class AppiumServer {
 	}
 
 	public void stopServer() {
-		if(this.isServerRunning(port))System.out.println("Appium is running in port :"+ port+ ", Stopping immediately...");
+		if(this.isServerRunning(port)) {
+			System.out.println("Appium is running in port :"+ port+ ", Stopping immediately...");
+			this.service.stop();
+		}		
 		else System.out.println("Appium is not running in this port :"+port);
-
+		
+	}
+	
+	public static void main(String[] args) {
+		AppiumServer serv = new AppiumServer(4723);
+		//serv.startServer();
+		
+		serv.stopServer();
+		//serv.startServer();
 	}
 
 }

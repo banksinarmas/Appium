@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
  
-<suite name="Appium_SimobiPlus_Testing" parallel="tests" thread-count="4">
- 
-    <!--Android Emulator Setting-->
-    <test name="Android-Emulator">
-        <parameter name="deviceName" value="emulator-5554" />
-        <parameter name="udid" value="emulator-5554" />
-        <parameter name="url" value="127.0.0.1:4723/wd/hub" />
-        <parameter name="systemPort" value="7000" />
-        <classes>
-            <class name="userprofile.ChangeEasyPin" />
-        </classes>
-    </test>
-    
-     <!-- ASUS X008DA Setting-->
-    <test name="ASUS_X008DA"  >
-        <parameter name="deviceName" value="192.168.1.103:6000" />
-        <parameter name="udid" value="192.168.1.53:6000" />
-        <parameter name="url" value="127.0.0.1:4724/wd/hub" />
-        <parameter name="systemPort" value="7001" />
-        <classes>
-            <class name="userprofile.ChangeEasyPin" />
-        </classes>
-    </test>
-
+<suite name="single device all-test suite" >
+	<test name="FundTransfer" >
+		<classes>
+			<class name="fundtransfer.TransferInbank" />
+			<class name="fundtransfer.Schedule_TransferInbank" />
+			<class name="fundtransfer.TransferOtherbank" />
+			<class name="fundtransfer.Schedule_TransferOtherbank" />
+		</classes>
+	</test>
 </suite>

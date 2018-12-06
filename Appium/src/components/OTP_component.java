@@ -12,7 +12,7 @@ public class OTP_component {
 	
 	private WebDriverWait wait10,wait60;
 	private AndroidDriver<WebElement> driver;
-	private static final String OTP_NUMBER="123456";
+	private final String OTP_NUMBER="123456";
 	private ScreenAction screenAction;
 
 	public OTP_component(AndroidDriver<WebElement> driver) {	
