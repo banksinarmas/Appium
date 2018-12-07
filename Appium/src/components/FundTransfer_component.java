@@ -191,8 +191,12 @@ public class FundTransfer_component  {
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		screenAction.capture(folder, filename);
-		screenAction.scrollUntilElementInvisibleByXpath("//*[contains(@text,'MB-')]");
-		screenAction.capture(folder, filename+"_"+1);
+		List<WebElement> checkSuccess = driver.findElements(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]"));
+		if(checkSuccess.size()>0) {		
+			
+			screenAction.scrollUntilElementInvisibleByXpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]");
+			screenAction.capture(folder, filename+"_"+1);
+		}
 		
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 		
