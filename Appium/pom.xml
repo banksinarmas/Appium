@@ -4,6 +4,9 @@
 	<groupId>AppiumTest</groupId>
 	<artifactId>AppiumTest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<aspectj.version>1.8.10</aspectj.version>
+	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -20,13 +23,21 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.20.1</version>
 				<configuration>
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
 					<suiteXmlFiles>
 						<suiteXmlFile>TestSuite/FundTransfer/TransferInbank.xml</suiteXmlFile>
-						<suiteXmlFile>TestSuite/FundTransfer/TransferOtherBank.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
-
 		</plugins>
 	</build>
 	<dependencies>
@@ -54,5 +65,22 @@
 			<version>6.14.3</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-testng</artifactId>
+			<version>2.0-BETA3</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+
 </project>

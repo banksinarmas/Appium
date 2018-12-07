@@ -4,7 +4,12 @@
 <suite name="FundTransferInbank" >
 	<test name="TransferInbank" parallel="classes"  thread-count="8" >
 		<classes>
-			<class name="fundtransfer.factory.Factory_TransferInbank" />
+			<class name="fundtransfer.TransferInbank" />
+		</classes>
+	</test>
+		<test name="Schedule_TransferInbank" parallel="classes"  thread-count="8" >
+		<classes>
+			<class name="fundtransfer.Schedule_TransferInbank" />
 		</classes>
 	</test>
 </suite>
