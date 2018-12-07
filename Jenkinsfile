@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                bat 'cmd Appium && mvn clean compile surefire:test'
+                bat 'cd Appium && mvn clean compile surefire:test'
             }
         }
     }
