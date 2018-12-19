@@ -30,7 +30,7 @@ public class DeviceSetup {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("deviceName","Emulator");
 		capabilities.setCapability("udid",deviceID);
-		capabilities.setCapability("systemPort",systemPort);
+		//capabilities.setCapability("systemPort",systemPort);
 		capabilities.setCapability("platformName","Android");
 		capabilities.setCapability("appPackage","com.ubyapp");
 		capabilities.setCapability("appActivity","com.ubyapp.MainActivity");

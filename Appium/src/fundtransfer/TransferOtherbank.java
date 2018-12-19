@@ -21,7 +21,7 @@ public class TransferOtherbank extends LockdownDevice{
 	
 	private String sourceAccount,toAccount,amount,desc,transferMethod;	
 	
-	private final String FOLDER = "FundTransfer/Otherbank/"+deviceID;
+	private String FOLDER = "/FundTransfer/Otherbank/"+deviceID;
 	
 	public TransferOtherbank() throws IOException {
 		super();
@@ -49,6 +49,7 @@ public class TransferOtherbank extends LockdownDevice{
 		otp_comp=new OTP_component(driver);
 		fundTransfer_comp= new FundTransfer_component(driver);
 		
+		FOLDER=apkVersion+FOLDER;
 	}
 	
 	@Test

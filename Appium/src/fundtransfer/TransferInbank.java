@@ -21,7 +21,7 @@ public class TransferInbank extends LockdownDevice{
 	private FundTransfer_component fundTransfer_comp;
 	
 	private String sourceAccount,toAccount,amount,desc;
-	private final String FOLDER = "FundTransfer/Inbank/"+deviceID;
+	private String FOLDER = "/FundTransfer/Inbank/"+deviceID;
 
 	public TransferInbank() throws IOException {
 		super();
@@ -47,6 +47,7 @@ public class TransferInbank extends LockdownDevice{
 		otp_comp=new OTP_component(driver);
 		fundTransfer_comp= new FundTransfer_component(driver);
 		
+		FOLDER=apkVersion+FOLDER;	
 	}
 	
 	@Test

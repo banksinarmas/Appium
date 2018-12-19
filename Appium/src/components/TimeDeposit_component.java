@@ -33,8 +33,7 @@ public class TimeDeposit_component {
 
 		//wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Time Deposit Information'] | //*[@text='Informasi Deposito Berjangka']"))).isDisplayed();
 
-		WebElement createTd= screenAction.scrollUntilElementByXpath("//*[@text='CREATE TIME DEPOSIT'] | //*[@text='Deposito Berjangka Baru']");
-		if(!createTd.equals(null))createTd.click();
+		screenAction.scrollUntilElementByXpath("//*[@text='OPEN NEW TIME DEPOSIT'] | //*[@text='DEPOSITO BERJANGKA BARU']").click();
 
 	}
 

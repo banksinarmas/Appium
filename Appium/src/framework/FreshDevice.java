@@ -14,9 +14,9 @@ public class FreshDevice {
 	private AppiumServer appium;
 	protected AndroidDriver<WebElement> driver;
 	
-	protected String deviceID;
+	protected String deviceID,apkVersion;
 	private int port,systemPort;
-	
+
 	protected FreshDevice() throws IOException {
 		Properties deviceProp=LoadProperties.getProperties("device.properties");
 		port=Integer.parseInt(deviceProp.getProperty("port"));
@@ -32,10 +32,16 @@ public class FreshDevice {
 	
 	@BeforeClass
 	protected void launch() throws Exception 
-	{		
+	{	
 		appium = new AppiumServer(port);
 		appium.startServer();
 
+		AndroidAPK apk = new AndroidAPK(deviceID,port,systemPort);
+		apk.download();
+		apk.install();
+		apkVersion=AndroidAPK.getApkVersion(deviceID);
+		
+		System.out.println("Launching apk version: "+apkVersion);
 		driver=DeviceSetup.freshDevice(deviceID, port, systemPort);
 						
 	}
@@ -43,5 +49,6 @@ public class FreshDevice {
 	protected void stopAppium() throws Exception
 	{
 		appium.stopServer();
+	
 	}
 }

@@ -34,10 +34,19 @@ public class Onboarding_component {
 	public void landingPage(String folder,String filename) {
 
 		try {
-			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow']"))).click();
+			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'location')]"))).isDisplayed();
+			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow']")).click();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		try {
+			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
+			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow']")).click();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		try {
 			wait5.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
 		} catch (Exception e) {
@@ -52,6 +61,7 @@ public class Onboarding_component {
 		}
 		try {
 			wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
+			Thread.sleep(1000);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

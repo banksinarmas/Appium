@@ -1,7 +1,8 @@
 #deviceID,port,systemPort,username,password,easyPin
 //autoregist46,android emulator
-emulator-5554,4723,8200,syariahqa,Ab12345678,123456
+emulator-5554,4723,8200,alvinega12,Ab1234567,123456
 //diniajah,samsung J1
-4200b4cbb22cb3d5,4724,8201,diniajah,12345678,123456
+//4200b4cbb22cb3d5,4724,8201,diniajah,12345678,123456
 //dimasjah, vivo y81
-YHOJ65R8R8O745B6,4725,8202,dimasajah,12345678,123456
+//YHOJ65R8R8O745B6,4725,8202,dimasajah,12345678,123456
+//J7AXGF00R1006RA,4725,8202,dimasajah,12345678,123456

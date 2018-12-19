@@ -23,14 +23,13 @@ public class ScreenAction {
 
 	private static final String ROOT_FOLDER="Screenshots";
 
-	public ScreenAction(AndroidDriver<WebElement> driver) {
+	public ScreenAction(AndroidDriver<WebElement> driver)  {
 		this.driver=driver;
-
+			
 		screenSize = driver.manage().window().getSize();
 		posX=screenSize.getWidth()/2;
 		posY=screenSize.getHeight()/4;
 	}
-
 
 	public void vScroll() {
 		driver.swipe(posX, posY*2, posX, posY, 3000);

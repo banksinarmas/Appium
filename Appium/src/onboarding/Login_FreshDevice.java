@@ -21,7 +21,7 @@ public class Login_FreshDevice extends FreshDevice{
 	private Onboarding_component onboarding_comp;
 	
 	private String releaseLockdownURL= "http://simigi.banksinarmas.com/ibank/server-init?action=inactiveDeviceLockdownXYZ&loginName=";
-	private final String FOLDER = "Onboarding/Login_FreshDevice/"+deviceID;
+	private String FOLDER = "/Onboarding/Login_FreshDevice/"+deviceID;
 	
 	public Login_FreshDevice() throws IOException {
 		super();
@@ -41,11 +41,13 @@ public class Login_FreshDevice extends FreshDevice{
 	@BeforeClass
 	public void loadComponent() throws HttpException, IOException{
 		
+		System.out.println("Release lockdown device for username "+username);
 		HttpClient client = new HttpClient();
 		HttpMethod method = new GetMethod(releaseLockdownURL+username);
 		client.executeMethod(method);
 		
 		onboarding_comp = new Onboarding_component(driver);
+		FOLDER=apkVersion+FOLDER;
 	}
 	
 	@Test

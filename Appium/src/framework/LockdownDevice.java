@@ -14,7 +14,7 @@ public class LockdownDevice {
 	private AppiumServer appium;
 	protected AndroidDriver<WebElement> driver;
 	
-	protected String deviceID,easyPin;
+	protected String deviceID,easyPin,apkVersion;
 	private int port,systemPort;
 
 	
@@ -33,7 +33,12 @@ public class LockdownDevice {
 	
 	@BeforeClass
 	protected void launch() throws Exception 
-	{		
+	{	
+		AndroidAPK.adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
+		AndroidAPK.adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
+		apkVersion=AndroidAPK.getApkVersion(deviceID);
+		
+		System.out.println("Launching apk version: "+apkVersion);
 		appium = new AppiumServer(port);
 		appium.startServer();
 

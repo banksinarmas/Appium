@@ -20,7 +20,7 @@ public class Schedule_TransferOtherbank extends LockdownDevice {
 	private FundTransfer_component fundTransfer_comp;
 	
 	private String sourceAccount,toAccount,amount,desc,transferMethod,recurrence,frequency;	
-	private final String FOLDER = "FundTransfer/Schedule/Otherbank/"+deviceID;
+	private String FOLDER = "/FundTransfer/Schedule/Otherbank/"+deviceID;
 	
 	public Schedule_TransferOtherbank() throws IOException {
 		
@@ -52,6 +52,8 @@ public class Schedule_TransferOtherbank extends LockdownDevice {
 		easyPin_comp= new EasyPin_component(driver);
 		otp_comp=new OTP_component(driver);
 		fundTransfer_comp= new FundTransfer_component(driver);
+		
+		FOLDER=apkVersion+FOLDER;
 		
 	}
 	@Test

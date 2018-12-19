@@ -26,6 +26,8 @@ public class OTP_component {
 	public  void input(String folder,String filename) throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
+		
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(OTP_NUMBER);
 		
 		screenAction.capture(folder, filename);
