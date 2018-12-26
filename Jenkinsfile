@@ -26,6 +26,6 @@ node {
 	
   }
   stage('Test') {
-        bat 'cd Appium && mvn clean compile surefire:test'   
+        bat 'mvn -f Appium/pom.xml clean compile surefire:test'   
     }
  }
