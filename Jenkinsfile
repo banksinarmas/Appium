@@ -25,5 +25,4 @@ node {
     }
 	
   }
-    load 'Appium/Jenkinsfile'
  }
