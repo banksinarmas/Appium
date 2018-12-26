@@ -4,7 +4,7 @@
 <suite name="all-test-suite">
 	<test name="Onboarding">
 		<classes>
-			<class name="Login_FreshDevice" />
+			<class name="onboarding.Login_FreshDevice" />
 		</classes>
 	</test>
 	<test name="BillPayment">
@@ -16,15 +16,15 @@
 	</test>
 	<test name="CardlessWithdrawal">
 		<classes>
-			<class name="cardlessWithdrawal.CardlessWithdrawal" />
+			<class name="cardlesswithdrawal.CardlessWithdrawal" />
 		</classes>
 	</test>
 	<test name="FundTransfer">
 		<classes>
-			<class name="fundTransfer.TransferInbank" />
-			<class name="fundTransfer.TransferOtherbank" />
-			<class name="fundTransfer.Schedule_TransferInbank" />
-			<class name="fundTransfer.Schedule_TransferOtherbank" />
+			<class name="fundtransfer.TransferInbank" />
+			<class name="fundtransfer.TransferOtherbank" />
+			<class name="fundtransfer.Schedule_TransferInbank" />
+			<class name="fundtransfer.Schedule_TransferOtherbank" />
 		</classes>
 	</test>
 	<test name="TimeDeposit">

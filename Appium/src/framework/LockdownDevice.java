@@ -42,7 +42,7 @@ public class LockdownDevice {
 		appium = new AppiumServer(port);
 		appium.startServer();
 
-		driver=DeviceSetup.lockdownDevice(deviceID, port, systemPort);
+		driver=DriverSetup.lockdownDevice(deviceID, port, systemPort);
 		
 		this.easyPin=LoadProperties.getProperties("credential.properties").getProperty("easyPin");
 						

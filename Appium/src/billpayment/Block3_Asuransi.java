@@ -20,7 +20,7 @@ public class Block3_Asuransi extends LockdownDevice {
 	private BillPayment_component billPayment_comp;
 	
 	private String sourceAccount,subscriberNo,amount,desc,billerName;
-	private final String FOLDER = "BillPayment/Block3_Asuransi/"+deviceID;
+	private String FOLDER = "/BillPayment/Block3_Asuransi/"+deviceID;
 
 	public Block3_Asuransi() throws IOException {
 		super();
@@ -46,6 +46,8 @@ public class Block3_Asuransi extends LockdownDevice {
 		easyPin_comp= new EasyPin_component(driver);
 		otp_comp=new OTP_component(driver);
 		billPayment_comp= new BillPayment_component(driver);
+		
+		FOLDER=apkVersion+FOLDER;
 		
 	}
 	

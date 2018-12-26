@@ -1,4 +1,4 @@
-package cardlessWithdrawal.factory;
+package cardlesswithdrawal.factory;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 
-import cardlessWithdrawal.CardlessWithdrawal;
+import cardlesswithdrawal.CardlessWithdrawal;
 import framework.LoadTestCase;
 
 public class Factory_CardlessWithdrawal {

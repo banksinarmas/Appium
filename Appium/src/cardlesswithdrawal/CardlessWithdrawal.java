@@ -1,4 +1,4 @@
-package cardlessWithdrawal;
+package cardlesswithdrawal;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -18,7 +18,7 @@ public class CardlessWithdrawal  extends LockdownDevice{
 	private EasyPin_component easyPin_comp;
 	private CardlessWithdrawal_component cardlessWithdrawal_comp;
 	
-	private final String FOLDER = "CardlessWithdrawal/"+deviceID;
+	private String FOLDER = "/CardlessWithdrawal/"+deviceID;
 
 	public CardlessWithdrawal() throws IOException {
 		super();
@@ -42,6 +42,8 @@ public class CardlessWithdrawal  extends LockdownDevice{
 	private void loadComponent() {
 		easyPin_comp= new EasyPin_component(driver);
 		cardlessWithdrawal_comp=new CardlessWithdrawal_component(driver);
+		
+		FOLDER=apkVersion+FOLDER;
 	}
 
 	@Test

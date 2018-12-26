@@ -7,7 +7,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import io.appium.java_client.android.AndroidDriver;
 
-public class DeviceSetup {
+public class DriverSetup {
 
 	public static AndroidDriver<WebElement> lockdownDevice(String deviceID,int port,int systemPort) throws Exception 
 	{		
@@ -30,7 +30,7 @@ public class DeviceSetup {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("deviceName","Emulator");
 		capabilities.setCapability("udid",deviceID);
-		//capabilities.setCapability("systemPort",systemPort);
+		capabilities.setCapability("systemPort",systemPort);
 		capabilities.setCapability("platformName","Android");
 		capabilities.setCapability("appPackage","com.ubyapp");
 		capabilities.setCapability("appActivity","com.ubyapp.MainActivity");
@@ -39,5 +39,6 @@ public class DeviceSetup {
 		
 		return new AndroidDriver<WebElement>(new URL("http://127.0.0.1:"+port+"/wd/hub"), capabilities);
 	}
+	
 
 }

@@ -19,7 +19,7 @@ public class CreateTimeDeposit extends LockdownDevice {
 	
 	private String sourceAccount,amount,term,tdType;
 	
-	private final String FOLDER = "TimeDeposit/Create/"+deviceID;
+	private String FOLDER = "/TimeDeposit/Create/"+deviceID;
 
 	public CreateTimeDeposit() throws IOException {
 		
@@ -46,6 +46,7 @@ public class CreateTimeDeposit extends LockdownDevice {
 		
 		easyPin_comp= new EasyPin_component(driver);
 		timeDeposit_comp= new TimeDeposit_component(driver);
+		FOLDER=apkVersion+FOLDER;
 	}
 	
 	@Test

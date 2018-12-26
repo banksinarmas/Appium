@@ -20,7 +20,7 @@ public class Block2_Baznas extends LockdownDevice{
 	private BillPayment_component billPayment_comp;
 	private String sourceAccount,subscriberNo,amount,desc,billerName;
 	
-	private final String FOLDER = "BillPayment/Block2_Baznas/"+deviceID;
+	private String FOLDER = "/BillPayment/Block2_Baznas/"+deviceID;
 
 	public Block2_Baznas() throws IOException {
 		
@@ -48,6 +48,8 @@ public class Block2_Baznas extends LockdownDevice{
 		easyPin_comp= new EasyPin_component(driver);
 		otp_comp=new OTP_component(driver);
 		billPayment_comp= new BillPayment_component(driver);
+		
+		FOLDER=apkVersion+FOLDER;
 		
 	}
 	@Test

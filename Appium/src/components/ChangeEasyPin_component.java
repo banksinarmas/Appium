@@ -24,11 +24,26 @@ public class ChangeEasyPin_component {
 		screenAction = new ScreenAction(driver);	
 	}
 
-	public void changeEasyPinMenu() {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
+	public void userProfileMenu() {
+		WebElement userProfileMenu=wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PROFIL'] | //*[@text='PROFILE']")));
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-		driver.findElement(By.className("android.widget.TextView")).click();
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Update EasyPIN'] | //*[@text='Ubah EasyPIN']"))).click();
+		userProfileMenu.click();
+		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.findElements(By.className("android.widget.TextView")).get(2).click();
+		
+	}
+	
+	
+	public void changeEasyPinMenu() {
+
+		userProfileMenu();
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).click();
 	}
 	
 	public void validatePassword(String folder,String filename,String currentPassword) {

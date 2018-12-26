@@ -42,7 +42,7 @@ public class FreshDevice {
 		apkVersion=AndroidAPK.getApkVersion(deviceID);
 		
 		System.out.println("Launching apk version: "+apkVersion);
-		driver=DeviceSetup.freshDevice(deviceID, port, systemPort);
+		driver=DriverSetup.freshDevice(deviceID, port, systemPort);
 						
 	}
 	@AfterClass

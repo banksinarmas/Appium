@@ -14,13 +14,14 @@ import io.appium.java_client.android.AndroidDriver;
 public class TimeDeposit_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait10,wait60;
+	private WebDriverWait wait10,wait20,wait60;
 	private ScreenAction screenAction;
 
 	public TimeDeposit_component(AndroidDriver<WebElement> driver) {
 
 		this.driver=driver;
 		wait10=new WebDriverWait(driver,10);
+		wait20=new WebDriverWait(driver,20);
 		wait60=new WebDriverWait(driver,60);
 		screenAction = new ScreenAction(driver);
 
@@ -31,13 +32,11 @@ public class TimeDeposit_component {
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		tdMenu.click();
 
-		//wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Time Deposit Information'] | //*[@text='Informasi Deposito Berjangka']"))).isDisplayed();
-
 		screenAction.scrollUntilElementByXpath("//*[@text='OPEN NEW TIME DEPOSIT'] | //*[@text='DEPOSITO BERJANGKA BARU']").click();
 
 	}
 
-	public void createTimeDepositOnline(String folder,String filename,String sourceAccount,String amount,String term,String tdType) {
+	public void createTimeDepositOnline(String folder,String filename,String sourceAccount,String amount,String term,String tdType) throws InterruptedException {
 
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 
@@ -52,7 +51,7 @@ public class TimeDeposit_component {
 
 		//input amount
 		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')] ")));
+		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 		driver.findElement(By.className("android.widget.EditText")).sendKeys(amount);
 		
 		//input period
@@ -73,6 +72,7 @@ public class TimeDeposit_component {
 			driver.findElement(By.xpath("//*[@text='Automatic roll-over (+interest)'] | //*[@text='Diperpanjang otomatis (+bunga)']")).click();
 		}
 	
+		Thread.sleep(1000);
 		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='CONTINUE'] | //*[@text='LANJUTKAN']").click();
 

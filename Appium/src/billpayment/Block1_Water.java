@@ -19,7 +19,7 @@ public class Block1_Water extends LockdownDevice{
 	
 	private String billerName,subscriberNo,sourceAccount;
 	
-	private final String FOLDER = "BillPayment/Block1_Water/"+deviceID;
+	private String FOLDER = "/BillPayment/Block1_Water/"+deviceID;
 
 	public Block1_Water() throws IOException {
 		super();
@@ -40,7 +40,9 @@ public class Block1_Water extends LockdownDevice{
 	private void loadComponent(){
 		
 		easyPin_comp= new EasyPin_component(driver);
-		billPayment_comp= new BillPayment_component(driver);		
+		billPayment_comp= new BillPayment_component(driver);	
+		
+		FOLDER=apkVersion+FOLDER;
 	}
 
 	@Test
@@ -54,14 +56,14 @@ public class Block1_Water extends LockdownDevice{
 	private void After_Login_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.waterPayment_billerMenu();
+		billPayment_comp.waterPayment_billerMenu(billerName);
 	}
 
 	@Test(dependsOnMethods="After_Login_Page")
 	private void Test01_Inquiry_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.waterPayment_selectMerchantSubscriberNo(FOLDER,method.getName(),billerName, subscriberNo);
+		billPayment_comp.inputSubscriberNo(FOLDER, method.getName(), subscriberNo);
 	}
 
 	@Test(dependsOnMethods="Test01_Inquiry_Page")
