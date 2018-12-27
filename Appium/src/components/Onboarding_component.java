@@ -61,7 +61,7 @@ public class Onboarding_component {
 		}
 		try {
 			wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

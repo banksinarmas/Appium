@@ -27,8 +27,6 @@ public class AndroidAPK {
 	}
 
 	public void download() throws IOException, InterruptedException {
-		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
-		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
 		adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && rm app-release.apk \"");
 
 		DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -75,7 +73,6 @@ public class AndroidAPK {
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
 		
-		driver.quit();
 
 	}
 
@@ -102,6 +99,7 @@ public class AndroidAPK {
 				System.out.println("app-release.apk is not found");
 			}	
 		}
+		
 	}
 
 	public static String getApkVersion(String deviceID) throws IOException {

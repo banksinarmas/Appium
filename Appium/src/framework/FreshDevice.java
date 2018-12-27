@@ -33,6 +33,9 @@ public class FreshDevice {
 	@BeforeClass
 	protected void launch() throws Exception 
 	{	
+		AndroidAPK.adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
+		AndroidAPK.adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
+
 		appium = new AppiumServer(port);
 		appium.startServer();
 
