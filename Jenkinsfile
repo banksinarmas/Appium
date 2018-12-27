@@ -1,8 +1,6 @@
 node {
-dir('Appium') {
-    stage('Test') {
-		bat 'dir'
+    stage('Test') 
+	{
         bat 'mvn -f Appium/pom.xml clean compile surefire:test'   
-		}
 	}
 }
