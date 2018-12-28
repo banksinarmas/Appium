@@ -51,7 +51,7 @@ public class Block1_Water extends LockdownDevice{
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
-	
+
 	@Test(dependsOnMethods="Login")
 	private void After_Login_Page(Method method) throws Exception
 	{

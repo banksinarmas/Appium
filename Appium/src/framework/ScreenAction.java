@@ -14,6 +14,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Attachment;
 
 public class ScreenAction {
 
@@ -62,7 +63,9 @@ public class ScreenAction {
 
 	}
 
-	public void capture(String folder,String filename) {
+	@Attachment(value = "Page screenshot", type = "image/png")
+	public byte[] capture(String folder,String filename) {
+/*		
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		File scrFile = driver.getScreenshotAs(OutputType.FILE);
 
@@ -71,6 +74,8 @@ public class ScreenAction {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		
+		return driver.getScreenshotAs(OutputType.BYTES);
 	}
 }
