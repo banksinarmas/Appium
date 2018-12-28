@@ -1,0 +1,16 @@
+<environment>
+    <parameter>
+        <key>Platform</key>
+        <value>Android</value>
+    </parameter>
+    <parameter>
+        <key>Platform.Version</key>
+        <value>7.0</value>
+    </parameter>
+    <parameter>
+        <key>Stand</key>
+        <value>Development</value>
+    </parameter>
+</environment>
+
+s
