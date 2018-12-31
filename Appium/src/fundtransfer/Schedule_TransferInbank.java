@@ -20,7 +20,6 @@ public class Schedule_TransferInbank extends LockdownDevice{
 	private FundTransfer_component fundTransfer_comp;
 	
 	private String sourceAccount,toAccount,amount,desc,recurrence,frequency;	
-	private String FOLDER = "/FundTransfer/Schedule/Inbank/"+deviceID;
 	
 	public Schedule_TransferInbank() throws IOException {	
 		super();
@@ -50,7 +49,6 @@ public class Schedule_TransferInbank extends LockdownDevice{
 		otp_comp=new OTP_component(driver);
 		fundTransfer_comp= new FundTransfer_component(driver);
 		
-		FOLDER=apkVersion+FOLDER;
 	}
 	
 	@Test
@@ -71,28 +69,28 @@ public class Schedule_TransferInbank extends LockdownDevice{
 	public void Test01_Select_Payee_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.selectPayee(FOLDER,method.getName(),toAccount);
+		fundTransfer_comp.selectPayee(toAccount);
 	}
 
 	@Test(dependsOnMethods="Test01_Select_Payee_Page")
 	public void Test02_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.selectAccountSchedule(FOLDER,method.getName(),sourceAccount,amount,desc);
+		fundTransfer_comp.selectAccountSchedule(sourceAccount,amount,desc);
 	}
 	
 	@Test(dependsOnMethods="Test02_Select_Account_Page")
 	public void Test03_Schedule_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.selectSchedule(FOLDER,method.getName(),recurrence,frequency);
+		fundTransfer_comp.selectSchedule(recurrence,frequency);
 	}
 	
 	@Test(dependsOnMethods="Test03_Schedule_Page")
 	public void Test04_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.summarySchedule(FOLDER,method.getName());
+		fundTransfer_comp.summarySchedule();
 	}
 
 	@Test(dependsOnMethods="Test04_Summary_Page")
@@ -100,16 +98,16 @@ public class Schedule_TransferInbank extends LockdownDevice{
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
-			otp_comp.input(FOLDER,method.getName());
+			otp_comp.input();
 		else
-			easyPin_comp.input(FOLDER,method.getName(),easyPin);
+			easyPin_comp.input(easyPin);
 
 	}
 	@Test(dependsOnMethods="Test05_Schedule_Transfer_Inbank_EasyPin_Page")
 	public void Test06_Schedule_Transfer_Inbank_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.result(FOLDER,method.getName());
+		fundTransfer_comp.result();
 	}
 	
 }

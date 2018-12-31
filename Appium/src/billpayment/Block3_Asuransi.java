@@ -20,7 +20,6 @@ public class Block3_Asuransi extends LockdownDevice {
 	private BillPayment_component billPayment_comp;
 	
 	private String sourceAccount,subscriberNo,amount,desc,billerName;
-	private String FOLDER = "/BillPayment/Block3_Asuransi/"+deviceID;
 
 	public Block3_Asuransi() throws IOException {
 		super();
@@ -47,61 +46,59 @@ public class Block3_Asuransi extends LockdownDevice {
 		otp_comp=new OTP_component(driver);
 		billPayment_comp= new BillPayment_component(driver);
 		
-		FOLDER=apkVersion+FOLDER;
-		
 	}
 	
 	@Test
-	private void Login(Method method) throws Exception
+	private void Test00_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
 	
-	@Test(dependsOnMethods="Login")
-	private void After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test00_Login")
+	private void Test01_Login_After_Login_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.other_billerMenu(billerName);
 	}
 
-	@Test(dependsOnMethods="After_Login_Page")
-	private void Test01_Inquiry_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_Login_After_Login_Page")
+	private void Test02_Inquiry_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.inputSubscriberNo(FOLDER,method.getName(),subscriberNo);
+		billPayment_comp.inputSubscriberNo(subscriberNo);
 	}
 
-	@Test(dependsOnMethods="Test01_Inquiry_Page")
-	private void Test02_Select_Account_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_Inquiry_Page")
+	private void Test03_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.block3_selectAccount(FOLDER,method.getName(),sourceAccount, amount, desc);
+		billPayment_comp.block3_selectAccount(sourceAccount, amount, desc);
 	}
 
-	@Test(dependsOnMethods="Test02_Select_Account_Page")
-	private void Test03_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Select_Account_Page")
+	private void Test04_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.summary(FOLDER,method.getName());
+		billPayment_comp.summary();
 	}
 
-	@Test(dependsOnMethods="Test03_Summary_Page")
-	private void Test04_Block3_Asuransi_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Summary_Page")
+	private void Test05_Block3_Asuransi_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
-			otp_comp.input(FOLDER,method.getName());
+			otp_comp.input();
 		else
-			easyPin_comp.input(FOLDER,method.getName(),easyPin);
+			easyPin_comp.input(easyPin);
 
 	}
-	@Test(dependsOnMethods="Test04_Block3_Asuransi_EasyPin_Page")
-	private void Test05_Block3_Asuransi_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_Block3_Asuransi_EasyPin_Page")
+	private void Test06_Block3_Asuransi_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.result(FOLDER,method.getName());
+		billPayment_comp.result();
 		
 	}
 	

@@ -46,18 +46,17 @@ public class ChangeEasyPin_component {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).click();
 	}
 	
-	public void validatePassword(String folder,String filename,String currentPassword) {
+	public void validatePassword(String currentPassword) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Perbarui EasyPIN'] | //*[@text='Update EasyPIN'] "))).isDisplayed();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='android.widget.EditText']"))).sendKeys(currentPassword);
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='Konfirmasi'] | //*[@text='Confirm']").click();
 		
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/alertTitle"))).isDisplayed();
 		driver.findElement(By.id("android:id/button1")).click();			
 	}
 	
-	public void createNewEasyPin(String folder,String filename,String newEasyPin) throws Exception
+	public void createNewEasyPin(String newEasyPin) throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Buat EasyPIN baru'] | //*[@text='Enter new EasyPIN']"))).isDisplayed();
 		driver.findElement(By.className("android.widget.EditText")).sendKeys(newEasyPin);
@@ -65,7 +64,6 @@ public class ChangeEasyPin_component {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Konfirmasi EasyPIN'] | //*[@text='Confirm new EasyPIN']"))).isDisplayed();
 		driver.findElement(By.className("android.widget.EditText")).sendKeys(newEasyPin);
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
 
 	}

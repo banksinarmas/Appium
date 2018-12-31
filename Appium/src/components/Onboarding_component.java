@@ -31,7 +31,7 @@ public class Onboarding_component {
 		
 	}
 
-	public void landingPage(String folder,String filename) {
+	public void landingPage() {
 
 		try {
 			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'location')]"))).isDisplayed();
@@ -66,44 +66,40 @@ public class Onboarding_component {
 			// TODO: handle exception
 		}
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='SAYA MEMILIKI AKUN'] | //*[@text='I HAVE AN ACCOUNT']").click();
 		
 	}
 
-	public void loginUsernamePassword(String folder,String filename,String username,String password) {
+	public void loginUsernamePassword(String username,String password) {
 
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Selamat Datang!'] | //*[@text='Welcome!']"))).isDisplayed();
 		List<WebElement> credentials = driver.findElements(By.className("android.widget.EditText"));
 		credentials.get(0).sendKeys(username);
 		credentials.get(1).sendKeys(password);
 
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='LOG IN']").click();
 
 	}
-	public void inputOTP(String folder,String filename) throws Exception
+	public void inputOTP() throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
 		System.out.println("OTP Number is "+OTP_NUMBER);
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(OTP_NUMBER);
 	
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
 
 	}
-	public void createEasyPin(String folder,String filename,String easyPin) throws Exception
+	public void createEasyPin(String easyPin) throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Create EasyPIN'] | //*[@text='Buat EasyPIN']"))).isDisplayed();
 		driver.findElement(By.className("android.widget.EditText")).sendKeys("123456");
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Konfirmasi EasyPIN'] | //*[@text='Confirm EasyPIN']"))).isDisplayed();
 		driver.findElement(By.className("android.widget.EditText")).sendKeys("123456");
 
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
 
 	}
-	public void dashboardFreshDevice(String folder,String filename) {
+	public void dashboardFreshDevice() {
 		
 		//Cardless guide
 		/*
@@ -136,7 +132,7 @@ public class Onboarding_component {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		screenAction.capture(folder, filename);
+		
 
 	}
 

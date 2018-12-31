@@ -36,7 +36,7 @@ public class TimeDeposit_component {
 
 	}
 
-	public void createTimeDepositOnline(String folder,String filename,String sourceAccount,String amount,String term,String tdType) throws InterruptedException {
+	public void createTimeDepositOnline(String sourceAccount,String amount,String term,String tdType) throws InterruptedException {
 
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 
@@ -73,37 +73,28 @@ public class TimeDeposit_component {
 		}
 	
 		Thread.sleep(1000);
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='CONTINUE'] | //*[@text='LANJUTKAN']").click();
 
 	}
-	public void termAndCondition(String folder,String filename) {
+	public void termAndCondition() {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Terms and conditions'] | //*[@text='Syarat dan ketentuan']"))).isDisplayed();
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='I AGREE'] | //*[@text='SAYA SETUJU']").click();
 
 	}
 
-	public void summary(String folder,String filename) {
+	public void summary() {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUMMARY'] | //*[@text='Ringkasan']"))).isDisplayed();
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='CREATE TIME DEPOSIT'] | //*[@text='Membuat Deposito Berjangka']").click();
 		
 	}
 
-	public void result(String folder,String filename) {
+	public void result() {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Time Deposit creation')] | //*[contains(@text,'Pembuatan Deposito Berjangka')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		screenAction.capture(folder, filename);
-		List<WebElement> checkSuccess = driver.findElements(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]"));
-		if(checkSuccess.size()>0) {		
-			
-			screenAction.scrollUntilElementInvisibleByXpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]");
-			screenAction.capture(folder, filename+"_"+1);
-		}
+		driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]")).isDisplayed();
 		
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 

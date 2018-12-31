@@ -55,15 +55,14 @@ public class BillPayment_component {
 
 	}
 	
-	public void inputSubscriberNo(String folder,String filename,String subscriberNo) {
+	public void inputSubscriberNo(String subscriberNo) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Pay / Top up to'] | //*[@text='Bayar / Isi ulang']"))).isDisplayed();
 		driver.findElement(By.className("android.widget.EditText")).sendKeys(subscriberNo);
 
-		screenAction.capture(folder, filename);
 		driver.findElements(By.className("android.widget.TextView")).get(4).click();
 	}
 	
-	public void block1_selectAccount(String folder,String filename,String sourceAccount) {
+	public void block1_selectAccount(String sourceAccount) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
 
 		try {
@@ -78,12 +77,11 @@ public class BillPayment_component {
 		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 		
 	}
 	
-	public void block2_selectAccount(String folder,String filename,String sourceAccount,String amount,String desc) {
+	public void block2_selectAccount(String sourceAccount,String amount,String desc) {
 		
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
 
@@ -105,11 +103,10 @@ public class BillPayment_component {
 		//input desc
 		inputFields.get(1).sendKeys(desc);
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();		
 	}
 	
-	public void block3_selectAccount(String folder,String filename,String sourceAccount,String amount,String desc) {
+	public void block3_selectAccount(String sourceAccount,String amount,String desc) {
 
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
 
@@ -145,31 +142,22 @@ public class BillPayment_component {
 		//input desc
 		inputFields.get(1).sendKeys(desc);
 		
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();		
 		
 	}
 	
-	public void summary(String folder,String filename) {
+	public void summary() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Konfirmasi')] | //*[contains(@text,'Confirmation')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 	
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='CONFIRM PAYMENT'] | //*[@text='KONFIRMASI PEMBAYARAN']").click();		
 	}
 	
-	public void result(String folder,String filename) {
+	public void result() {
 		wait70.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'MB-BP')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-		
-		screenAction.capture(folder, filename);
-		List<WebElement> checkSuccess = driver.findElements(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]"));
-		if(checkSuccess.size()>0) {		
 			
-			screenAction.scrollUntilElementInvisibleByXpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]");
-			screenAction.capture(folder, filename+"_"+1);
-		}		
-		
+		driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]")).isDisplayed();
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 
 	}

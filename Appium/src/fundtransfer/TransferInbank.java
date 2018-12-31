@@ -13,7 +13,6 @@ import components.OTP_component;
 import framework.LoadProperties;
 import framework.LockdownDevice;
 
-
 public class TransferInbank extends LockdownDevice{
 
 	private EasyPin_component easyPin_comp;
@@ -21,7 +20,6 @@ public class TransferInbank extends LockdownDevice{
 	private FundTransfer_component fundTransfer_comp;
 	
 	private String sourceAccount,toAccount,amount,desc;
-	private String FOLDER = "/FundTransfer/Inbank/"+deviceID;
 
 	public TransferInbank() throws IOException {
 		super();
@@ -46,8 +44,7 @@ public class TransferInbank extends LockdownDevice{
 		easyPin_comp= new EasyPin_component(driver);
 		otp_comp=new OTP_component(driver);
 		fundTransfer_comp= new FundTransfer_component(driver);
-		
-		FOLDER=apkVersion+FOLDER;	
+			
 	}
 	
 	@Test
@@ -67,33 +64,33 @@ public class TransferInbank extends LockdownDevice{
 	private void Test01_Select_Payee_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.selectPayee(FOLDER,method.getName(),toAccount);
+		fundTransfer_comp.selectPayee(toAccount);
 	}
 	@Test(dependsOnMethods="Test01_Select_Payee_Page")
 	private void Test02_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.selectAccount(FOLDER,method.getName(),sourceAccount, amount, desc);
+		fundTransfer_comp.selectAccount(sourceAccount, amount, desc);
 	}
 	@Test(dependsOnMethods="Test02_Select_Account_Page")
 	private void Test03_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.summary(FOLDER,method.getName());
+		fundTransfer_comp.summary();
 	}
 	@Test(dependsOnMethods="Test03_Summary_Page")
 	private void Test04_Transfer_Inbank_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
-			otp_comp.input(FOLDER,method.getName());
+			otp_comp.input();
 		else
-			easyPin_comp.input(FOLDER,method.getName(),easyPin);
+			easyPin_comp.input(easyPin);
 	}
 	@Test(dependsOnMethods="Test04_Transfer_Inbank_EasyPin_Page")
 	private void Test05_Transfer_Inbank_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.result(FOLDER,method.getName());
+		fundTransfer_comp.result();
 	}
 }

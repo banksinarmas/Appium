@@ -18,7 +18,6 @@ public class CardlessWithdrawal  extends LockdownDevice{
 	private EasyPin_component easyPin_comp;
 	private CardlessWithdrawal_component cardlessWithdrawal_comp;
 	
-	private String FOLDER = "/CardlessWithdrawal/"+deviceID;
 
 	public CardlessWithdrawal() throws IOException {
 		super();
@@ -43,56 +42,55 @@ public class CardlessWithdrawal  extends LockdownDevice{
 		easyPin_comp= new EasyPin_component(driver);
 		cardlessWithdrawal_comp=new CardlessWithdrawal_component(driver);
 		
-		FOLDER=apkVersion+FOLDER;
 	}
 
 	@Test
-	private void Login(Method method) throws Exception
+	private void Test00_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Login")
-	private void After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test00_Login")
+	private void Test01_After_Login_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		cardlessWithdrawal_comp.cardlessWdrMenu();
 	}
 
-	@Test(dependsOnMethods="After_Login_Page")
-	public void Test01_Select_Payee_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_After_Login_Page")
+	public void Test02_Select_Payee_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		cardlessWithdrawal_comp.selectPhoneNo(FOLDER,method.getName(),phoneNo);
+		cardlessWithdrawal_comp.selectPhoneNo(phoneNo);
 	}
 
-	@Test(dependsOnMethods="Test01_Select_Payee_Page")
-	public void Test02_Select_Account_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_Select_Payee_Page")
+	public void Test03_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		cardlessWithdrawal_comp.selectAccount(FOLDER,method.getName(),sourceAccount, amount, desc);
+		cardlessWithdrawal_comp.selectAccount(sourceAccount, amount, desc);
 	}
 
-	@Test(dependsOnMethods="Test02_Select_Account_Page")
-	public void Test03_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Select_Account_Page")
+	public void Test04_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		cardlessWithdrawal_comp.summary(FOLDER,method.getName());
+		cardlessWithdrawal_comp.summary();
 	}
 
-	@Test(dependsOnMethods="Test03_Summary_Page")
-	public void Test04_CardlessWdr_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Summary_Page")
+	public void Test05_CardlessWdr_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		easyPin_comp.input(FOLDER,method.getName(),easyPin);
+		easyPin_comp.input(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Test04_CardlessWdr_EasyPin_Page")
-	public void Test05_CardlessWdr_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_CardlessWdr_EasyPin_Page")
+	public void Test06_CardlessWdr_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		cardlessWithdrawal_comp.result(FOLDER,method.getName());
+		cardlessWithdrawal_comp.result();
 	}
 
 }

@@ -1,6 +1,10 @@
 package framework;
 
 import org.openqa.selenium.WebElement;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,17 +20,15 @@ import org.openqa.selenium.OutputType;
 import io.appium.java_client.android.AndroidDriver;
 import io.qameta.allure.Attachment;
 
-public class ScreenAction {
+public class ScreenAction   {
 
 	private AndroidDriver<WebElement> driver;
 	private Dimension screenSize;
 	private int posX,posY;
 
-	private static final String ROOT_FOLDER="Screenshots";
-
 	public ScreenAction(AndroidDriver<WebElement> driver)  {
 		this.driver=driver;
-			
+
 		screenSize = driver.manage().window().getSize();
 		posX=screenSize.getWidth()/2;
 		posY=screenSize.getHeight()/4;
@@ -55,17 +57,18 @@ public class ScreenAction {
 
 		List<WebElement> we = driver.findElements(By.xpath(xpathExpression));
 		if(we.size()>0) {
-		while (we.size()>0){
-			driver.swipe(posX, posY*2, posX, posY, 3000);
-			we  = driver.findElements(By.xpath(xpathExpression));
-		}
+			while (we.size()>0){
+				driver.swipe(posX, posY*2, posX, posY, 3000);
+				we  = driver.findElements(By.xpath(xpathExpression));
+			}
 		}
 
 	}
 
-	@Attachment(value = "Page screenshot", type = "image/png")
-	public byte[] capture(String folder,String filename) {
-/*		
+
+	@Attachment(value = "Screenshot on failure", type = "image/png")
+	public static byte[] saveScreenshotFailedTest(AndroidDriver<WebElement> driver,String methodName) {
+		/*		
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		File scrFile = driver.getScreenshotAs(OutputType.FILE);
 
@@ -75,7 +78,11 @@ public class ScreenAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		
+		System.out.println("Test Case "+methodName+"is Failed");
+
 		return driver.getScreenshotAs(OutputType.BYTES);
 	}
+
+
+
 }

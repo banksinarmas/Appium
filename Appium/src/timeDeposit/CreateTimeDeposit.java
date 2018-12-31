@@ -19,8 +19,6 @@ public class CreateTimeDeposit extends LockdownDevice {
 	
 	private String sourceAccount,amount,term,tdType;
 	
-	private String FOLDER = "/TimeDeposit/Create/"+deviceID;
-
 	public CreateTimeDeposit() throws IOException {
 		
 		super();
@@ -46,7 +44,7 @@ public class CreateTimeDeposit extends LockdownDevice {
 		
 		easyPin_comp= new EasyPin_component(driver);
 		timeDeposit_comp= new TimeDeposit_component(driver);
-		FOLDER=apkVersion+FOLDER;
+
 	}
 	
 	@Test
@@ -67,34 +65,34 @@ public class CreateTimeDeposit extends LockdownDevice {
 	private void Test01_Time_Deposit_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		timeDeposit_comp.createTimeDepositOnline(FOLDER,method.getName(),sourceAccount, amount, term, tdType);
+		timeDeposit_comp.createTimeDepositOnline(sourceAccount, amount, term, tdType);
 	}
 
 	@Test(dependsOnMethods="Test01_Time_Deposit_Page")
 	private void Test02_Time_Deposit_TnC_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		timeDeposit_comp.termAndCondition(FOLDER,method.getName());
+		timeDeposit_comp.termAndCondition();
 	}
 
 	@Test(dependsOnMethods="Test02_Time_Deposit_TnC_Page")
 	private void Test03_Time_Deposit_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		timeDeposit_comp.summary(FOLDER,method.getName());
+		timeDeposit_comp.summary();
 	}
 
 	@Test(dependsOnMethods="Test03_Time_Deposit_Summary_Page")
 	private void Test04_Time_Deposit_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		easyPin_comp.input(FOLDER,method.getName(),easyPin);
+		easyPin_comp.input(easyPin);
 	}
 	@Test(dependsOnMethods="Test04_Time_Deposit_EasyPin_Page")
 	private void Test05_Time_Deposit_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		timeDeposit_comp.result(FOLDER,method.getName());
+		timeDeposit_comp.result();
 	}
 
 }

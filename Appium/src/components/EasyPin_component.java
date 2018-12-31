@@ -48,12 +48,11 @@ public class EasyPin_component {
 		screenAction.scrollUntilElementByXpath("//*[@text='CONTINUE'] | //*[@text='LANJUTKAN']").click();
 	}
 	
-	public void input(String folder,String filename,String easyPin) throws Exception
+	public void input(String easyPin) throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(easyPin);
 	
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
 
 	}

@@ -39,15 +39,14 @@ public class FundTransfer_component  {
 		ftElement.click();
 	}
 
-	public void selectPayee(String folder,String filename,String toAccount) {
+	public void selectPayee(String toAccount) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(toAccount);
-		screenAction.capture(folder, filename);
 
 		//Click next icon in send menu
 		driver.findElements(By.className("android.widget.TextView")).get(3).click();
 	}
 
-	public void selectAccount(String folder,String filename,String sourceAccount,String amount,String desc) {
+	public void selectAccount(String sourceAccount,String amount,String desc) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
 
 		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
@@ -68,11 +67,10 @@ public class FundTransfer_component  {
 		//input desc
 		inputFields.get(1).sendKeys(desc);
 
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 
 	}
-	public void selectAccountSchedule(String folder,String filename,String sourceAccount,String amount,String desc) {
+	public void selectAccountSchedule(String sourceAccount,String amount,String desc) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
 
 		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
@@ -95,15 +93,13 @@ public class FundTransfer_component  {
 		//tick schedule transfer box
 		driver.findElement(By.xpath("//*[@text='Schedule transfer'] | //*[@text='Jadwalkan transfer']")).click();
 
-		screenAction.capture(folder, filename);
+		//screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 
 	}
 
-	public void selectSchedule(String folder,String filename,String recurrence,String frequency) throws InterruptedException {
+	public void selectSchedule(String recurrence,String frequency) throws InterruptedException {
 
-		//wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Schedule your transfer'] | //*[@text='Tentukan tanggal transfer']")));
-		//driver.findElement(By.xpath("//*[@text='Start date'] | //*[@text='Tanggal mulai']")).click();
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Start date'] | //*[@text='Tanggal mulai']"))).click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button1"))).click();
 
@@ -143,12 +139,12 @@ public class FundTransfer_component  {
 				currFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
 			}	
 		}
-		screenAction.capture(folder, filename);	
+	
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 
 	}
 
-	public void selectTransferMethod(String folder,String filename,String transferMethod) throws InterruptedException {
+	public void selectTransferMethod(String transferMethod) throws InterruptedException {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'method')] | //*[contains(@text,'metode')]")));
 
 		transferMethod=transferMethod.toLowerCase();
@@ -161,40 +157,32 @@ public class FundTransfer_component  {
 		else {
 			driver.findElement(By.xpath("//*[contains(@text,'rtgs')]")).click();
 		}
-		screenAction.capture(folder, filename);
+		
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 
 	}
 
-	public void summary(String folder,String filename) {
+	public void summary() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-
-		screenAction.capture(folder, filename);	
+	
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
 
 	}
 
-	public void summarySchedule(String folder,String filename) {
+	public void summarySchedule() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
 
 	}
 
-	public void result(String folder,String filename) {
+	public void result() {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Resi'] | //*[@text='Receipt']"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		screenAction.capture(folder, filename);
-		List<WebElement> checkSuccess = driver.findElements(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]"));
-		if(checkSuccess.size()>0) {		
-
-			screenAction.scrollUntilElementInvisibleByXpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]");
-			screenAction.capture(folder, filename+"_"+1);
-		}
+		driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]")).isDisplayed();
 
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 

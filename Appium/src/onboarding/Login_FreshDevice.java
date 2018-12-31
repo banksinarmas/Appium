@@ -21,8 +21,7 @@ public class Login_FreshDevice extends FreshDevice{
 	private Onboarding_component onboarding_comp;
 	
 	private String releaseLockdownURL= "http://simigi.banksinarmas.com/ibank/server-init?action=inactiveDeviceLockdownXYZ&loginName=";
-	private String FOLDER = "/Onboarding/Login_FreshDevice/"+deviceID;
-	
+
 	public Login_FreshDevice() throws IOException {
 		super();
 		Properties prop = LoadProperties.getProperties("credential.properties");
@@ -47,37 +46,37 @@ public class Login_FreshDevice extends FreshDevice{
 		client.executeMethod(method);
 		
 		onboarding_comp = new Onboarding_component(driver);
-		FOLDER=apkVersion+FOLDER;
+
 	}
 	
 	@Test
 	public void Test01_Onboarding_Landing_Page(Method method) {
 		System.out.println(deviceID+"_"+method.getName());
-		onboarding_comp.landingPage(FOLDER,method.getName());
+		onboarding_comp.landingPage();
 	}
 	
 	@Test(dependsOnMethods="Test01_Onboarding_Landing_Page")
 	public void Test02_Login_Username_Password(Method method) {
 		System.out.println(deviceID+"_"+method.getName());
-		onboarding_comp.loginUsernamePassword(FOLDER,method.getName(),username, password);	
+		onboarding_comp.loginUsernamePassword(username, password);	
 	}
 	
 	@Test(dependsOnMethods="Test02_Login_Username_Password")
 	public void Test03_Onboarding_Input_OTP(Method method) throws Exception {
 		System.out.println(deviceID+"_"+method.getName());
-		onboarding_comp.inputOTP(FOLDER,method.getName());
+		onboarding_comp.inputOTP();
 	}
 	
 	@Test(dependsOnMethods="Test03_Onboarding_Input_OTP")
 	public void Test04_Onboarding_Create_EasyPin(Method method) throws Exception {
 		System.out.println(deviceID+"_"+method.getName());
-		onboarding_comp.createEasyPin(FOLDER,method.getName(),easyPin);
+		onboarding_comp.createEasyPin(easyPin);
 	}
 	
 	@Test(dependsOnMethods="Test04_Onboarding_Create_EasyPin")
 	public void Test05_Dashboard_Page(Method method) {
 		System.out.println(deviceID+"_"+method.getName());
-		onboarding_comp.dashboardFreshDevice(FOLDER,method.getName());	
+		onboarding_comp.dashboardFreshDevice();	
 	}
 	
 	@Test(dependsOnMethods="Test05_Dashboard_Page")

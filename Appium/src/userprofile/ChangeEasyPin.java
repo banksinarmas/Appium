@@ -18,7 +18,6 @@ public class ChangeEasyPin extends LockdownDevice {
 	private ChangeEasyPin_component changeEasyPin_comp;
 
 	private String currentPassword,newEasyPin;
-	private final String FOLDER ="UserProfile/ChangeEasyPin/"+deviceID;
 	
 	public ChangeEasyPin() throws IOException {
 		super();
@@ -58,13 +57,13 @@ public class ChangeEasyPin extends LockdownDevice {
 	private void Test01_Change_EasyPin_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
-		changeEasyPin_comp.createNewEasyPin(FOLDER,method.getName(),newEasyPin);
+		changeEasyPin_comp.createNewEasyPin(newEasyPin);
 	}
 	@Test(dependsOnMethods= "Test01_Change_EasyPin_Page")
 	private void Test02_Validate_Password_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
-		changeEasyPin_comp.validatePassword(FOLDER,method.getName(),currentPassword);
+		changeEasyPin_comp.validatePassword(currentPassword);
 	}
 
 }
