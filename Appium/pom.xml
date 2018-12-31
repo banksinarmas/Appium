@@ -51,7 +51,7 @@
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
 					<suiteXmlFiles>
-						<suiteXmlFile>TestSuite/FundTransfer/TransferInbank.xml</suiteXmlFile>
+						<suiteXmlFile>TestSuite/FullTest-SingleDevice.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 				<dependencies>
