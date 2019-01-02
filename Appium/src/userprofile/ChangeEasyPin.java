@@ -41,26 +41,26 @@ public class ChangeEasyPin extends LockdownDevice {
 	}
 
 	@Test
-	private void Login(Method method) throws Exception
+	private void Test01_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 
-	@Test(dependsOnMethods="Login")
-	private void After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_Login")
+	private void Test02_After_Login_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		changeEasyPin_comp.changeEasyPinMenu();
 	}
-	@Test(dependsOnMethods= "After_Login_Page")
-	private void Test01_Change_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods= "Test02_After_Login_Page")
+	private void Test03_Change_EasyPin_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		changeEasyPin_comp.createNewEasyPin(newEasyPin);
 	}
-	@Test(dependsOnMethods= "Test01_Change_EasyPin_Page")
-	private void Test02_Validate_Password_Page(Method method) throws Exception
+	@Test(dependsOnMethods= "Test03_Change_EasyPin_Page")
+	private void Test04_Validate_Password_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		changeEasyPin_comp.validatePassword(currentPassword);
