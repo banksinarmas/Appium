@@ -4,17 +4,17 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.openqa.selenium.WebElement;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 
 import io.appium.java_client.android.AndroidDriver;
 
+@Listeners(framework.TestListener.class)
 public class FreshDevice {
 
 	private AppiumServer appium;
-	protected AndroidDriver<WebElement> driver;
+	public AndroidDriver<WebElement> driver;
 	
 	protected String deviceID,apkVersion;
 	private int port,systemPort;
@@ -56,11 +56,9 @@ public class FreshDevice {
 		appium.stopServer();
 	
 	}
-	@AfterMethod
-	protected void checkFailedTest(ITestResult result) {
 
-		if (result.getStatus() == ITestResult.FAILURE) {
-			ScreenAction.saveScreenshotFailedTest(driver,result.getMethod().getMethodName());
-		} 
+	public AndroidDriver<WebElement> getDriver() {
+		
+		return this.driver;
 	}
 }

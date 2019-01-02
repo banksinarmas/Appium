@@ -68,7 +68,8 @@ public class ScreenAction   {
 
 	@Attachment(value = "Screenshot on failure", type = "image/png")
 	public static byte[] saveScreenshotFailedTest(AndroidDriver<WebElement> driver,String methodName) {
-		/*		
+			
+/*
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		File scrFile = driver.getScreenshotAs(OutputType.FILE);
 
@@ -77,8 +78,9 @@ public class ScreenAction   {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		System.out.println("Test Case "+methodName+"is Failed");
+		}
+		*/
+		System.out.println("Test Case "+methodName+" is Failed");
 
 		return driver.getScreenshotAs(OutputType.BYTES);
 	}

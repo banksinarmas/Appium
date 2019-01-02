@@ -48,48 +48,48 @@ public class CreateTimeDeposit extends LockdownDevice {
 	}
 	
 	@Test
-	private void Login(Method method) throws Exception
+	private void Test01_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Login")
-	private void After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_Login")
+	private void Test02_After_Login_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		timeDeposit_comp.timeDepositMenu();
 	}
 
-	@Test(dependsOnMethods="After_Login_Page")
-	private void Test01_Time_Deposit_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_After_Login_Page")
+	private void Test03_Time_Deposit_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		timeDeposit_comp.createTimeDepositOnline(sourceAccount, amount, term, tdType);
 	}
 
-	@Test(dependsOnMethods="Test01_Time_Deposit_Page")
-	private void Test02_Time_Deposit_TnC_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Time_Deposit_Page")
+	private void Test04_Time_Deposit_TnC_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		timeDeposit_comp.termAndCondition();
 	}
 
-	@Test(dependsOnMethods="Test02_Time_Deposit_TnC_Page")
-	private void Test03_Time_Deposit_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Time_Deposit_TnC_Page")
+	private void Test05_Time_Deposit_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		timeDeposit_comp.summary();
 	}
 
-	@Test(dependsOnMethods="Test03_Time_Deposit_Summary_Page")
-	private void Test04_Time_Deposit_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_Time_Deposit_Summary_Page")
+	private void Test06_Time_Deposit_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.input(easyPin);
 	}
-	@Test(dependsOnMethods="Test04_Time_Deposit_EasyPin_Page")
-	private void Test05_Time_Deposit_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test06_Time_Deposit_EasyPin_Page")
+	private void Test07_Time_Deposit_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		timeDeposit_comp.result();

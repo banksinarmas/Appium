@@ -54,58 +54,58 @@ public class Schedule_TransferOtherbank extends LockdownDevice {
 		
 	}
 	@Test
-	private void Login(Method method) throws Exception
+	private void Test01_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Login")
-	private void After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_Login")
+	private void Test02_After_Login_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.fundTransferMenu();
 	}	
 
 	
-	@Test(dependsOnMethods="After_Login_Page")
-	public void Test01_Select_Payee_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_After_Login_Page")
+	public void Test03_Select_Payee_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.selectPayee(toAccount);
 	}
 
-	@Test(dependsOnMethods="Test01_Select_Payee_Page")
-	public void Test02_Select_Account_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Select_Payee_Page")
+	public void Test04_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.selectAccountSchedule(sourceAccount, amount, desc);
 	}
 
 	
-	@Test(dependsOnMethods="Test02_Select_Account_Page")
-	public void Test03_Schedule_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Select_Account_Page")
+	public void Test05_Schedule_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.selectSchedule(recurrence,frequency);
 	}
 	
-	@Test(dependsOnMethods="Test03_Schedule_Page")
-	public void Test04_Transfer_Method_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_Schedule_Page")
+	public void Test06_Transfer_Method_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.selectTransferMethod(transferMethod);
 
 	}
-	@Test(dependsOnMethods="Test04_Transfer_Method_Page")
-	public void Test05_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test06_Transfer_Method_Page")
+	public void Test07_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.summarySchedule();
 	}
 
-	@Test(dependsOnMethods="Test05_Summary_Page")
-	public void Test06_Schedule_Transfer_Otherbank_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test07_Summary_Page")
+	public void Test08_Schedule_Transfer_Otherbank_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
@@ -114,8 +114,8 @@ public class Schedule_TransferOtherbank extends LockdownDevice {
 			easyPin_comp.input(easyPin);
 
 	}
-	@Test(dependsOnMethods="Test06_Schedule_Transfer_Otherbank_EasyPin_Page")
-	public void Test07_Schedule_Transfer_Otherbank_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test08_Schedule_Transfer_Otherbank_EasyPin_Page")
+	public void Test09_Schedule_Transfer_Otherbank_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.result();

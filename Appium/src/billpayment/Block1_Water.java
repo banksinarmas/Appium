@@ -43,49 +43,49 @@ public class Block1_Water extends LockdownDevice{
 	}
 
 	@Test
-	private void Test00_Login(Method method) throws Exception
+	private void Test01_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 
-	@Test(dependsOnMethods="Test00_Login")
-	private void Test01_Login_After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_Login")
+	private void Test02_Login_After_Login_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.waterPayment_billerMenu(billerName);
 	}
 
-	@Test(dependsOnMethods="Test01_Login_After_Login_Page")
-	private void Test02_Inquiry_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_Login_After_Login_Page")
+	private void Test03_Inquiry_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.inputSubscriberNo( subscriberNo);
 	}
 
-	@Test(dependsOnMethods="Test02_Inquiry_Page")
-	private void Test03_Select_Account_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Inquiry_Page")
+	private void Test04_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.block1_selectAccount(sourceAccount);
 	}
 
-	@Test(dependsOnMethods="Test03_Select_Account_Page")
-	private void Test04_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Select_Account_Page")
+	private void Test05_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.summary();
 	}
 
-	@Test(dependsOnMethods="Test04_Summary_Page")
-	private void Test05_Block1_Water_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_Summary_Page")
+	private void Test06_Block1_Water_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.input(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Test05_Block1_Water_EasyPin_Page")
-	private void Test06_Block1_Water_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test06_Block1_Water_EasyPin_Page")
+	private void Test07_Block1_Water_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.result();

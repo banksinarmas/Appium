@@ -48,38 +48,38 @@ public class TransferInbank extends LockdownDevice{
 	}
 	
 	@Test
-	private void Login(Method method) throws Exception
+	private void Test01_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Login")
-	private void After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_Login")
+	private void Test02_After_Login_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.fundTransferMenu();
 	}
-	@Test(dependsOnMethods="After_Login_Page")
-	private void Test01_Select_Payee_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_After_Login_Page")
+	private void Test03_Select_Payee_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.selectPayee(toAccount);
 	}
-	@Test(dependsOnMethods="Test01_Select_Payee_Page")
-	private void Test02_Select_Account_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Select_Payee_Page")
+	private void Test04_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.selectAccount(sourceAccount, amount, desc);
 	}
-	@Test(dependsOnMethods="Test02_Select_Account_Page")
-	private void Test03_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Select_Account_Page")
+	private void Test05_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.summary();
 	}
-	@Test(dependsOnMethods="Test03_Summary_Page")
-	private void Test04_Transfer_Inbank_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_Summary_Page")
+	private void Test06_Transfer_Inbank_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
@@ -87,8 +87,8 @@ public class TransferInbank extends LockdownDevice{
 		else
 			easyPin_comp.input(easyPin);
 	}
-	@Test(dependsOnMethods="Test04_Transfer_Inbank_EasyPin_Page")
-	private void Test05_Transfer_Inbank_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test06_Transfer_Inbank_EasyPin_Page")
+	private void Test07_Transfer_Inbank_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		fundTransfer_comp.result();

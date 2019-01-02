@@ -44,7 +44,7 @@ public class EasyPin_component {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOG IN']"))).click();		
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 		driver.findElementByClassName("android.widget.EditText").sendKeys(easyPin);	
-	
+
 		screenAction.scrollUntilElementByXpath("//*[@text='CONTINUE'] | //*[@text='LANJUTKAN']").click();
 	}
 	

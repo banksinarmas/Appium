@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.openqa.selenium.WebElement;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 
 import io.appium.java_client.android.AndroidDriver;
 
+@Listeners(framework.TestListener.class)
 public class LockdownDevice {
 
 	private AppiumServer appium;
@@ -34,7 +34,7 @@ public class LockdownDevice {
 	}
 
 	@BeforeClass
-	protected void launch() throws Exception 
+	public void launch() throws Exception 
 	{	
 		AndroidAPK.adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
 		AndroidAPK.adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
@@ -50,16 +50,14 @@ public class LockdownDevice {
 
 	}
 	@AfterClass
-	protected void stopAppium() throws Exception
+	public void stopAppium() 
 	{
 		appium.stopServer();
 	}
 
-	@AfterMethod
-	protected void checkFailedTest(ITestResult result) {
-
-		if (result.getStatus() == ITestResult.FAILURE) {
-			ScreenAction.saveScreenshotFailedTest(driver,result.getMethod().getMethodName());
-		} 
+	
+	public AndroidDriver<WebElement> getDriver() {
+		
+		return this.driver;
 	}
 }

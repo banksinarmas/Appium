@@ -41,10 +41,10 @@ public class AndroidAPK {
 		capabilities.setCapability("newCommandTimeout", 360);
 		AndroidDriver<WebElement> driver =  new AndroidDriver<WebElement>(new URL("http://127.0.0.1:"+port+"/wd/hub"),capabilities);
 
-		WebDriverWait wait10 = new WebDriverWait(driver,10);
 		WebDriverWait wait30 = new WebDriverWait(driver,30);
+		WebDriverWait wait50 = new WebDriverWait(driver,50);
 
-		WebElement latestVersionElement= wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@content-desc,'Android app') and not(contains(@content-desc,'UAT'))] ")));
+		WebElement latestVersionElement= wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@content-desc,'Android app') and not(contains(@content-desc,'UAT'))] ")));
 		String latestVersion= latestVersionElement.getAttribute("content-desc");
 		latestVersion=latestVersion.substring(latestVersion.indexOf("1.0"),latestVersion.indexOf(" Android"));
 		String currentVersion=getApkVersion(deviceID);
@@ -54,11 +54,11 @@ public class AndroidAPK {
 			System.out.println("Download will begin soon for apk v"+latestVersion);
 		
 			latestVersionElement.click();
-			wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='click here'] | //*[@text='click here']"))).click();
-			wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@resource-id='download-button']"))).click();
+			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='click here'] | //*[@text='click here']"))).click();
+			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@resource-id='download-button']"))).click();
 
 			try {
-				wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']"))).click();
+				wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']"))).click();
 				Thread.sleep(5000);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -73,7 +73,7 @@ public class AndroidAPK {
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
 		
-
+		Thread.sleep(5000);
 	}
 
 	public void install() throws InterruptedException, IOException {
@@ -117,5 +117,5 @@ public class AndroidAPK {
 	public static String adbCommand(String command) throws IOException {		
 		return new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream())).readLine();			
 	}
-
+	
 }

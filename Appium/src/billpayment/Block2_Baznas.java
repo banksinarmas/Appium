@@ -49,42 +49,42 @@ public class Block2_Baznas extends LockdownDevice{
 		
 	}
 	@Test
-	private void Test00_Login(Method method) throws Exception
+	private void Test01_Login(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Test00_Login")
-	private void Test01_Login_After_Login_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test01_Login")
+	private void Test02_Login_After_Login_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.other_billerMenu(billerName);
 	}
 
-	@Test(dependsOnMethods="Test01_Login_After_Login_Page")
-	private void Test02_Inquiry_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_Login_After_Login_Page")
+	private void Test03_Inquiry_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.inputSubscriberNo(subscriberNo);
 	}
 
-	@Test(dependsOnMethods="Test02_Inquiry_Page")
-	private void Test03_Select_Account_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Inquiry_Page")
+	private void Test04_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.block2_selectAccount(sourceAccount, amount, desc);
 	}
 
-	@Test(dependsOnMethods="Test03_Select_Account_Page")
-	private void Test04_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Select_Account_Page")
+	private void Test05_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.summary();
 	}
 
-	@Test(dependsOnMethods="Test04_Summary_Page")
-	private void Test05_Block2_Baznas_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_Summary_Page")
+	private void Test06_Block2_Baznas_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
@@ -93,8 +93,8 @@ public class Block2_Baznas extends LockdownDevice{
 			easyPin_comp.input(easyPin);
 
 	}
-	@Test(dependsOnMethods="Test05_Block2_Baznas_EasyPin_Page")
-	private void Test06_Block2_Baznas_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test06_Block2_Baznas_EasyPin_Page")
+	private void Test07_Block2_Baznas_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		billPayment_comp.result();
