@@ -118,7 +118,7 @@ public class Schedule_TransferOtherbank extends LockdownDevice {
 	public void Test09_Schedule_Transfer_Otherbank_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.result();
+		fundTransfer_comp.resultSchedule();
 	}
 	
 

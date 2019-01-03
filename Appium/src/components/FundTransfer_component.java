@@ -60,7 +60,7 @@ public class FundTransfer_component  {
 			e.printStackTrace();
 		}
 		//select account
-		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih sumber dana']")).get(1).click();
+		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih rekening sumber']")).get(1).click();
 		screenAction.scrollUntilElementByXpath("//*[@text='"+sourceAccount+"']").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
 
@@ -84,7 +84,7 @@ public class FundTransfer_component  {
 			e.printStackTrace();
 		}
 		//select account
-		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih sumber dana']")).get(1).click();
+		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih rekening sumber']")).get(1).click();
 		screenAction.scrollUntilElementByXpath("//*[@text='"+sourceAccount+"']").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
 
@@ -93,7 +93,6 @@ public class FundTransfer_component  {
 		//tick schedule transfer box
 		driver.findElement(By.xpath("//*[@text='Schedule transfer'] | //*[@text='Jadwalkan transfer']")).click();
 
-		//screenAction.capture(folder, filename);
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 
 	}
@@ -103,7 +102,7 @@ public class FundTransfer_component  {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Start date'] | //*[@text='Tanggal mulai']"))).click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button1"))).click();
 
-		driver.findElement(By.xpath("//*[@text='Period Time']")).click();
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Period Time'] | //*[@text='Periode Waktu']"))).click();
 		Thread.sleep(1000);
 
 		recurrence= recurrence.toLowerCase();
@@ -139,7 +138,7 @@ public class FundTransfer_component  {
 				currFreq = driver.findElements(By.xpath("//*[@text='"+frequency+"']"));
 			}	
 		}
-	
+
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 
 	}
@@ -157,7 +156,7 @@ public class FundTransfer_component  {
 		else {
 			driver.findElement(By.xpath("//*[contains(@text,'rtgs')]")).click();
 		}
-		
+
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
 
 	}
@@ -165,7 +164,7 @@ public class FundTransfer_component  {
 	public void summary() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-	
+
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
 
 	}
@@ -182,8 +181,15 @@ public class FundTransfer_component  {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Resi'] | //*[@text='Receipt']"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]")).isDisplayed();
+		driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed();
+		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 
+	}
+	public void resultSchedule() {
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Resi'] | //*[@text='Receipt']"))).isDisplayed();
+		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+
+		driver.findElement(By.xpath("//*[contains(@text,'process')] | //*[contains(@text,'proses')] ")).isDisplayed();
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 
 	}

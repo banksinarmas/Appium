@@ -11,13 +11,14 @@ import io.appium.java_client.android.AndroidDriver;
 public class CardlessWithdrawal_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait30,wait60;
+	private WebDriverWait wait10,wait30,wait60;
 	private FundTransfer_component fundTransfer_comp;
 	private ScreenAction screenAction;
 	
 	public CardlessWithdrawal_component(AndroidDriver<WebElement> driver) {
 		
 		this.driver=driver;
+		wait10=new WebDriverWait(driver, 10);
 		wait30=new WebDriverWait(driver, 30);
 		wait60=new WebDriverWait(driver, 60);
 		fundTransfer_comp=new FundTransfer_component(driver);
@@ -40,7 +41,12 @@ public class CardlessWithdrawal_component {
 	
 
 	public void selectPhoneNo(String phoneNo) {
-		fundTransfer_comp.selectPayee(phoneNo);
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).isDisplayed();
+		
+		driver.findElements(By.className("android.widget.EditText")).get(1).sendKeys(phoneNo);
+		
+		driver.findElement(By.xpath("//android.widget.TextView[@text='"+phoneNo+"']")).click();
+
 	}
 	
 	public void selectAccount(String sourceAccount,String amount,String desc) {
@@ -48,9 +54,10 @@ public class CardlessWithdrawal_component {
 	}
 	
 	public void summary() {
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Summary'] | //*[@text='Ringkasan']")));
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
+		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		screenAction.scrollUntilElementByXpath("//*[@text='Penarikan'] | //*[@text='Withdrawal']").click();
+		screenAction.scrollUntilElementByXpath("//*[@text='WITHDRAWAL'] | //*[@text='PENARIKAN']").click();
 
 	}
 	

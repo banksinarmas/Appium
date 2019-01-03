@@ -86,7 +86,7 @@ public class Schedule_TransferInbank extends LockdownDevice{
 		fundTransfer_comp.selectSchedule(recurrence,frequency);
 	}
 	
-	@Test(dependsOnMethods="Test05_Schedule_Page")
+	@Test(dependsOnMethods="Test05_Schedule_Page" )
 	public void Test06_Summary_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
@@ -107,7 +107,7 @@ public class Schedule_TransferInbank extends LockdownDevice{
 	public void Test08_Schedule_Transfer_Inbank_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.result();
+		fundTransfer_comp.resultSchedule();
 	}
 	
 }
