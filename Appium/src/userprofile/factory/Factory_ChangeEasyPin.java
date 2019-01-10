@@ -1,6 +1,5 @@
 package userprofile.factory;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.testng.annotations.DataProvider;
@@ -12,13 +11,13 @@ import userprofile.ChangeEasyPin;
 public class Factory_ChangeEasyPin {
 
 	@Factory(dataProvider="changeEasyPin")
-	private Object[] changeEasyPinCreateInstances(String deviceID,String port,String systemPort,String newEasyPin,String currentPassword) throws IOException {
-		return new Object[] {new ChangeEasyPin(deviceID,Integer.parseInt(port),Integer.parseInt(systemPort),newEasyPin,currentPassword)};
+	private Object[] changeEasyPinCreateInstances(String username) throws IOException {
+		return new Object[] {new ChangeEasyPin(username)};
 	}
 
 	@DataProvider(name="changeEasyPin")
-	private static Object[][] changeEasyPinDataProvider() throws FileNotFoundException {
-		Object[][] dataArray = LoadTestCase.loadFromFile("UserProfile/ChangeEasyPin.txt",5);
+	private static Object[][] changeEasyPinDataProvider() throws IOException {
+		Object[][] dataArray = LoadTestCase.loadFromFile("UserProfile/ChangeEasyPin.txt");
 		return dataArray;
 	}
 }

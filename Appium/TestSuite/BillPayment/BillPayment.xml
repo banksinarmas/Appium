@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="BillPayment_Block2">
+	<test name="BLock2" parallel="classes" thread-count="8">
+		<classes>
+			<class name="billpayment.factory.Factory_Block2_Baznas" />
+		</classes>
+	</test>
+	<test name="BLock3" parallel="classes" thread-count="8">
+		<classes>
+			<class name="billpayment.factory.Factory_Block3_Asuransi" />
+		</classes>
+	</test>
+</suite>

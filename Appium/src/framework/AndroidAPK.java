@@ -3,11 +3,9 @@ package framework;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,20 +24,12 @@ public class AndroidAPK {
 		this.systemPort=systemPort;
 	}
 
-	public void download() throws IOException, InterruptedException {
+	public void download() throws Exception {
+		
+		//delete simobiplus app-release.apk from device
 		adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && rm app-release.apk \"");
 
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability("deviceName","Emulator");
-		capabilities.setCapability("udid",deviceID);
-		capabilities.setCapability("systemPort",systemPort);
-		capabilities.setCapability("platformName","Android");
-		capabilities.setCapability("noReset", true);
-		capabilities.setCapability("appPackage","com.google.android.gm");
-		capabilities.setCapability("appActivity",".ConversationListActivityGmail");
-		capabilities.setCapability("automationName","uiautomator2");
-		capabilities.setCapability("newCommandTimeout", 360);
-		AndroidDriver<WebElement> driver =  new AndroidDriver<WebElement>(new URL("http://127.0.0.1:"+port+"/wd/hub"),capabilities);
+		AndroidDriver<WebElement> driver =  DriverSetup.androidDevice(deviceID, port, systemPort, "com.google.android.gm", ".ConversationListActivityGmail", true);
 
 		WebDriverWait wait30 = new WebDriverWait(driver,30);
 		WebDriverWait wait50 = new WebDriverWait(driver,50);
@@ -50,7 +40,6 @@ public class AndroidAPK {
 		String currentVersion=getApkVersion(deviceID);
 
 		if(currentVersion==null || !currentVersion.equals(latestVersion)) {
-			
 			System.out.println("Download will begin soon for apk v"+latestVersion);
 		
 			latestVersionElement.click();

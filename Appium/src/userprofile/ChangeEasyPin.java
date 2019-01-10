@@ -9,29 +9,30 @@ import org.testng.annotations.Test;
 
 import components.ChangeEasyPin_component;
 import components.EasyPin_component;
+import framework.DeviceSetup;
 import framework.LoadProperties;
-import framework.LockdownDevice;
 
-public class ChangeEasyPin extends LockdownDevice {
+public class ChangeEasyPin extends DeviceSetup {
 
 	private EasyPin_component easyPin_comp;
 	private ChangeEasyPin_component changeEasyPin_comp;
 
-	private String currentPassword,newEasyPin;
+	private String easyPin,currentPassword,newEasyPin;
 	
 	public ChangeEasyPin() throws IOException {
-		super();
-		Properties prop = LoadProperties.getProperties("credential.properties");
-		this.currentPassword = prop.getProperty("password");
-		this.newEasyPin=prop.getProperty("newEasyPin");
+		this(DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"));
 		
 	}
 
-	public ChangeEasyPin(String deviceID,int port, int systemPort,String newEasyPin ,String  currentPassword) {
-		super(deviceID,port,systemPort);
+	public ChangeEasyPin(String username) throws IOException {
+		super(false,username);
 		
-		this.currentPassword= currentPassword;
-		this.newEasyPin= newEasyPin;
+		Properties prop = LoadProperties.getUserProperties(username);
+		this.easyPin=prop.getProperty("EASYPIN");
+		this.currentPassword=prop.getProperty("PASSWORD");
+		
+		this.newEasyPin=easyPin;
+		
 	}
 
 	@BeforeClass
@@ -57,7 +58,7 @@ public class ChangeEasyPin extends LockdownDevice {
 	private void Test03_Change_EasyPin_Page(Method method) throws Exception
 	{	
 		System.out.println(deviceID+"_"+method.getName());
-		changeEasyPin_comp.createNewEasyPin(newEasyPin);
+		easyPin_comp.createEasyPin(newEasyPin);
 	}
 	@Test(dependsOnMethods= "Test03_Change_EasyPin_Page")
 	private void Test04_Validate_Password_Page(Method method) throws Exception

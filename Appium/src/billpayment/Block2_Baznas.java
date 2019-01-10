@@ -1,40 +1,46 @@
 package billpayment;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Properties;
 
-import java.lang.reflect.Method;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import components.BillPayment_component;
 import components.EasyPin_component;
 import components.OTP_component;
+import framework.DeviceSetup;
 import framework.LoadProperties;
-import framework.LockdownDevice;
 
-public class Block2_Baznas extends LockdownDevice{
+public class Block2_Baznas extends DeviceSetup{
 
 	private EasyPin_component easyPin_comp;
 	private OTP_component otp_comp;
 	private BillPayment_component billPayment_comp;
-	private String sourceAccount,subscriberNo,amount,desc,billerName;
+	private String easyPin,fromAccountType,fromAccount,subscriberNo,amount,desc,billerName;
 	
 	public Block2_Baznas() throws IOException {
 		
-		super();
-		Properties prop = LoadProperties.getProperties("billpayment.properties");
-		this.billerName=prop.getProperty("block2_billerName");
-		this.sourceAccount=prop.getProperty("block2_sourceAccount");
-		this.subscriberNo=prop.getProperty("block2_subscriberNo");
-		this.amount=prop.getProperty("block2_amount");
-		this.desc=prop.getProperty("block2_desc");
+		this(
+				DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"),
+				DEFAULT_PROPERTIES.getProperty("DEF_FROM_ACCOUNT_TYPE"),
+				DEFAULT_PROPERTIES.getProperty("DEF_BP2_BILLER_NAME"),
+				DEFAULT_PROPERTIES.getProperty("DEF_BP2_SUBSCRIBER_NO"),
+				DEFAULT_PROPERTIES.getProperty("DEF_BP2_AMOUNT"),
+				DEFAULT_PROPERTIES.getProperty("DEF_BP2_DESC"));
 	}
-	public Block2_Baznas(String deviceID,int port,int systemPort,String billerName,String subscriberNo,String sourceAccount,String amount,String desc) {
+	
+	public Block2_Baznas(String username,String fromAccountType,String billerName,String subscriberNo,String amount,String desc) throws IOException {
 		
-		super(deviceID,port,systemPort);
+		super(false,username);
+		
+		Properties prop = LoadProperties.getUserProperties(username);
+		this.easyPin=prop.getProperty("EASYPIN");
+		this.fromAccountType=fromAccountType;
+		this.fromAccount=prop.getProperty(fromAccountType);
+		
 		this.billerName=billerName;
-		this.sourceAccount=sourceAccount;
 		this.subscriberNo=subscriberNo;
 		this.amount=amount;
 		this.desc=desc;
@@ -73,7 +79,7 @@ public class Block2_Baznas extends LockdownDevice{
 	private void Test04_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.block2_selectAccount(sourceAccount, amount, desc);
+		billPayment_comp.block2_selectAccount(fromAccount, amount, desc);
 	}
 
 	@Test(dependsOnMethods="Test04_Select_Account_Page")
@@ -88,16 +94,16 @@ public class Block2_Baznas extends LockdownDevice{
 	{
 		System.out.println(deviceID+"_"+method.getName());
 		if(Long.parseLong(amount)>5000000)
-			otp_comp.input();
+			otp_comp.inputOTP();
 		else
-			easyPin_comp.input(easyPin);
+			easyPin_comp.inputEasyPin(easyPin);
 
 	}
 	@Test(dependsOnMethods="Test06_Block2_Baznas_EasyPin_Page")
 	private void Test07_Block2_Baznas_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		billPayment_comp.result();
+		billPayment_comp.result(fromAccountType);
 	}
 
 }

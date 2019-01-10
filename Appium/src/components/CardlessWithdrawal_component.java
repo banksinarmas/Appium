@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import framework.ScreenAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -42,7 +43,6 @@ public class CardlessWithdrawal_component {
 
 	public void selectPhoneNo(String phoneNo) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).isDisplayed();
-		
 		driver.findElements(By.className("android.widget.EditText")).get(1).sendKeys(phoneNo);
 		
 		driver.findElement(By.xpath("//android.widget.TextView[@text='"+phoneNo+"']")).click();
@@ -54,19 +54,24 @@ public class CardlessWithdrawal_component {
 	}
 	
 	public void summary() {
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		screenAction.scrollUntilElementByXpath("//*[@text='WITHDRAWAL'] | //*[@text='PENARIKAN']").click();
 
 	}
 	
-	public void result() {
+	public void result(String fromAccountType) {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Cardless Withdrawal')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]")).isDisplayed();
+		//driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')]")).isDisplayed();
 		
+		if(fromAccountType.contains("NORMAL"))
+			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);
+		else 
+			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'failed')] | //*[contains(@text,'gagal')] ")).isDisplayed(), true);
+
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 	}
 }

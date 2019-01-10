@@ -11,30 +11,33 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import components.EasyPin_component;
+import components.OTP_component;
 import components.Onboarding_component;
-import framework.FreshDevice;
+import framework.DeviceSetup;
 import framework.LoadProperties;
 
-public class Login_FreshDevice extends FreshDevice{
+public class Login_FreshDevice extends DeviceSetup{
 
 	private String username,password,easyPin;
+	private OTP_component otp_comp;
 	private Onboarding_component onboarding_comp;
+	private EasyPin_component easyPin_comp;
 	
 	private String releaseLockdownURL= "http://simigi.banksinarmas.com/ibank/server-init?action=inactiveDeviceLockdownXYZ&loginName=";
 
 	public Login_FreshDevice() throws IOException {
-		super();
-		Properties prop = LoadProperties.getProperties("credential.properties");
-		username=prop.getProperty("username");
-		password=prop.getProperty("password");
-		easyPin=prop.getProperty("easyPin");
+		this(DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"));
 	}
 	
-	public Login_FreshDevice(String deviceID,int port,int systemPort,String username,String password,String easyPin) {
-		super(deviceID,port,systemPort);
+	public Login_FreshDevice(String username) throws IOException {
+		super(true,username);
+
+		Properties prop = LoadProperties.getUserProperties(username);
+		this.password=prop.getProperty("PASSWORD");
+		this.easyPin=prop.getProperty("EASYPIN");
+		
 		this.username=username;
-		this.password=password;
-		this.easyPin=easyPin;
 	}
 	
 	@BeforeClass
@@ -46,7 +49,8 @@ public class Login_FreshDevice extends FreshDevice{
 		client.executeMethod(method);
 		
 		onboarding_comp = new Onboarding_component(driver);
-
+		otp_comp = new OTP_component(driver);
+		easyPin_comp = new EasyPin_component(driver);
 	}
 	
 	@Test
@@ -64,13 +68,13 @@ public class Login_FreshDevice extends FreshDevice{
 	@Test(dependsOnMethods="Test02_Login_Username_Password")
 	public void Test03_Onboarding_Input_OTP(Method method) throws Exception {
 		System.out.println(deviceID+"_"+method.getName());
-		onboarding_comp.inputOTP();
+		otp_comp.inputOTP();
 	}
 	
 	@Test(dependsOnMethods="Test03_Onboarding_Input_OTP")
 	public void Test04_Onboarding_Create_EasyPin(Method method) throws Exception {
 		System.out.println(deviceID+"_"+method.getName());
-		onboarding_comp.createEasyPin(easyPin);
+		easyPin_comp.createEasyPin(easyPin);
 	}
 	
 	@Test(dependsOnMethods="Test04_Onboarding_Create_EasyPin")

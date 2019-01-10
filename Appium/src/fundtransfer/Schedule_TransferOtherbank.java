@@ -10,35 +10,40 @@ import org.testng.annotations.Test;
 import components.EasyPin_component;
 import components.FundTransfer_component;
 import components.OTP_component;
+import framework.DeviceSetup;
 import framework.LoadProperties;
-import framework.LockdownDevice;
 
-public class Schedule_TransferOtherbank extends LockdownDevice {
+public class Schedule_TransferOtherbank extends DeviceSetup {
 
 	private EasyPin_component easyPin_comp;
 	private OTP_component otp_comp;
 	private FundTransfer_component fundTransfer_comp;
 	
-	private String sourceAccount,toAccount,amount,desc,transferMethod,recurrence,frequency;	
+	private String easyPin,fromAccountType,fromAccount,toAccount,amount,desc,transferMethod,recurrence,frequency;	
 	
 	public Schedule_TransferOtherbank() throws IOException {
 		
-		super();
-		Properties prop=LoadProperties.getProperties("fundtransfer.properties");
-		this.sourceAccount=prop.getProperty("schOtbankSourceAccount");
-		this.toAccount=prop.getProperty("schOtbankToAccount");
-		this.amount=prop.getProperty("schOtbankAmount");
-		this.desc=prop.getProperty("schOtbankDesc");
-		this.transferMethod=prop.getProperty("schOtbankMethod");
-		this.recurrence=prop.getProperty("schOtbankRecurrence");
-		this.frequency=prop.getProperty("schOtbankFrequency");
+		this(
+				DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"),
+				DEFAULT_PROPERTIES.getProperty("DEF_FROM_ACCOUNT_TYPE"),
+				DEFAULT_PROPERTIES.getProperty("DEF_TO_ACCOUNT_OTBANK_TYPE"),
+				DEFAULT_PROPERTIES.getProperty("DEF_OTBANK_METHOD"),
+				DEFAULT_PROPERTIES.getProperty("DEF_OTBANK_AMOUNT"),
+				DEFAULT_PROPERTIES.getProperty("DEF_OTBANK_DESC"),
+				DEFAULT_PROPERTIES.getProperty("DEF_SCHEDULE_RECURRENCE"),
+				DEFAULT_PROPERTIES.getProperty("DEF_SCHEDULE_FREQUENCY"));
 	}
 	
-	public Schedule_TransferOtherbank(String deviceID,int port,int systemPort,String sourceAccount,String toAccount,String amount,String desc,String transferMethod,String recurrence,String frequency) throws IOException {
+	public Schedule_TransferOtherbank(String username,String fromAccountType,String toAccountType,String transferMethod,String amount,String desc,String recurrence,String frequency) throws IOException {
 		
-		super(deviceID,port,systemPort);
-		this.sourceAccount=sourceAccount;
-		this.toAccount=toAccount;
+		super(false,username);
+
+		Properties prop = LoadProperties.getUserProperties(username);
+		this.easyPin=prop.getProperty("EASYPIN");
+		this.fromAccountType=fromAccountType;
+		this.fromAccount=prop.getProperty(fromAccountType);
+		this.toAccount=prop.getProperty(toAccountType);
+		
 		this.amount=amount;
 		this.desc=desc;	
 		this.transferMethod=transferMethod;
@@ -79,7 +84,7 @@ public class Schedule_TransferOtherbank extends LockdownDevice {
 	public void Test04_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.selectAccountSchedule(sourceAccount, amount, desc);
+		fundTransfer_comp.selectAccountSchedule(fromAccount, amount, desc);
 	}
 
 	
@@ -108,17 +113,17 @@ public class Schedule_TransferOtherbank extends LockdownDevice {
 	public void Test08_Schedule_Transfer_Otherbank_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		if(Long.parseLong(amount)>5000000)
-			otp_comp.input();
+		if(Long.parseLong(amount)>5000000 || fundTransfer_comp.isNewPayee())
+			otp_comp.inputOTP();
 		else
-			easyPin_comp.input(easyPin);
+			easyPin_comp.inputEasyPin(easyPin);
 
 	}
 	@Test(dependsOnMethods="Test08_Schedule_Transfer_Otherbank_EasyPin_Page")
 	public void Test09_Schedule_Transfer_Otherbank_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.resultSchedule();
+		fundTransfer_comp.resultSchedule(fromAccountType);
 	}
 	
 

@@ -2,4 +2,5 @@
 //autoregist46,android emulator
 emulator-5554,4723,8200,Baznas Zakat,12344,0008535116,1000,baznas
 //diniajah,samsung J1
-4200b4cbb22cb3d5,4724,8201,Baznas Zakat,12345,0025882668,1000,baznas
+//4200b4cbb22cb3d5,4724,8201,Baznas Zakat,12345,0025882668,1000,baznas
+J7AXGF00R1006RA,4725,8202,Baznas Zakat,12344,000182508,1000,baznas

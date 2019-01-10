@@ -1,6 +1,5 @@
 package billpayment.factory;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.testng.annotations.DataProvider;
@@ -12,13 +11,13 @@ import framework.LoadTestCase;
 public class Factory_Block1_Water {
 
 	@Factory(dataProvider="block1")
-	private Object[] block1CreateInstances(String deviceID,String port,String systemPort,String billerName, String subscriberNo,String sourceAccount) throws IOException {
-		return new Object[] {new Block1_Water(deviceID,Integer.parseInt(port),Integer.parseInt(systemPort),billerName,subscriberNo,sourceAccount)};
+	private Object[] block1CreateInstances(String username,String fromAccountType,String billerName,String subscriberNo) throws IOException {
+		return new Object[] {new Block1_Water(username,fromAccountType,billerName,subscriberNo)};
 	}
 
 	@DataProvider(name="block1")
-	private static Object[][] block1DataProvider() throws FileNotFoundException {
-		Object[][] dataArray = LoadTestCase.loadFromFile("BillPayment/Block1_Water.txt",6);
+	private static Object[][] block1DataProvider() throws IOException {
+		Object[][] dataArray = LoadTestCase.loadFromFile("BillPayment/Block1_Water.txt");
 		return dataArray;
 	}
 }

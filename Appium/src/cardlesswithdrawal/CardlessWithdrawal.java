@@ -9,39 +9,44 @@ import org.testng.annotations.Test;
 
 import components.CardlessWithdrawal_component;
 import components.EasyPin_component;
+import framework.DeviceSetup;
 import framework.LoadProperties;
-import framework.LockdownDevice;
 
-public class CardlessWithdrawal  extends LockdownDevice{
+public class CardlessWithdrawal  extends DeviceSetup{
 
-	private String sourceAccount,phoneNo,amount,desc;	
+	private String easyPin,fromAccountType,fromAccount,phoneNo,amount,desc;	
 	private EasyPin_component easyPin_comp;
 	private CardlessWithdrawal_component cardlessWithdrawal_comp;
-	
+
 
 	public CardlessWithdrawal() throws IOException {
-		super();
-		Properties prop = LoadProperties.getProperties("cardlesswithdrawal.properties");
-		sourceAccount=prop.getProperty("sourceAccount");
-		phoneNo=prop.getProperty("phoneNo");
-		amount=prop.getProperty("amount");
-		desc=prop.getProperty("desc");	
+		this(
+				DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"),
+				DEFAULT_PROPERTIES.getProperty("DEF_FROM_ACCOUNT_TYPE"),
+				DEFAULT_PROPERTIES.getProperty("DEF_CARDLESS_AMOUNT"),
+				DEFAULT_PROPERTIES.getProperty("DEF_CARDLESS_DESC"));
 	}
-	
-	public CardlessWithdrawal(String deviceID,int port,int systemPort,String sourceAccount,String phoneNo,String amount,String desc)
+
+	public CardlessWithdrawal(String username,String fromAccountType,String amount,String desc) throws IOException
 	{
-		super(deviceID,port,systemPort);
-		this.sourceAccount=sourceAccount;
-		this.phoneNo=phoneNo;
+		super(false,username);
+
+		Properties prop = LoadProperties.getUserProperties(username);
+		this.easyPin=prop.getProperty("EASYPIN");
+		this.fromAccountType=fromAccountType;
+		this.fromAccount=prop.getProperty(fromAccountType);
+
+		this.phoneNo=prop.getProperty("TO_PHONE_NO");
 		this.amount=amount;
 		this.desc=desc;
+
 	}
-	
+
 	@BeforeClass
 	private void loadComponent() {
 		easyPin_comp= new EasyPin_component(driver);
 		cardlessWithdrawal_comp=new CardlessWithdrawal_component(driver);
-		
+
 	}
 
 	@Test
@@ -50,7 +55,7 @@ public class CardlessWithdrawal  extends LockdownDevice{
 		System.out.println(deviceID+"_"+method.getName());
 		easyPin_comp.loginEasyPin(easyPin);
 	}
-	
+
 	@Test(dependsOnMethods="Test01_Login")
 	private void Test02_After_Login_Page(Method method) throws Exception
 	{	
@@ -69,7 +74,7 @@ public class CardlessWithdrawal  extends LockdownDevice{
 	public void Test04_Select_Account_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		cardlessWithdrawal_comp.selectAccount(sourceAccount, amount, desc);
+		cardlessWithdrawal_comp.selectAccount(fromAccount, amount, desc);
 	}
 
 	@Test(dependsOnMethods="Test04_Select_Account_Page")
@@ -83,14 +88,14 @@ public class CardlessWithdrawal  extends LockdownDevice{
 	public void Test06_CardlessWdr_EasyPin_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		easyPin_comp.input(easyPin);
+		easyPin_comp.inputEasyPin(easyPin);
 	}
-	
+
 	@Test(dependsOnMethods="Test06_CardlessWdr_EasyPin_Page")
 	public void Test07_CardlessWdr_Result_Page(Method method) throws Exception
 	{
 		System.out.println(deviceID+"_"+method.getName());
-		cardlessWithdrawal_comp.result();
+		cardlessWithdrawal_comp.result(fromAccountType);
 	}
 
 }

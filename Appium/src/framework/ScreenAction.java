@@ -84,6 +84,8 @@ public class ScreenAction   {
 
 		return driver.getScreenshotAs(OutputType.BYTES);
 	}
+	
+
 
 
 

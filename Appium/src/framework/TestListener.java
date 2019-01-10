@@ -25,24 +25,15 @@ public class TestListener implements ITestListener {
 	public void onTestFailure(ITestResult result) {
 
 		Object obj = result.getInstance();
-		String className=obj.getClass().getSuperclass().getName();
+		AndroidDriver<WebElement> driver=((DeviceSetup)obj).getDriver();
 
-		AndroidDriver<WebElement> driver = null;
-		if(className.equals("framework.LockdownDevice"))
-			driver=((LockdownDevice)obj).getDriver();
-		else if(className.equals("framework.FreshDevice"))
-			driver=((FreshDevice)obj).driver;
-
-		if(driver!=null)
-			ScreenAction.saveScreenshotFailedTest(driver, result.getMethod().getMethodName());
+		ScreenAction.saveScreenshotFailedTest(driver, driver.getCapabilities().getCapability("udid")+"_"+result.getMethod().getMethodName());
 
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		// TODO Auto-generated method stub
-
-
 
 	}
 

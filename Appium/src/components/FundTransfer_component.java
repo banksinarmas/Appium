@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import framework.ScreenAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -15,6 +16,8 @@ public class FundTransfer_component  {
 	private AndroidDriver<WebElement> driver;
 	private WebDriverWait wait10,wait30,wait60;
 	private ScreenAction screenAction;
+	
+	private boolean newPayee;
 
 	public FundTransfer_component(AndroidDriver<WebElement> driver) {
 
@@ -40,11 +43,52 @@ public class FundTransfer_component  {
 	}
 
 	public void selectPayee(String toAccount) {
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(toAccount);
 
-		//Click next icon in send menu
-		driver.findElements(By.className("android.widget.TextView")).get(3).click();
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).isDisplayed();	
+		driver.findElements(By.className("android.widget.EditText")).get(1).sendKeys(toAccount);
+				
+		WebElement addedTrfList= null;
+		try {
+			addedTrfList=driver.findElement(By.xpath("//android.widget.TextView[@text='"+toAccount+"']"));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		if(addedTrfList!=null)addedTrfList.click();
+		else {
+			driver.findElements(By.className("android.widget.EditText")).get(0).sendKeys(toAccount);
+			driver.findElements(By.className("android.widget.TextView")).get(3).click();
+			newPayee=true;
+		}
+			
 	}
+	
+	public void getPayeeName(String bankCode) {
+		
+		if(newPayee) {
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Bank Name or Code']"))).click();
+		
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Select Bank']"))).isDisplayed();
+		driver.findElement(By.className("android.widget.EditText")).sendKeys(bankCode);
+		driver.findElement(By.xpath("//android.widget.TextView[@text='"+bankCode+"']")).click();
+		
+
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+
+		
+		WebElement payeeName = driver.findElements(By.className("android.widget.EditText")).get(1);
+		if(payeeName.getAttribute("text").isEmpty()) payeeName.sendKeys("TEST PAYEE");
+		
+		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
+		}
+	}
+	
 
 	public void selectAccount(String sourceAccount,String amount,String desc) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
@@ -162,35 +206,48 @@ public class FundTransfer_component  {
 	}
 
 	public void summary() {
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
-		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
+		//wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
 
 	}
 
 	public void summarySchedule() {
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Confirmation')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
 
 	}
 
-	public void result() {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Resi'] | //*[@text='Receipt']"))).isDisplayed();
+	public void result(String fromAccountType) {
+
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor Transaksi')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed();
+		if(fromAccountType.contains("NORMAL"))
+			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);
+		else 
+			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'failed')] | //*[contains(@text,'gagal')] ")).isDisplayed(), true);
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 
 	}
-	public void resultSchedule() {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Resi'] | //*[@text='Receipt']"))).isDisplayed();
+	public void resultSchedule(String fromAccountType) {
+		
+		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		driver.findElement(By.xpath("//*[contains(@text,'process')] | //*[contains(@text,'proses')] ")).isDisplayed();
+		if(fromAccountType.contains("NORMAL"))
+			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'process')] | //*[contains(@text,'proses')] ")).isDisplayed(), true);
+		else 
+			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'failed')] | //*[contains(@text,'gagal')] ")).isDisplayed(), true);
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 
+	}
+	
+	public boolean isNewPayee() {
+		
+		return this.newPayee;
 	}
 }

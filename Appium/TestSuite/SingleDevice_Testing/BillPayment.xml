@@ -1,0 +1,37 @@
+<suite name="all-test-suite">
+	<test name="Onboarding">
+		<classes>
+			<class name="onboarding.Login_FreshDevice" />
+		</classes>
+	</test>
+	<test name="BillPayment">
+		<classes>
+			<class name="billpayment.Block1_Water" />
+			<class name="billpayment.Block2_Baznas" />
+			<class name="billpayment.Block3_Asuransi" />
+		</classes>
+	</test>
+	<test name="CardlessWithdrawal">
+		<classes>
+			<class name="cardlesswithdrawal.CardlessWithdrawal" />
+		</classes>
+	</test>
+	<test name="FundTransfer">
+		<classes>
+			<class name="fundtransfer.TransferInbank" />
+			<class name="fundtransfer.TransferOtherbank" />
+			<class name="fundtransfer.Schedule_TransferInbank" />
+			<class name="fundtransfer.Schedule_TransferOtherbank" />
+		</classes>
+	</test>
+	<test name="TimeDeposit">
+		<classes>
+			<class name="timeDeposit.CreateTimeDeposit" />
+		</classes>
+	</test>
+	<test name="Userprofile">
+		<classes>
+			<class name="userprofile.ChangeEasyPin" />
+		</classes>
+	</test>
+</suite>

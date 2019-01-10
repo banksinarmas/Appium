@@ -30,7 +30,7 @@ public class ChangeEasyPin_component {
 		userProfileMenu.click();
 		
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,7 +38,6 @@ public class ChangeEasyPin_component {
 		driver.findElements(By.className("android.widget.TextView")).get(2).click();
 		
 	}
-	
 	
 	public void changeEasyPinMenu() {
 
@@ -56,15 +55,5 @@ public class ChangeEasyPin_component {
 		driver.findElement(By.id("android:id/button1")).click();			
 	}
 	
-	public void createNewEasyPin(String newEasyPin) throws Exception
-	{
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Buat EasyPIN baru'] | //*[@text='Enter new EasyPIN']"))).isDisplayed();
-		driver.findElement(By.className("android.widget.EditText")).sendKeys(newEasyPin);
-	
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Konfirmasi EasyPIN'] | //*[@text='Confirm new EasyPIN']"))).isDisplayed();
-		driver.findElement(By.className("android.widget.EditText")).sendKeys(newEasyPin);
-		
-		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
 
-	}
 }

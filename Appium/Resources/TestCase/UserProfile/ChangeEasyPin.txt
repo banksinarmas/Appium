@@ -1,5 +1,2 @@
 #deviceID,port,systemPort,newEasyPin,currentPassword
-//autoregist46,android emulator
-emulator-5554,4723,8200,123456,Ab123456
-//diniajah,samsung J1
-4200b4cbb22cb3d5,4724,8201,123456,12345678
+automation1

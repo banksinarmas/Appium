@@ -23,7 +23,7 @@ public class OTP_component {
 		screenAction=new ScreenAction(driver);
 	}
 	
-	public void input() throws Exception
+	public void inputOTP() throws Exception
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
 		
