@@ -11,13 +11,12 @@ import io.appium.java_client.android.AndroidDriver;
 public class EasyPin_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait5,wait10,wait20,wait30,wait60;
+	private WebDriverWait wait10,wait20,wait30,wait60;
 	private ScreenAction screenAction;
 	
 	public EasyPin_component(AndroidDriver<WebElement> driver) {
 		this.driver=driver;
-		
-		wait5 = new WebDriverWait(driver,5);
+
 		wait10 = new WebDriverWait(driver,10);
 		wait20 = new WebDriverWait(driver,20);
 		wait30 = new WebDriverWait(driver,30);

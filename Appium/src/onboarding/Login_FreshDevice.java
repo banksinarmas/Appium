@@ -24,7 +24,7 @@ public class Login_FreshDevice extends DeviceSetup{
 	private Onboarding_component onboarding_comp;
 	private EasyPin_component easyPin_comp;
 	
-	private String releaseLockdownURL= "http://simigi.banksinarmas.com/ibank/server-init?action=inactiveDeviceLockdownXYZ&loginName=";
+//	private String releaseLockdownURL= "http://simigi.banksinarmas.com/ibank/server-init?action=inactiveDeviceLockdownXYZ&loginName=";
 
 	public Login_FreshDevice() throws IOException {
 		this(DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"));
@@ -33,6 +33,7 @@ public class Login_FreshDevice extends DeviceSetup{
 	public Login_FreshDevice(String username) throws IOException {
 		super(true,username);
 
+		this.username=username;
 		Properties prop = LoadProperties.getUserProperties(username);
 		this.password=prop.getProperty("PASSWORD");
 		this.easyPin=prop.getProperty("EASYPIN");
@@ -42,12 +43,12 @@ public class Login_FreshDevice extends DeviceSetup{
 	
 	@BeforeClass
 	public void loadComponent() throws HttpException, IOException{
-		
+	/*	
 		System.out.println("Release lockdown device for username "+username);
 		HttpClient client = new HttpClient();
 		HttpMethod method = new GetMethod(releaseLockdownURL+username);
 		client.executeMethod(method);
-		
+		*/
 		onboarding_comp = new Onboarding_component(driver);
 		otp_comp = new OTP_component(driver);
 		easyPin_comp = new EasyPin_component(driver);

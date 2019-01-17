@@ -17,7 +17,7 @@ public class CreateTimeDeposit extends DeviceSetup {
 	private EasyPin_component easyPin_comp;
 	private TimeDeposit_component timeDeposit_comp;
 	
-	private String easyPin,fromAccountType,fromAccount,amount,term,tdType;
+	private String username,easyPin,fromAccountType,fromAccount,amount,term,tdType;
 	
 	public CreateTimeDeposit() throws IOException {
 		
@@ -26,15 +26,15 @@ public class CreateTimeDeposit extends DeviceSetup {
 				DEFAULT_PROPERTIES.getProperty("DEF_FROM_ACCOUNT_TYPE"),
 				DEFAULT_PROPERTIES.getProperty("DEF_TD_AMOUNT"),
 				DEFAULT_PROPERTIES.getProperty("DEF_TD_TERM"),
-				DEFAULT_PROPERTIES.getProperty("DEF_TD_TYPE"));
-			
+				DEFAULT_PROPERTIES.getProperty("DEF_TD_TYPE"));		
 	}
 	
 	public CreateTimeDeposit(String username,String fromAccountType,String amount,String term,String tdType) throws IOException {
 		
 		super(false,username);
+		this.username=username;
 		
-		Properties prop = LoadProperties.getUserProperties(username);
+		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
 		this.fromAccountType=fromAccountType;
 		this.fromAccount=prop.getProperty(fromAccountType);

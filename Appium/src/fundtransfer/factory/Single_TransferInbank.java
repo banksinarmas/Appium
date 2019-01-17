@@ -8,8 +8,9 @@ import org.testng.annotations.Factory;
 import framework.LoadTestCase;
 import fundtransfer.TransferInbank;
 
-public class Factory_TransferInbank {
+public class Single_TransferInbank {
 
+	
 	@Factory(dataProvider="inbank" )
 	private Object[] inbankCreateInstances(String username,String fromAccountType,String toAccountType,String amount,String desc) throws IOException {
 		return new Object[] {new TransferInbank(username,fromAccountType,toAccountType,amount,desc)};
@@ -17,8 +18,7 @@ public class Factory_TransferInbank {
 
 	@DataProvider(name="inbank")
 	private static Object[][] inbankDataProvider() throws IOException {
-		Object[][] dataArray = LoadTestCase.loadFromFile("FundTransfer/TransferInbank.txt");
+		Object[][] dataArray = LoadTestCase.loadFromFile("FundTransfer/test.txt");
 		return dataArray;
 	}
-
 }

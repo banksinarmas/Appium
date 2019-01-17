@@ -19,7 +19,7 @@ public class Block3_Asuransi extends DeviceSetup {
 	private OTP_component otp_comp;
 	private BillPayment_component billPayment_comp;
 	
-	private String easyPin,fromAccountType,fromAccount,subscriberNo,amount,desc,billerName;
+	private String username,easyPin,billerName,fromAccountType,fromAccount,subscriberNo,amount,desc;
 
 	public Block3_Asuransi() throws IOException {
 		this(
@@ -33,7 +33,8 @@ public class Block3_Asuransi extends DeviceSetup {
 	public Block3_Asuransi(String username,String fromAccountType,String billerName,String subscriberNo,String amount,String desc) throws IOException {
 		super(false,username);
 		
-		Properties prop = LoadProperties.getUserProperties(username);
+		this.username=username;
+		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
 		this.fromAccountType=fromAccountType;
 		this.fromAccount=prop.getProperty(fromAccountType);

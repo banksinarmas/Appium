@@ -11,7 +11,7 @@ public class LoadProperties {
 	private static final String USER_FOLDER="User";
 	private static final String PROPERTIES_FOLDER="properties";
 
-	private static final String DEVICE_MAPPING_FILE="deviceMapping.properties";
+	private static final String DEVICE_PROPERTIES_FILE="device.properties";
 	private static final String DEFAULT_PROPERTIES_FILE="default.properties";
 
 	public static Properties getProperties(String filename) throws IOException {
@@ -22,7 +22,7 @@ public class LoadProperties {
 	}
 
 	public static Properties getDeviceProperties() throws IOException {
-		String filename=RESOURCES_FOLDER+"/"+PROPERTIES_FOLDER+"/"+DEVICE_MAPPING_FILE;
+		String filename=RESOURCES_FOLDER+"/"+PROPERTIES_FOLDER+"/"+DEVICE_PROPERTIES_FILE;
 		return getProperties(filename);		
 	}
 	public static Properties getUserProperties(String user) throws IOException {

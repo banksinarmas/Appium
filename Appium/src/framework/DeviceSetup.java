@@ -11,7 +11,7 @@ import org.testng.annotations.Listeners;
 import io.appium.java_client.android.AndroidDriver;
 
 @Listeners(framework.TestListener.class)
-public class DeviceSetup {
+public class DeviceSetup  {
 
 	private AppiumServer appium;
 	protected AndroidDriver<WebElement> driver;
@@ -66,14 +66,13 @@ public class DeviceSetup {
 	{
 
 		appium.stopServer();
+	
 	}
-
 
 	public AndroidDriver<WebElement> getDriver() {
 
 		return this.driver;
 	}
-
 
 
 }

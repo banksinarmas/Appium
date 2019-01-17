@@ -17,7 +17,7 @@ public class ChangeEasyPin extends DeviceSetup {
 	private EasyPin_component easyPin_comp;
 	private ChangeEasyPin_component changeEasyPin_comp;
 
-	private String easyPin,currentPassword,newEasyPin;
+	private String username,easyPin,currentPassword,newEasyPin;
 	
 	public ChangeEasyPin() throws IOException {
 		this(DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"));
@@ -27,7 +27,8 @@ public class ChangeEasyPin extends DeviceSetup {
 	public ChangeEasyPin(String username) throws IOException {
 		super(false,username);
 		
-		Properties prop = LoadProperties.getUserProperties(username);
+		this.username=username;
+		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
 		this.currentPassword=prop.getProperty("PASSWORD");
 		

@@ -17,7 +17,7 @@ public class Block1_Water extends DeviceSetup{
 	private EasyPin_component easyPin_comp;
 	private BillPayment_component billPayment_comp;
 
-	private String easyPin,fromAccountType,fromAccount,billerName,subscriberNo;
+	private String username,easyPin,billerName,fromAccountType,fromAccount,subscriberNo;
 
 	public Block1_Water() throws IOException {
 		this(
@@ -30,7 +30,8 @@ public class Block1_Water extends DeviceSetup{
 	public Block1_Water(String username,String fromAccountType,String billerName,String subscriberNo) throws IOException {
 		super(false,username);
 
-		Properties prop = LoadProperties.getUserProperties(username);
+		this.username=username;
+		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
 		this.fromAccountType=fromAccountType;
 		this.fromAccount=prop.getProperty(fromAccountType);

@@ -1,24 +1,12 @@
 package framework;
 
-import org.openqa.selenium.WebElement;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
-
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebElement;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.qameta.allure.Attachment;
 
 public class ScreenAction   {
 
@@ -64,29 +52,7 @@ public class ScreenAction   {
 		}
 
 	}
-
-
-	@Attachment(value = "Screenshot on failure", type = "image/png")
-	public static byte[] saveScreenshotFailedTest(AndroidDriver<WebElement> driver,String methodName) {
-			
-/*
-		LocalDateTime currentDateTime = LocalDateTime.now();
-		File scrFile = driver.getScreenshotAs(OutputType.FILE);
-
-		try {
-			FileUtils.copyFile(scrFile, new File(ROOT_FOLDER+"/"+folder+"/"+currentDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+"/"+currentDateTime.format(DateTimeFormatter.ofPattern("HHmmss"))+"_"+filename+".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		System.out.println("Test Case "+methodName+" is Failed");
-
-		return driver.getScreenshotAs(OutputType.BYTES);
-	}
 	
-
-
 
 
 }

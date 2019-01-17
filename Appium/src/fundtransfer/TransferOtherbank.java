@@ -19,7 +19,7 @@ public class TransferOtherbank extends DeviceSetup{
 	private OTP_component otp_comp;
 	private FundTransfer_component fundTransfer_comp;
 	
-	private String easyPin,fromAccountType,fromAccount,toAccount,amount,desc,transferMethod;	
+	private String username,easyPin,fromAccountType,fromAccount,toAccountType,toAccount,amount,desc,transferMethod;	
 	
 	public TransferOtherbank() throws IOException {
 		this(
@@ -33,11 +33,14 @@ public class TransferOtherbank extends DeviceSetup{
 	
 	public TransferOtherbank(String username,String fromAccountType,String toAccountType,String transferMethod,String amount,String desc) throws IOException {	
 		super(false,username);
-		Properties prop = LoadProperties.getUserProperties(username);
+		
+		this.username=username;
+		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
 		this.fromAccountType=fromAccountType;
-		this.fromAccount=prop.getProperty(fromAccountType);
-		this.toAccount=prop.getProperty(toAccountType);
+		this.fromAccount=prop.getProperty(this.fromAccountType);
+		this.toAccountType=toAccountType;
+		this.toAccount=prop.getProperty(this.toAccountType);
 		this.amount=amount;
 		this.desc=desc;	
 		this.transferMethod=transferMethod;

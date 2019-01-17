@@ -14,7 +14,7 @@ import framework.LoadProperties;
 
 public class CardlessWithdrawal  extends DeviceSetup{
 
-	private String easyPin,fromAccountType,fromAccount,phoneNo,amount,desc;	
+	private String username,easyPin,fromAccountType,fromAccount,phoneNo,amount,desc;	
 	private EasyPin_component easyPin_comp;
 	private CardlessWithdrawal_component cardlessWithdrawal_comp;
 
@@ -31,7 +31,8 @@ public class CardlessWithdrawal  extends DeviceSetup{
 	{
 		super(false,username);
 
-		Properties prop = LoadProperties.getUserProperties(username);
+		this.username=username;
+		Properties prop = LoadProperties.getUserProperties(this.username);	
 		this.easyPin=prop.getProperty("EASYPIN");
 		this.fromAccountType=fromAccountType;
 		this.fromAccount=prop.getProperty(fromAccountType);

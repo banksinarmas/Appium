@@ -19,7 +19,7 @@ public class Schedule_TransferInbank extends DeviceSetup{
 	private OTP_component otp_comp;
 	private FundTransfer_component fundTransfer_comp;
 
-	private String easyPin,fromAccountType,fromAccount,toAccount,amount,desc,recurrence,frequency;	
+	private String username,easyPin,fromAccountType,fromAccount,toAccountType,toAccount,amount,desc,recurrence,frequency;	
 
 	public Schedule_TransferInbank() throws IOException {	
 
@@ -37,11 +37,13 @@ public class Schedule_TransferInbank extends DeviceSetup{
 	public Schedule_TransferInbank(String username,String fromAccountType,String toAccountType,String amount,String desc,String recurrence,String frequency) throws IOException {
 		super(false,username);
 
-		Properties prop = LoadProperties.getUserProperties(username);
+		this.username=username;
+		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
 		this.fromAccountType=fromAccountType;
-		this.fromAccount=prop.getProperty(fromAccountType);
-		this.toAccount=prop.getProperty(toAccountType);
+		this.fromAccount=prop.getProperty(this.fromAccountType);
+		this.toAccountType=toAccountType;
+		this.toAccount=prop.getProperty(this.toAccountType);
 		this.amount=amount;
 		this.desc=desc;
 		this.recurrence=recurrence;

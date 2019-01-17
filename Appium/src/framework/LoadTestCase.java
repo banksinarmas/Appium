@@ -1,38 +1,47 @@
 package framework;
 
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Scanner;
 
 public class LoadTestCase {
 	private static final String TESTCASE_FOLDER="Resources/TestCase";
 
-	public static Object[][] loadFromFile (String testFile) throws IOException {
-
-		Properties testProp= LoadProperties.getProperties(TESTCASE_FOLDER+"/"+testFile);	
-
+	
+	public static Object[][] loadFromFile (String file) throws FileNotFoundException{
+		FileInputStream fstream = new FileInputStream(TESTCASE_FOLDER+"/"+file);
+		Scanner sc = new Scanner(new InputStreamReader(fstream));
 		ArrayList<String[]> list = new ArrayList<String[]>();
+		
+		
 		String[] arrStr = null;
-		for(Object key : testProp.keySet()) {
-			String username = (String) key;
-			String str = username;
+		while (sc.hasNextLine())   
+		{
+			String strLine = sc.nextLine().toString();
+			strLine=strLine.replace(", ", ",");
+			strLine=strLine.replace(" ,", ",");
 			
-			if(!testProp.getProperty(username).equals(""))
-				str +=","+testProp.getProperty(username);
-			arrStr=str.split(",");
-			list.add(arrStr);	
-			
+			if(!strLine.equals("")&&!strLine.contains("#")&&!strLine.contains("//"))	{
+				
+				arrStr=strLine.split(",");
+				list.add(arrStr);
+			}	
+					
 		}
+		sc.close();
 
 		Object[][] obj = new Object[list.size()][arrStr.length];
 
 		for(int i=0;i<obj.length;i++) {
 			for(int j=0;j<arrStr.length;j++) {
-				obj[i][j]=list.get(i)[j];
+				obj[i][j]=list.get(i)[j];		
 			}		
 		}
 
 		return obj;
+
 	}
 
 
