@@ -1,0 +1,3 @@
+#username,fromAccountType,amount,term,tdType
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,500000,1,aro
+donnysya,FROM_ACCOUNT_KONVEN_NORMAL,500000,3,non-aro

@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="multi-device-testing">
+	<suite-files>
+		<suite-file path="TestSuite/Onboarding/Multi/Multi_Login_FreshDevice.xml" />
+		<suite-file path="TestSuite/FundTransfer/Multi/Multi_FundTransfer.xml" />
+		<suite-file path="TestSuite/BillPayment/Multi/Multi_BillPayment.xml" />
+		<suite-file path="TestSuite/TimeDeposit/Multi/Multi_CreateTimeDeposit.xml" />
+		<suite-file path="TestSuite/CardlessWithdrawal/Multi/Multi_CardlessWithdrawal.xml" />
+		<suite-file path="TestSuite/UserProfile/Multi/Multi_ChangeEasyPin.xml" />
+	</suite-files>
+</suite>

@@ -1,7 +1,6 @@
 package fundtransfer;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.testng.annotations.BeforeClass;
@@ -56,61 +55,60 @@ public class TransferOtherbank extends DeviceSetup{
 	}
 	
 	@Test
-	private void Test01_Login(Method method) throws Exception
+	private void Test01_Login() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_After_Login_Page(Method method) throws Exception
+	private void Test02_FundTransfer_Menu() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.fundTransferMenu();
 	}
-	@Test(dependsOnMethods="Test02_After_Login_Page")
-	private void Test03_Select_Payee_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_FundTransfer_Menu")
+	private void Test03_Select_Payee_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.selectPayee(toAccount);
 		fundTransfer_comp.getPayeeName(DEFAULT_PROPERTIES.getProperty("DEF_OTBANK_CODE"));
 	}
 	
 	@Test(dependsOnMethods="Test03_Select_Payee_Page")
-	private void Test04_Select_Account_Page(Method method) throws Exception
+	private void Test04_Select_Account_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.selectAccount(fromAccount, amount, desc);
 	}
 
 	@Test(dependsOnMethods="Test04_Select_Account_Page")
-	private void Test05_Transfer_Method_Page(Method method) throws Exception
+	private void Test05_Transfer_Method_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.selectTransferMethod(transferMethod);
 	}
 	
 	@Test(dependsOnMethods="Test05_Transfer_Method_Page")
-	private void Test06_Summary_Page(Method method) throws Exception
+	private void Test06_Summary_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.summary();
 	}
 
 	@Test(dependsOnMethods="Test06_Summary_Page")
-	private void Test07_Transfer_Otherbank_EasyPin_Page(Method method) throws Exception
+	private void Test07_EasyPin_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		if(Long.parseLong(amount)>5000000 || fundTransfer_comp.isNewPayee())
 			otp_comp.inputOTP();
 		else
 			easyPin_comp.inputEasyPin(easyPin);
 	}
 	
-	@Test(dependsOnMethods="Test07_Transfer_Otherbank_EasyPin_Page")
-	private void Test08_Transfer_Otherbank_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test07_EasyPin_Page")
+	private void Test08_Transfer_Result_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.result(fromAccountType);
+		fundTransfer_comp.result(fromAccountType,toAccountType);
 	}	
 }

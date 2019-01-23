@@ -1,5 +1,0 @@
-#deviceID,port,systemPort,sourceAccount,toAccount,amount,desc,recurrence,frequency
-//autoregist46,android emulator
-emulator-5554,4723,8200,0008535116,0171029279,1000,sch to inbank,once a month,5x
-//diniajah,samsung J1
-4200b4cbb22cb3d5,4724,8201,0025882668,0171029279,2000,sch to inbank,once every two weeks,6x

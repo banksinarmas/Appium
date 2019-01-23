@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="BillPayment">
+	<test name="BillPayment_OtherMenu" thread-count="8"
+		group-by-instances="true">
+		<classes>
+			<class name="billpayment.single.Single_BillPayment_OtherMenu" />
+		</classes>
+	</test>
+	<test name="BillPayment_WaterMenu" thread-count="8"
+		group-by-instances="true">
+		<classes>
+			<class name="billpayment.single.Single_BillPayment_WaterMenu" />
+		</classes>
+	</test>
+</suite>

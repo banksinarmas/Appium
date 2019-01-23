@@ -1,0 +1,4 @@
+#username,fromAccountType,amount,desc
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,100000,cardless
+automation1,FROM_ACCOUNT_KONVEN_DORMANT,100000,cardless
+automation1,FROM_ACCOUNT_KONVEN_BLOCK,100000,cardless

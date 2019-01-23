@@ -28,16 +28,15 @@ public class TimeDeposit_component {
 
 	}
 
-	public void timeDepositMenu() {
+	public void dashboard() {
 		WebElement tdMenu = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='Time Deposit'] | //*[@content-desc='Deposito Berjangka']")));
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		tdMenu.click();
 
+	}	
+
+	public void createTimeDeposit(String sourceAccount,String amount,String term,String tdType) throws InterruptedException {
 		screenAction.scrollUntilElementByXpath("//*[@text='OPEN NEW TIME DEPOSIT'] | //*[@text='DEPOSITO BERJANGKA BARU']").click();
-
-	}
-
-	public void createTimeDepositOnline(String sourceAccount,String amount,String term,String tdType) throws InterruptedException {
 
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Available balance')] | //*[contains(@text,'Saldo tersedia')] ")));
 

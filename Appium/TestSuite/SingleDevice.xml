@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="single-device-testing">
+	<suite-files>
+		<suite-file path="TestSuite/Onboarding/Single/Single_Login_FreshDevice.xml" />
+		<suite-file path="TestSuite/FundTransfer/Single/Single_FundTransfer.xml" />
+		<suite-file path="TestSuite/BillPayment/Single/Single_BillPayment.xml" />
+		<suite-file path="TestSuite/TimeDeposit/Single/Single_CreateTimeDeposit.xml" />
+		<suite-file path="TestSuite/CardlessWithdrawal/Single/Single_CardlessWithdrawal.xml" />
+		<suite-file path="TestSuite/UserProfile/Single/Single_ChangeEasyPin.xml" />
+	</suite-files>
+</suite>

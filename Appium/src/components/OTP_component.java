@@ -12,7 +12,7 @@ public class OTP_component {
 	
 	private WebDriverWait wait10,wait60;
 	private AndroidDriver<WebElement> driver;
-	private final String OTP_NUMBER="123456";
+	private static final String OTP_NUMBER="123456";
 	private ScreenAction screenAction;
 
 	public OTP_component(AndroidDriver<WebElement> driver) {	
@@ -27,7 +27,6 @@ public class OTP_component {
 	{
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
 		
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(OTP_NUMBER);
 		
 		screenAction.verticalScroll();

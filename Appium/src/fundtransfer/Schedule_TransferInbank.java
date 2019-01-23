@@ -1,7 +1,6 @@
 package fundtransfer;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.testng.annotations.BeforeClass;
@@ -31,7 +30,6 @@ public class Schedule_TransferInbank extends DeviceSetup{
 				DEFAULT_PROPERTIES.getProperty("DEF_INBANK_DESC"),
 				DEFAULT_PROPERTIES.getProperty("DEF_SCHEDULE_RECURRENCE"),
 				DEFAULT_PROPERTIES.getProperty("DEF_SCHEDULE_FREQUENCY"));
-
 	}
 
 	public Schedule_TransferInbank(String username,String fromAccountType,String toAccountType,String amount,String desc,String recurrence,String frequency) throws IOException {
@@ -60,62 +58,62 @@ public class Schedule_TransferInbank extends DeviceSetup{
 	}
 
 	@Test
-	private void Test01_Login(Method method) throws Exception
+	private void Test01_Login() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_After_Login_Page(Method method) throws Exception
+	private void Test02_FundTransfer_Menu() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.fundTransferMenu();
 	}	
 
-	@Test(dependsOnMethods="Test02_After_Login_Page")
-	public void Test03_Select_Payee_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_FundTransfer_Menu")
+	public void Test03_Select_Payee_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.selectPayee(toAccount);
 	}
 
 	@Test(dependsOnMethods="Test03_Select_Payee_Page")
-	public void Test04_Select_Account_Page(Method method) throws Exception
+	public void Test04_Select_Account_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.selectAccountSchedule(fromAccount,amount,desc);
 	}
 
 	@Test(dependsOnMethods="Test04_Select_Account_Page")
-	public void Test05_Schedule_Page(Method method) throws Exception
+	public void Test05_Schedule_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.selectSchedule(recurrence,frequency);
 	}
 
 	@Test(dependsOnMethods="Test05_Schedule_Page" )
-	public void Test06_Summary_Page(Method method) throws Exception
+	public void Test06_Summary_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		fundTransfer_comp.summarySchedule();
 	}
 
 	@Test(dependsOnMethods="Test06_Summary_Page")
-	public void Test07_Schedule_Transfer_Inbank_EasyPin_Page(Method method) throws Exception
+	public void Test07_EasyPin_Page() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		if(Long.parseLong(amount)>5000000 || fundTransfer_comp.isNewPayee())
 			otp_comp.inputOTP();
 		else
 			easyPin_comp.inputEasyPin(easyPin);
 
 	}
-	@Test(dependsOnMethods="Test07_Schedule_Transfer_Inbank_EasyPin_Page")
-	public void Test08_Schedule_Transfer_Inbank_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test07_EasyPin_Page")
+	public void Test08_Result_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
-		fundTransfer_comp.resultSchedule(fromAccountType);
+		
+		fundTransfer_comp.resultSchedule(fromAccountType,toAccountType,recurrence);
 	}
 
 }

@@ -1,0 +1,3 @@
+#username,fromAccountType,toAccountType,transferMethod,amount,desc,recurrence,frequency
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_OTBANK,network,10002,sch otbank,once_a_month,2x
+dimasajah,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_OTBANK,network,10002,sch otbank,once_a_month,2x

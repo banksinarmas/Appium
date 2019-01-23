@@ -3,6 +3,7 @@ package fundtransfer;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -58,11 +59,11 @@ public class TransferInbank  extends DeviceSetup{
 	}
 
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_After_Login_Page() throws Exception
+	private void Test02_FundTransfer_Menu() throws Exception
 	{	
 		fundTransfer_comp.fundTransferMenu();
 	}
-	@Test(dependsOnMethods="Test02_After_Login_Page")
+	@Test(dependsOnMethods="Test02_FundTransfer_Menu")
 	private void Test03_Select_Payee_Page() throws Exception
 	{
 		fundTransfer_comp.selectPayee(toAccount);
@@ -79,17 +80,17 @@ public class TransferInbank  extends DeviceSetup{
 		fundTransfer_comp.summary();
 	}
 	@Test(dependsOnMethods="Test05_Summary_Page")
-	private void Test06_Transfer_Inbank_EasyPin_Page() throws Exception
+	private void Test06_EasyPin_Page() throws Exception
 	{
 		if(Long.parseLong(amount)>5000000 || fundTransfer_comp.isNewPayee())
 			otp_comp.inputOTP();
 		else
 			easyPin_comp.inputEasyPin(easyPin);
 	}
-	@Test(dependsOnMethods="Test06_Transfer_Inbank_EasyPin_Page")
-	private void Test07_Transfer_Inbank_Result_Page() throws Exception
+	@Test(dependsOnMethods="Test06_EasyPin_Page")
+	private void Test07_Result_Page() throws Exception
 	{	
-		fundTransfer_comp.result(fromAccountType);
+		fundTransfer_comp.result(fromAccountType,toAccountType);
 	}
 
 }

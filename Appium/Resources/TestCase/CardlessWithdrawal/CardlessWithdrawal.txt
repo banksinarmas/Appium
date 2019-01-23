@@ -1,5 +1,0 @@
-#deviceID,port,systemPort,sourceAccount,phoneNo,amount,desc
-//autoregist46,android emulator
-emulator-5554,4723,8200,0008535116,087783088806,100000,withdraw
-//diniajah,samsung J1
-4200b4cbb22cb3d5,4724,8201,0025882668,087783088806,100000,withdraw

@@ -1,7 +1,6 @@
 package cardlesswithdrawal;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.testng.annotations.BeforeClass;
@@ -51,51 +50,51 @@ public class CardlessWithdrawal  extends DeviceSetup{
 	}
 
 	@Test
-	private void Test01_Login(Method method) throws Exception
+	private void Test01_Login() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_After_Login_Page(Method method) throws Exception
+	private void Test02_Cardless_Menu() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		cardlessWithdrawal_comp.cardlessWdrMenu();
 	}
 
-	@Test(dependsOnMethods="Test02_After_Login_Page")
-	public void Test03_Select_Payee_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_Cardless_Menu")
+	public void Test03_Select_Payee_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		cardlessWithdrawal_comp.selectPhoneNo(phoneNo);
 	}
 
 	@Test(dependsOnMethods="Test03_Select_Payee_Page")
-	public void Test04_Select_Account_Page(Method method) throws Exception
+	public void Test04_Select_Account_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		cardlessWithdrawal_comp.selectAccount(fromAccount, amount, desc);
 	}
 
 	@Test(dependsOnMethods="Test04_Select_Account_Page")
-	public void Test05_Summary_Page(Method method) throws Exception
+	public void Test05_Summary_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		cardlessWithdrawal_comp.summary();
 	}
 
 	@Test(dependsOnMethods="Test05_Summary_Page")
-	public void Test06_CardlessWdr_EasyPin_Page(Method method) throws Exception
+	public void Test06_EasyPin_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		easyPin_comp.inputEasyPin(easyPin);
 	}
 
-	@Test(dependsOnMethods="Test06_CardlessWdr_EasyPin_Page")
-	public void Test07_CardlessWdr_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test06_EasyPin_Page")
+	public void Test07_Result_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		cardlessWithdrawal_comp.result(fromAccountType);
 	}
 

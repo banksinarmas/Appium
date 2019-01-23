@@ -1,0 +1,7 @@
+#username,fromAccountType,billerName,subscriberNo,amount,desc
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,Asuransi Sinarmas,12345678901234,20000,asuransi
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,Baznas Zakat,12345,9999,baznas
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,Virtual Account,8334000997000001,1002,virtual account
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,PAM Aetra,400099899,0,aetra
+automation1,FROM_ACCOUNT_KONVEN_BLOCK,Asuransi Sinarmas,12345678901234,20000,asuransi
+automation1,FROM_ACCOUNT_KONVEN_DORMANT,Asuransi Sinarmas,12345678901234,20000,asuransi

@@ -1,2 +1,0 @@
-#deviceID,port,systemPort,newEasyPin,currentPassword
-automation1

@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="BillPayment">
+	<test name="BillPayment_OtherMenu" parallel="classes"  thread-count="8" >
+		<classes>
+			<class name="billpayment.multi.Multi_BillPayment_OtherMenu" />
+		</classes>
+	</test>
+</suite>

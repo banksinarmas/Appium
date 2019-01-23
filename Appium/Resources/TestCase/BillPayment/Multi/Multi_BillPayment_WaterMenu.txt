@@ -1,0 +1,3 @@
+#username,fromAccountType,billerName,subscriberNo,desc
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,PAM Aetra,400099899,water
+donnysya,FROM_ACCOUNT_KONVEN_NORMAL,PAM Aetra,400099899,water

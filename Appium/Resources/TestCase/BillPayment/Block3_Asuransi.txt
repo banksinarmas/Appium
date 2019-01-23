@@ -1,6 +1,0 @@
-#billerName,subscriberNo,sourceAccount,amount,desc
-//autoregist46,android emulator
-emulator-5554,4723,8200,Asuransi Sinarmas,12345678901234,0008535116,20000,asuransi
-//diniajah,samsung J1
-//4200b4cbb22cb3d5,4724,8201,Asuransi Sinarmas,12345678901234,0025882668,20000,asuransi
-J7AXGF00R1006RA,4725,8202,Asuransi Sinarmas,12345678901234,000182508,20000,asuransi

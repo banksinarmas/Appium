@@ -1,7 +1,6 @@
 package userprofile;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.testng.annotations.BeforeClass;
@@ -20,8 +19,7 @@ public class ChangeEasyPin extends DeviceSetup {
 	private String username,easyPin,currentPassword,newEasyPin;
 	
 	public ChangeEasyPin() throws IOException {
-		this(DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"));
-		
+		this(DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"));	
 	}
 
 	public ChangeEasyPin(String username) throws IOException {
@@ -43,28 +41,24 @@ public class ChangeEasyPin extends DeviceSetup {
 	}
 
 	@Test
-	private void Test01_Login(Method method) throws Exception
-	{	
-		System.out.println(deviceID+"_"+method.getName());
+	private void Test01_Login() throws Exception
+	{			
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_After_Login_Page(Method method) throws Exception
-	{
-		System.out.println(deviceID+"_"+method.getName());
+	private void Test02_After_Login_Page() throws Exception
+	{		
 		changeEasyPin_comp.changeEasyPinMenu();
 	}
 	@Test(dependsOnMethods= "Test02_After_Login_Page")
-	private void Test03_Change_EasyPin_Page(Method method) throws Exception
-	{	
-		System.out.println(deviceID+"_"+method.getName());
+	private void Test03_Change_EasyPin_Page() throws Exception
+	{		
 		easyPin_comp.createEasyPin(newEasyPin);
 	}
 	@Test(dependsOnMethods= "Test03_Change_EasyPin_Page")
-	private void Test04_Validate_Password_Page(Method method) throws Exception
+	private void Test04_Validate_Password_Page() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
 		changeEasyPin_comp.validatePassword(currentPassword);
 	}
 

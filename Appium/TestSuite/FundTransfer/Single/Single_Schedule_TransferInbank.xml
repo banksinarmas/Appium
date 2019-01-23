@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="FundTransfer" >
+	<test name="Schedule_TransferInbank"  thread-count="8" group-by-instances="true" >
+		<classes>
+			<class name="fundtransfer.single.Single_Schedule_TransferInbank" />
+		</classes>
+	</test>
+</suite>

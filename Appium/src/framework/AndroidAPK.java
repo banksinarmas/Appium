@@ -62,7 +62,7 @@ public class AndroidAPK {
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
 		
-		Thread.sleep(5000);
+		Thread.sleep(4000);
 	}
 
 	public void install() throws InterruptedException, IOException {
@@ -106,8 +106,5 @@ public class AndroidAPK {
 	public static String adbCommand(String command) throws IOException {		
 		return new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream())).readLine();			
 	}
-	public static void main(String[] args) {
-		String str = "FROM_A";
-		System.out.println(str.substring(str.indexOf("_")+1));
-	}
+
 }

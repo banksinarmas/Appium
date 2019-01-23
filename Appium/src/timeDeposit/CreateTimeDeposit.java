@@ -1,7 +1,6 @@
 package timeDeposit;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.testng.annotations.BeforeClass;
@@ -52,50 +51,50 @@ public class CreateTimeDeposit extends DeviceSetup {
 	}
 	
 	@Test
-	private void Test01_Login(Method method) throws Exception
+	private void Test01_Login() throws Exception
 	{	
-		System.out.println(deviceID+"_"+method.getName());
+		
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 	
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_After_Login_Page(Method method) throws Exception
+	private void Test02_Time_Deposit_Dashboard() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
-		timeDeposit_comp.timeDepositMenu();
+		
+		timeDeposit_comp.dashboard();
 	}
 
-	@Test(dependsOnMethods="Test02_After_Login_Page")
-	private void Test03_Time_Deposit_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test02_Time_Deposit_Dashboard")
+	private void Test03_Create_Time_Deposit_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
-		timeDeposit_comp.createTimeDepositOnline(fromAccount, amount, term, tdType);
+		
+		timeDeposit_comp.createTimeDeposit(fromAccount, amount, term, tdType);
 	}
 
-	@Test(dependsOnMethods="Test03_Time_Deposit_Page")
-	private void Test04_Time_Deposit_TnC_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test03_Create_Time_Deposit_Page")
+	private void Test04_Term_and_Condition_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		timeDeposit_comp.termAndCondition();
 	}
 
-	@Test(dependsOnMethods="Test04_Time_Deposit_TnC_Page")
-	private void Test05_Time_Deposit_Summary_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test04_Term_and_Condition_Page")
+	private void Test05_Summary_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		timeDeposit_comp.summary();
 	}
 
-	@Test(dependsOnMethods="Test05_Time_Deposit_Summary_Page")
-	private void Test06_Time_Deposit_EasyPin_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test05_Summary_Page")
+	private void Test06_EasyPin_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		easyPin_comp.inputEasyPin(easyPin);
 	}
-	@Test(dependsOnMethods="Test06_Time_Deposit_EasyPin_Page")
-	private void Test07_Time_Deposit_Result_Page(Method method) throws Exception
+	@Test(dependsOnMethods="Test06_EasyPin_Page")
+	private void Test07_Result_Page() throws Exception
 	{
-		System.out.println(deviceID+"_"+method.getName());
+		
 		timeDeposit_comp.result(fromAccountType);
 	}
 

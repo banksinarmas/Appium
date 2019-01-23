@@ -33,6 +33,12 @@ public class ScreenAction   {
 
 	public WebElement scrollUntilElementByXpath(String xpathExpression) {
 
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<WebElement> we = driver.findElements(By.xpath(xpathExpression));
 		while (!(we.size()>0)){
 			driver.swipe(posX, posY*2, posX, posY, 3000);

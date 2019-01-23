@@ -37,21 +37,22 @@ public class Onboarding_component {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		try {
-			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'location')]"))).isDisplayed();
-			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow']")).click();
+			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
+			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow'] | //*[@text='IZINKAN'] | //*[@text='Izinkan']")).click();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		try {
-			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
-			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow']")).click();
+			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'location') or contains(@text,'lokasi')]"))).isDisplayed();
+			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow'] | //*[@text='IZINKAN'] | //*[@text='Izinkan']")).click();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+	
 		try {
 			wait5.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
 		} catch (Exception e) {

@@ -1,5 +1,0 @@
-#sourceAccount,amount,term,tdType
-//autoregist46,android emulator
-emulator-5554,4723,8200,0008535116,500000,6,aro
-//diniajah,samsung J1
-4200b4cbb22cb3d5,4724,8201,0025882668,500000,3,non-aro

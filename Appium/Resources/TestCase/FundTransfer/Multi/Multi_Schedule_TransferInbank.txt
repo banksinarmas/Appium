@@ -1,0 +1,3 @@
+#username,fromAccountType,toAccountType,amount,desc,recurrence,frequency
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_NORMAL,1001,sch inbank,one_time,0x
+dimasajah,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_NORMAL,1001,sch inbank,one_time,0x

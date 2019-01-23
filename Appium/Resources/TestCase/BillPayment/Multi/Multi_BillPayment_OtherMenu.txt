@@ -1,0 +1,3 @@
+#username,fromAccountType,billerName,subscriberNo,amount,desc
+automation1,FROM_ACCOUNT_KONVEN_NORMAL,Asuransi Sinarmas,12345678901234,20000,asuransi
+donnysya,FROM_ACCOUNT_KONVEN_NORMAL,Baznas Zakat,12345,9999,baznas

@@ -1,3 +1,0 @@
-#deviceID,port,systemPort,billerName,subscriberNo,sourceAccount
-//autoregist46,android emulator
-emulator-5554,4723,8200,PAM Aetra,400099899,0008535116

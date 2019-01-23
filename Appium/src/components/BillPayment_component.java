@@ -31,11 +31,16 @@ public class BillPayment_component {
 
 	}
 
-	public void other_billerMenu(String billerName) throws InterruptedException {
-
+	public void main_billerMenu() {
+		
 		WebElement billElement = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PAY'] | //*[@text='BAYAR']")));
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		billElement.click();
+
+	}
+	
+	public void other_billerMenu(String billerName) throws InterruptedException {
+
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Others'] | //*[@text='Lainnya']"))).click();
 
 		Thread.sleep(1500);
@@ -45,11 +50,7 @@ public class BillPayment_component {
 	}
 
 
-	public void waterPayment_billerMenu(String billerName) {
-
-		WebElement billElement = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PAY'] | //*[@text='BAYAR']")));
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-		billElement.click();
+	public void water_billerMenu(String billerName) {
 
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Water'] | //*[@text='Air']"))).click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"))).click();	
@@ -62,6 +63,50 @@ public class BillPayment_component {
 
 		driver.findElements(By.className("android.widget.TextView")).get(4).click();
 	}
+
+	public void selectAccount(String sourceAccount,String amount,String desc) {
+
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
+		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
+
+		//input amount if prepaid, leave if its postpaid
+		WebElement inputAmount = driver.findElements(By.className("android.widget.EditText")).get(0);
+		if(inputAmount.getAttribute("text").equals("0")) inputAmount.sendKeys(amount);
+
+		try {
+			Thread.sleep(1200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		//select account
+		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih rekening sumber']")).get(1).click();
+		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
+
+		//input desc
+		inputFields.get(1).sendKeys(desc);
+
+		//input bill period if billername is Asuransi Sinarmas or Asuransi MSIG
+		List <WebElement> periodElements= driver.findElements(By.xpath("//*[@text='Bill Period'] | //*[@text='Periode tagihan']"));
+		if(periodElements.size()>0) {	
+
+			periodElements.get(1).click();
+			try {
+				Thread.sleep(1200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			driver.findElements(By.className("android.widget.TextView")).get(new Random().nextInt(3)+1).click();
+			wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
+		}
+
+
+		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();	
+	}
+
 
 	public void block1_selectAccount(String sourceAccount) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'Jumlah')] "))).isDisplayed();
@@ -172,6 +217,6 @@ public class BillPayment_component {
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 
 	}
-	
+
 
 }

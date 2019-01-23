@@ -23,7 +23,7 @@ import io.qameta.allure.Attachment;
 public class TestListener implements ITestListener{
 
 	private Object instance;
-	private String methodCase;
+	private String methodCase,username,apkVersion;
 
 	private static final String SCREENSHOT_FOLDER="Screenshots";
 	private static boolean SCREENSHOT_FLAG=false;
@@ -47,7 +47,7 @@ public class TestListener implements ITestListener{
 			}
 		}
 		//Print called method to console output
-		System.out.println(result.getMethod().getMethodName()+methodCase);
+		System.out.println(methodCase+result.getMethod().getMethodName());
 		setMethodName(result);
 	}
 
@@ -57,7 +57,7 @@ public class TestListener implements ITestListener{
 
 		if(instance!=null && SCREENSHOT_FLAG==true) {
 			AndroidDriver<WebElement> driver=((DeviceSetup)instance).getDriver();
-			saveScreenshotOnDisk(driver, result.getMethod().getMethodName()+methodCase);
+			saveScreenshotOnDisk(driver, methodCase+result.getMethod().getMethodName());
 		}
 	}
 
@@ -66,11 +66,13 @@ public class TestListener implements ITestListener{
 		// TODO Auto-generated method stub
 
 		if(instance!=null) {
+			
+			System.out.println("Method "+methodCase+result.getMethod().getMethodName()+" is failed on version v."+apkVersion);
 			AndroidDriver<WebElement> driver=((DeviceSetup)instance).getDriver();
 			saveScreenshotFailedTest(driver);
 
 			if(SCREENSHOT_FLAG==true)
-				saveScreenshotOnDisk(driver, result.getMethod().getMethodName()+methodCase);
+				saveScreenshotOnDisk(driver, methodCase+result.getMethod().getMethodName());
 		}
 
 	}
@@ -103,8 +105,11 @@ public class TestListener implements ITestListener{
 	//Set Case name stored in variable mCaseName
 	private void setMethodCase() throws Exception{
 
-		if(instance==null) throw new Exception("Instance.Is.Null.Exception");
-		methodCase+="(";
+		if(instance==null) throw new Exception("InstanceIsNullException");
+		
+		this.apkVersion=instance.getClass().getSuperclass().getDeclaredField("apkVersion").get(instance).toString();
+		methodCase+="v"+apkVersion+"_CASE(";
+
 
 		for(Field field : instance.getClass().getDeclaredFields()) {
 
@@ -113,14 +118,20 @@ public class TestListener implements ITestListener{
 			}
 			try {
 				String fieldName=field.getName();
+				Object  obj = field.get(instance);
+				
+				if(obj!=null) {
+					if(instance==null) throw new Exception(fieldName+".ValueMissingExceptionIn");
+				}
 				String value=field.get(instance).toString();
 				switch (fieldName)
 				{
 				case "username":
-					methodCase+=",USERNAME:"+value;
+					this.username=value;
+					methodCase+=",USER:"+value;
 					break;
 				case "billerName":
-					methodCase+=",BILLER:"+value;
+					methodCase+=",BILLER:"+value.toLowerCase();
 					break;		
 				case "fromAccountType":
 					methodCase+=",FROM:"+value.substring(value.indexOf("_")+1).toLowerCase();
@@ -128,6 +139,9 @@ public class TestListener implements ITestListener{
 				case "toAccountType":
 					methodCase+=",TO:"+value.substring(value.indexOf("_")+1).toLowerCase();
 					break;
+				case "transferMethod":
+					methodCase+=",METHOD:"+value;
+					break;				
 				case "tdType":
 					methodCase+=",TYPE:"+value;
 					break;	
@@ -144,7 +158,7 @@ public class TestListener implements ITestListener{
 			}
 
 		}
-		methodCase+=")";
+		methodCase+=")_";
 		methodCase=methodCase.replace("(,", "(");
 
 	}
@@ -155,7 +169,7 @@ public class TestListener implements ITestListener{
 			BaseTestMethod baseTestMethod = (BaseTestMethod) result.getMethod();
 			Field f = baseTestMethod.getClass().getSuperclass().getDeclaredField("m_methodName");
 			f.setAccessible(true);
-			f.set(baseTestMethod, result.getMethod().getMethodName()+methodCase);
+			f.set(baseTestMethod, methodCase+result.getMethod().getMethodName());
 		} catch (Exception e) {
 
 			Reporter.log("Exception : " + e.getMessage());
@@ -165,7 +179,6 @@ public class TestListener implements ITestListener{
 
 	@Attachment(value = "Screenshot on failure", type = "image/png")
 	private byte[] saveScreenshotFailedTest(AndroidDriver<WebElement> driver) {
-
 
 		return driver.getScreenshotAs(OutputType.BYTES);
 	}
@@ -177,12 +190,11 @@ public class TestListener implements ITestListener{
 
 		filename=filename.replace(":", "_");
 		try {
-			FileUtils.copyFile(scrFile, new File(SCREENSHOT_FOLDER+"/"+driver.getCapabilities().getCapability("udid")+"/"+currentDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+"/"+currentDateTime.format(DateTimeFormatter.ofPattern("HHmmss"))+"_"+filename+".png"));
+			FileUtils.copyFile(scrFile, new File(SCREENSHOT_FOLDER+"/"+apkVersion+"/"+username+"/"+currentDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+"/"+currentDateTime.format(DateTimeFormatter.ofPattern("HHmmss"))+"_"+filename+".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 
 
 	}

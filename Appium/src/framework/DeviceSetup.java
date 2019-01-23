@@ -52,7 +52,7 @@ public class DeviceSetup  {
 			apk.install();
 			noReset=false;
 		}
-
+		
 		apkVersion=AndroidAPK.getApkVersion(deviceID);
 		System.out.println("Launching apk version: "+apkVersion +" on device: "+deviceID);
 

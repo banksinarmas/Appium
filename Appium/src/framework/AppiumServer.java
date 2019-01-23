@@ -78,24 +78,5 @@ public class AppiumServer {
 
 	}
 	
-	public static void main(String[] args) {
-		class CommandPrompt{
-			public String windowsCommand(String command) throws IOException {
-				return new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream())).readLine();			
-
-			}
-		}
-		CommandPrompt cmd = new CommandPrompt();
-		try {
-			String netstat =cmd.windowsCommand("cmd /c netstat -ano | findstr 127.0.0.1:"+4723);
-			System.out.println(netstat);	
-			String pid = netstat.split(" ")[netstat.split(" ").length-1];
-			System.out.println(pid);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-	}
 
 }
