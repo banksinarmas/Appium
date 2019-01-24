@@ -72,18 +72,16 @@ public class AndroidAPK {
 			boolean isApkFound=false;
 
 			System.out.print("Download in progress");
-
 			while(System.currentTimeMillis()-startTime <TIMEOUT ){
 				System.out.print(".");
 				String downloadedApk=adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && ls | egrep 'app-release'\"");
 				if(downloadedApk!=null && !downloadedApk.contains("crdownload")) {
 					System.out.println("\nInstalling app-release.apk");
-					System.out.println(adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && pm install -r "+downloadedApk+ "\""));
+					System.out.println(adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && pm install -r '"+downloadedApk+ "'\""));
 					isApkFound=true;
 					break;
 				}
 			}
-
 			if(isApkFound==false){
 				System.out.println("app-release.apk is not found");
 			}	
