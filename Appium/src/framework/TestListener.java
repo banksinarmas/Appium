@@ -67,7 +67,7 @@ public class TestListener implements ITestListener{
 
 		if(instance!=null) {
 			
-			System.out.println("Method "+methodCase+result.getMethod().getMethodName()+" is failed on version v."+apkVersion);
+			System.out.println("FAILED: "+methodCase+result.getMethod().getMethodName());
 			AndroidDriver<WebElement> driver=((DeviceSetup)instance).getDriver();
 			saveScreenshotFailedTest(driver);
 

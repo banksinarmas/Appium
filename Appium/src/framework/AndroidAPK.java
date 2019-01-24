@@ -25,7 +25,7 @@ public class AndroidAPK {
 	}
 
 	public void download() throws Exception {
-		
+
 		//delete simobiplus app-release.apk from device
 		adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && rm * \"");
 
@@ -41,14 +41,14 @@ public class AndroidAPK {
 
 		if(currentVersion==null || !currentVersion.equals(latestVersion)) {
 			System.out.println("Download will begin soon for apk v"+latestVersion);
-		
+
 			latestVersionElement.click();
 			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='click here'] | //*[@text='click here']"))).click();
 			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@resource-id='download-button']"))).click();
 
 			try {
 				wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK'] | //*[@text='DOWNLOAD']"))).click();
-				Thread.sleep(5000);
+				Thread.sleep(4000);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -58,10 +58,10 @@ public class AndroidAPK {
 			System.out.println("Device "+deviceID+" already has the latest apk installed v"+currentVersion);
 
 		}
-		
+
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server");
 		adbCommand("cmd /c adb -s "+deviceID+" shell pm uninstall io.appium.uiautomator2.server.test");
-		
+
 		Thread.sleep(4000);
 	}
 
@@ -86,7 +86,7 @@ public class AndroidAPK {
 				System.out.println("app-release.apk is not found");
 			}	
 		}
-		
+
 	}
 
 	public static String getApkVersion(String deviceID) throws IOException {
@@ -104,8 +104,5 @@ public class AndroidAPK {
 	public static String adbCommand(String command) throws IOException {		
 		return new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream())).readLine();			
 	}
-public static void main(String[] args) throws IOException {
-	String downloadedApk=adbCommand("cmd /c adb -s "+"emulator-5554"+" shell \"cd sdcard/Download && ls | egrep 'app-release'\"");
-System.out.println(downloadedApk);
-}
+
 }

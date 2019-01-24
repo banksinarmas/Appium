@@ -11,6 +11,20 @@
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<followSymLinks>false</followSymLinks>
+					<filesets>
+                        <directory>${basedir}/allure-results</directory>
+                        <includes>
+                            <include>**/*</include>
+                        </includes>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 				<executions>
@@ -21,7 +35,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/Appium/allure-results</outputDirectory>
+							<outputDirectory>${basedir}/allure-results</outputDirectory>
 							<resources>
 								<resource>
 									<directory>../</directory>
