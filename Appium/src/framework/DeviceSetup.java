@@ -56,7 +56,7 @@ public class DeviceSetup  {
 		apkVersion=AndroidAPK.getApkVersion(deviceID);
 		System.out.println("Launching apk version: "+apkVersion +" on device: "+deviceID);
 
-		//launch simobiplus app
+		//launch simobiplus app 
 		driver= DriverSetup.androidDevice(deviceID, port, systemPort, "com.ubyapp", "com.ubyapp.MainActivity", noReset);
 
 

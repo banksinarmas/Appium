@@ -27,7 +27,7 @@ public class AndroidAPK {
 	public void download() throws Exception {
 		
 		//delete simobiplus app-release.apk from device
-		adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && rm app-release.apk \"");
+		adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && rm * \"");
 
 		AndroidDriver<WebElement> driver =  DriverSetup.androidDevice(deviceID, port, systemPort, "com.google.android.gm", ".ConversationListActivityGmail", true);
 
@@ -47,7 +47,7 @@ public class AndroidAPK {
 			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@resource-id='download-button']"))).click();
 
 			try {
-				wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']"))).click();
+				wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK'] | //*[@text='DOWNLOAD']"))).click();
 				Thread.sleep(5000);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -75,10 +75,10 @@ public class AndroidAPK {
 
 			while(System.currentTimeMillis()-startTime <TIMEOUT ){
 				System.out.print(".");
-				String downloadedApk=adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && ls app-release.apk\"");
-				if(downloadedApk!=null && downloadedApk.equals("app-release.apk")) {
+				String downloadedApk=adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && ls | egrep 'app-release'\"");
+				if(downloadedApk!=null && !downloadedApk.contains("crdownload")) {
 					System.out.println("\nInstalling app-release.apk");
-					System.out.println(adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && pm install -r app-release.apk \""));
+					System.out.println(adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && pm install -r "+downloadedApk+ "\""));
 					isApkFound=true;
 					break;
 				}
@@ -106,5 +106,8 @@ public class AndroidAPK {
 	public static String adbCommand(String command) throws IOException {		
 		return new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream())).readLine();			
 	}
-
+public static void main(String[] args) throws IOException {
+	String downloadedApk=adbCommand("cmd /c adb -s "+"emulator-5554"+" shell \"cd sdcard/Download && ls | egrep 'app-release'\"");
+System.out.println(downloadedApk);
+}
 }
