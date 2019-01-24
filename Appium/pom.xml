@@ -5,22 +5,24 @@
 	<artifactId>AppiumTest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<aspectj.version>1.8.10</aspectj.version>
 	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4.1</version>
 				<configuration>
 					<followSymLinks>false</followSymLinks>
 					<filesets>
-                        <directory>${basedir}/allure-results</directory>
-                        <includes>
-                            <include>**/*</include>
-                        </includes>
+						<fileset>
+							<directory>${basedir}/allure-results</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
