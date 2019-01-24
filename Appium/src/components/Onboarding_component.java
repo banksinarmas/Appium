@@ -87,7 +87,6 @@ public class Onboarding_component {
 
 	}
 
-
 	public void dashboardFreshDevice() {
 		
 		//Cardless guide
