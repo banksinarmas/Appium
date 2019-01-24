@@ -65,6 +65,7 @@ public class DeviceSetup  {
 	public void stopAppium() 
 	{
 
+		driver.quit();
 		appium.stopServer();
 	
 	}

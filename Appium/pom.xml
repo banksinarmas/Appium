@@ -21,7 +21,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/allure-results</outputDirectory>
+							<outputDirectory>${basedir}/Appium/allure-results</outputDirectory>
 							<resources>
 								<resource>
 									<directory>../</directory>
