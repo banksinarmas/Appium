@@ -43,11 +43,11 @@ public class AndroidAPK {
 			System.out.println("Download will begin soon for apk v"+latestVersion);
 
 			latestVersionElement.click();
-			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='click here'] | //*[@text='click here']"))).click();
-			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@resource-id='download-button']"))).click();
+			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.View[@content-desc='click here'] | //android.view.View[@text='click here']"))).click();
+			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.View[@resource-id='download-button']"))).click();
 
 			try {
-				wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK'] | //*[@text='DOWNLOAD']"))).click();
+				wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.Button[@text='OK'] | //android.widget.Button[@text='DOWNLOAD']"))).click();
 				Thread.sleep(4000);
 			} catch (Exception e) {
 				// TODO: handle exception

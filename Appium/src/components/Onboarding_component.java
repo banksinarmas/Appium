@@ -39,14 +39,14 @@ public class Onboarding_component {
 		}
 
 		try {
-			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
+			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS') or contains(@text,'location') or contains(@text,'lokasi')]"))).isDisplayed();
 			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow'] | //*[@text='IZINKAN'] | //*[@text='Izinkan']")).click();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		try {
-			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'location') or contains(@text,'lokasi')]"))).isDisplayed();
+			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS') or contains(@text,'location') or contains(@text,'lokasi')]"))).isDisplayed();
 			driver.findElement(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow'] | //*[@text='IZINKAN'] | //*[@text='Izinkan']")).click();
 			
 		} catch (Exception e) {
