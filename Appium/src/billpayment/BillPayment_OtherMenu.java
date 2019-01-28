@@ -24,10 +24,10 @@ public class BillPayment_OtherMenu extends DeviceSetup {
 		this(
 				DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"),
 				DEFAULT_PROPERTIES.getProperty("DEF_FROM_ACCOUNT_TYPE"),
-				DEFAULT_PROPERTIES.getProperty("DEF_BP2_BILLER_NAME"),
-				DEFAULT_PROPERTIES.getProperty("DEF_BP2_SUBSCRIBER_NO"),
-				DEFAULT_PROPERTIES.getProperty("DEF_BP2_AMOUNT"),
-				DEFAULT_PROPERTIES.getProperty("DEF_BP2_DESC"));
+				DEFAULT_PROPERTIES.getProperty("DEF_OTHER_BILLER_NAME"),
+				DEFAULT_PROPERTIES.getProperty("DEF_OTHER_SUBSCRIBER_NO"),
+				DEFAULT_PROPERTIES.getProperty("DEF_OTHER_AMOUNT"),
+				DEFAULT_PROPERTIES.getProperty("DEF_OTHER_DESC"));
 	}
 	
 	public BillPayment_OtherMenu(String username,String fromAccountType,String billerName,String subscriberNo,String amount,String desc) throws IOException {

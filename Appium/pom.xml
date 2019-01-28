@@ -22,33 +22,12 @@
 							<includes>
 								<include>**/*</include>
 							</includes>
+							<excludes>
+								<exclude>**/environment.properties</exclude>
+							</excludes>
 						</fileset>
 					</filesets>
 				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<id>copy-allure-environment</id>
-						<phase>pre-site</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/allure-results</outputDirectory>
-							<resources>
-								<resource>
-									<directory>../</directory>
-									<includes>
-										<include>environment.properties</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

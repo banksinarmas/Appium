@@ -31,8 +31,7 @@ public class BillPayment_component {
 
 	}
 
-	public void main_billerMenu() {
-		
+	public void main_billerMenu() {	
 		WebElement billElement = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PAY'] | //*[@text='BAYAR']")));
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		billElement.click();
@@ -40,18 +39,15 @@ public class BillPayment_component {
 	}
 	
 	public void other_billerMenu(String billerName) throws InterruptedException {
-
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Others'] | //*[@text='Lainnya']"))).click();
-
+	
 		Thread.sleep(1500);
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(billerName);
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"))).click();	
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[translate(@text,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')='"+billerName+"']"))).click();	
 
 	}
 
-
 	public void water_billerMenu(String billerName) {
-
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Water'] | //*[@text='Air']"))).click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"))).click();	
 
@@ -65,7 +61,6 @@ public class BillPayment_component {
 	}
 
 	public void selectAccount(String sourceAccount,String amount,String desc) {
-
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
 		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
 
@@ -103,94 +98,10 @@ public class BillPayment_component {
 			wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
 		}
 
-
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();	
 	}
 
-
-	public void block1_selectAccount(String sourceAccount) {
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'Jumlah')] "))).isDisplayed();
-
-		try {
-			Thread.sleep(1200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		//select account
-		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih rekening sumber']")).get(1).click();
-		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
-
-		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
-
-	}
-
-	public void block2_selectAccount(String sourceAccount,String amount,String desc) {
-
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
-
-		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
-		//input amount
-		inputFields.get(0).sendKeys(amount);
-
-		try {
-			Thread.sleep(1200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//select account
-		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih rekening sumber']")).get(1).click();
-		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
-
-		//input desc
-		inputFields.get(1).sendKeys(desc);
-
-		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();		
-	}
-
-	public void block3_selectAccount(String sourceAccount,String amount,String desc) {
-
-		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
-
-		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
-		//input amount
-		inputFields.get(0).sendKeys(amount);
-
-		//select account
-		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih rekening sumber']")).get(1).click();
-		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
-
-		try {
-			Thread.sleep(1200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//select bill period
-		driver.findElements(By.xpath("//*[@text='Bill Period'] | //*[@text='Periode tagihan']")).get(1).click();
-		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
-
-		try {
-			Thread.sleep(1200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		driver.findElements(By.className("android.widget.TextView")).get(new Random().nextInt(3)+1).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
-
-		//input desc
-		inputFields.get(1).sendKeys(desc);
-
-		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();		
-
-	}
+	
 
 	public void summary() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Konfirmasi')] | //*[contains(@text,'Confirmation')]"))).isDisplayed();
@@ -217,6 +128,5 @@ public class BillPayment_component {
 		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
 
 	}
-
 
 }

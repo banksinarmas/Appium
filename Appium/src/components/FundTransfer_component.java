@@ -1,5 +1,6 @@
 package components;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -17,7 +18,10 @@ public class FundTransfer_component  {
 	private WebDriverWait wait10,wait30,wait60,wait90;
 	private ScreenAction screenAction;
 
-	private boolean newPayee;
+	private static final LocalTime SKN_CUTOFF_TIME = LocalTime.parse("15:00");
+	private static final LocalTime RTGS_CUTOFF_TIME = LocalTime.parse("16:00");
+	
+	private boolean newPayee,afterCutoff;
 
 	public FundTransfer_component(AndroidDriver<WebElement> driver) {
 
@@ -154,19 +158,15 @@ public class FundTransfer_component  {
 		else {
 			if(recurrence.equals("everyday")) {	
 				driver.findElement(By.xpath("//*[@text='Everyday'] | //*[@text='Setiap hari']")).click();
-
 			}
 			else if(recurrence.equals("once_a_week")) {
 				driver.findElement(By.xpath("//*[@text='Once A Week'] | //*[@text='Seminggu sekali']")).click();
-
 			}
 			else if(recurrence.equals("once_every_two_weeks")) {
 				driver.findElement(By.xpath("//*[@text='Once Every Two Weeks'] | //*[@text='2 Minggu sekali']")).click();
-
 			}
 			else if(recurrence.equals("once_a_month")) {		
 				driver.findElement(By.xpath("//*[@text='Once A Month'] | //*[@text='Sebulan sekali']")).click();
-
 			}	
 
 			Thread.sleep(1000);
@@ -182,7 +182,6 @@ public class FundTransfer_component  {
 		}
 
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
-
 	}
 
 	public void selectTransferMethod(String transferMethod) throws InterruptedException {
@@ -190,41 +189,39 @@ public class FundTransfer_component  {
 
 		transferMethod=transferMethod.toLowerCase();
 		if(transferMethod.equals("skn")) {
+			
+			LocalTime currentTime = LocalTime.now();
+			if(currentTime.isAfter(SKN_CUTOFF_TIME)&&currentTime.isBefore(LocalTime.parse("23:59")))afterCutoff=true;
 			driver.findElement(By.xpath("//*[contains(@text,'SKN')] | //*[contains(@text,'skn')]")).click();
 		}
 		else if(transferMethod.equals("network")){
 			driver.findElement(By.xpath("//*[contains(@text,'network')]")).click();
 		}	
 		else {
+			LocalTime currentTime = LocalTime.now();
+			if(currentTime.isAfter(RTGS_CUTOFF_TIME)&&currentTime.isBefore(LocalTime.parse("23:59")))afterCutoff=true;
 			driver.findElement(By.xpath("//*[contains(@text,'rtgs')]")).click();
 		}
-
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
-
 	}
 
 	public void summary() {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
-		//wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
-
+	
 	}
 
 	public void summarySchedule() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
-		wait10.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
-
+	
 	}
 
 	public void result(String fromAccountType,String toAccountType) {
-
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
-		if(fromAccountType.contains("NORMAL") && !toAccountType.contains("BLOCK"))
+		if(afterCutoff || (fromAccountType.contains("NORMAL") && !toAccountType.contains("BLOCK")))
 			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);
 		else 
 			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'failed')] | //*[contains(@text,'gagal')] ")).isDisplayed(), true);
@@ -232,7 +229,6 @@ public class FundTransfer_component  {
 
 	}
 	public void resultSchedule(String fromAccountType,String toAccountType,String recurrence) {
-
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		
@@ -247,4 +243,5 @@ public class FundTransfer_component  {
 
 		return this.newPayee;
 	}
+	
 }
