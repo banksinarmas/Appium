@@ -39,14 +39,12 @@ public class Onboarding_component {
 		}
 
 		try {
-			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow'] | //*[@text='IZINKAN'] | //*[@text='Izinkan']"))).click();
-			
+			wait15.until(ExpectedConditions.presenceOfElementLocated(By.id("com.android.packageinstaller:id/permission_allow_button"))).click();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		try {
-			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='ALLOW'] | //*[@text='Allow'] | //*[@text='IZINKAN'] | //*[@text='Izinkan']"))).click();
-			
+			wait5.until(ExpectedConditions.presenceOfElementLocated(By.id("com.android.packageinstaller:id/permission_allow_button"))).click();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
