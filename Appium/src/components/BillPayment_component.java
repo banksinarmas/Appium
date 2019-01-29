@@ -43,14 +43,18 @@ public class BillPayment_component {
 	
 		Thread.sleep(1500);
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(billerName);
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"))).click();	
-
+		
+		//get list biller appeared in search box, choose the very bottom
+		List<WebElement> billerList =driver.findElements(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"));
+		billerList.get(billerList.size()-1).click();
 	}
 
 	public void water_billerMenu(String billerName) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Water'] | //*[@text='Air']"))).click();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"))).click();	
-
+		
+		//get list biller appeared in search box, choose the very bottom
+		List<WebElement> billerList =driver.findElements(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"));
+		billerList.get(billerList.size()-1).click();
 	}
 
 	public void inputSubscriberNo(String subscriberNo) {
