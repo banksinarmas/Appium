@@ -14,7 +14,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class Onboarding_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait5,wait10,wait15,wait20,wait60;
+	private WebDriverWait wait5,wait10,wait15,wait20,wait60,wait90;
 	private ScreenAction screenAction;
 
 	public Onboarding_component(AndroidDriver<WebElement> driver) {
@@ -25,6 +25,7 @@ public class Onboarding_component {
 		wait15 = new WebDriverWait(driver, 15);
 		wait20 = new WebDriverWait(driver, 20);
 		wait60 = new WebDriverWait(driver, 60);
+		wait90 = new WebDriverWait(driver, 90);
 			
 		screenAction= new ScreenAction(driver);
 		
@@ -117,7 +118,7 @@ public class Onboarding_component {
 
 	public void logout() throws Exception
 	{	
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
+		wait90.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
 
 		driver.findElement(By.className("android.widget.TextView")).click();
 		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='KELUAR'] | //*[@text='LOG OUT']"))).click();

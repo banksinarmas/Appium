@@ -61,7 +61,7 @@ public class DeviceSetup  {
 
 
 	}
-	@AfterClass
+	@AfterClass(alwaysRun=true)
 	public void stopAppium() 
 	{
 
