@@ -43,7 +43,7 @@ public class BillPayment_component {
 	
 		Thread.sleep(1500);
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(billerName);
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[translate(@text,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')='"+billerName+"']"))).click();	
+		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"))).click();	
 
 	}
 

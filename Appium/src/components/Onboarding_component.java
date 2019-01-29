@@ -33,13 +33,8 @@ public class Onboarding_component {
 	public void landingPage() {
 
 		try {
-			wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		try {
 			wait15.until(ExpectedConditions.presenceOfElementLocated(By.id("com.android.packageinstaller:id/permission_allow_button"))).click();
+			Thread.sleep(1000);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -123,15 +118,6 @@ public class Onboarding_component {
 	public void logout() throws Exception
 	{	
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
-
-		try {
-			wait5.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Menyerahkan'] | //*[@text='Submit']"))).click();	
-			wait10.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button1"))).click();
-			wait20.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 
 		driver.findElement(By.className("android.widget.TextView")).click();
 		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='KELUAR'] | //*[@text='LOG OUT']"))).click();
