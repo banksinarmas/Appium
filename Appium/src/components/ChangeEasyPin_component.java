@@ -41,7 +41,6 @@ public class ChangeEasyPin_component {
 	
 	public void changeEasyPinMenu() {
 
-		userProfileMenu();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).click();
 	}
 	

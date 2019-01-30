@@ -81,28 +81,6 @@ public class Onboarding_component {
 
 	public void dashboardFreshDevice() {
 		
-		//Cardless guide
-		/*
-		for(int i =1;i<=4;i++) {		
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			screenAction.capture(folder, filename+"_"+i);
-			screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='Lanjut']").click();				
-		}	
-		screenAction.capture(folder, filename+"_"+5);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		screenAction.scrollUntilElementByXpath("//*[@text='DONE'] | //*[@text='SELESAI']").click();
-		screenAction.capture(folder, filename+"_"+6);*/
-		
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 

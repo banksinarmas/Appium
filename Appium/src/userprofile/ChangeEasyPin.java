@@ -47,17 +47,24 @@ public class ChangeEasyPin extends DeviceSetup {
 	}
 
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_After_Login_Page() throws Exception
+	private void Test02_User_Profile_Menu() throws Exception
 	{		
 		changeEasyPin_comp.changeEasyPinMenu();
 	}
-	@Test(dependsOnMethods= "Test02_After_Login_Page")
-	private void Test03_Change_EasyPin_Page() throws Exception
+	
+	@Test(dependsOnMethods="Test02_User_Profile_Menu")
+	private void Test03_Change_EasyPin_Menu() throws Exception
+	{		
+		changeEasyPin_comp.changeEasyPinMenu();
+	}
+	
+	@Test(dependsOnMethods= "Test03_Change_EasyPin_Menu")
+	private void Test04_Create_New_EasyPin() throws Exception
 	{		
 		easyPin_comp.createEasyPin(newEasyPin);
 	}
-	@Test(dependsOnMethods= "Test03_Change_EasyPin_Page")
-	private void Test04_Validate_Password_Page() throws Exception
+	@Test(dependsOnMethods= "Test04_Create_New_EasyPin")
+	private void Test05_Validate_Password_Page() throws Exception
 	{	
 		changeEasyPin_comp.validatePassword(currentPassword);
 	}

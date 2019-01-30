@@ -98,8 +98,8 @@ public class BillPayment_OtherMenu extends DeviceSetup {
 	@Test(dependsOnMethods="Test06_Summary_Page")
 	private void Test07_EasyPin_Page() throws Exception
 	{
-		
-		if(Long.parseLong(amount)>5000000)
+
+		if(Long.parseLong(amount)>Long.parseLong(appConfig.get("EASY_PIN_MAX_AMOUNT")))
 			otp_comp.inputOTP();
 		else
 			easyPin_comp.inputEasyPin(easyPin);

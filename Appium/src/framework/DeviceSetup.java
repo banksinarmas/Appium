@@ -1,6 +1,7 @@
 package framework;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class DeviceSetup  {
 	private boolean freshDevice;
 
 	protected static final Properties DEFAULT_PROPERTIES = LoadProperties.getDefaultProperties();
+	protected HashMap<String,String> appConfig= AppConfig.getConfig();
 
 	protected DeviceSetup(boolean freshDevice,String username) throws IOException {
 		Properties deviceProp = LoadProperties.getDeviceProperties();

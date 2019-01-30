@@ -100,7 +100,7 @@ public class TransferOtherbank extends DeviceSetup{
 	private void Test07_EasyPin_Page() throws Exception
 	{
 		
-		if(Long.parseLong(amount)>5000000 || fundTransfer_comp.isNewPayee())
+		if(Long.parseLong(amount)>Long.parseLong(appConfig.get("EASY_PIN_MAX_AMOUNT")) || fundTransfer_comp.isNewPayee())
 			otp_comp.inputOTP();
 		else
 			easyPin_comp.inputEasyPin(easyPin);

@@ -45,7 +45,7 @@ public class TransferInbank  extends DeviceSetup{
 
 	
 	@BeforeClass
-	private void loadComponent(){
+	private void loadComponent() throws Exception{
 		easyPin_comp= new EasyPin_component(driver);
 		otp_comp=new OTP_component(driver);
 		fundTransfer_comp= new FundTransfer_component(driver);
@@ -81,7 +81,7 @@ public class TransferInbank  extends DeviceSetup{
 	@Test(dependsOnMethods="Test05_Summary_Page")
 	private void Test06_EasyPin_Page() throws Exception
 	{
-		if(Long.parseLong(amount)>5000000 || fundTransfer_comp.isNewPayee())
+		if(Long.parseLong(amount)>Long.parseLong(appConfig.get("EASY_PIN_MAX_AMOUNT")) || fundTransfer_comp.isNewPayee())
 			otp_comp.inputOTP();
 		else
 			easyPin_comp.inputEasyPin(easyPin);

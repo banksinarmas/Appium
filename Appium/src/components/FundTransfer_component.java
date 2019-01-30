@@ -1,6 +1,7 @@
 package components;
 
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import framework.AppConfig;
 import framework.ScreenAction;
 import io.appium.java_client.android.AndroidDriver;
 
@@ -18,10 +20,12 @@ public class FundTransfer_component  {
 	private WebDriverWait wait10,wait30,wait60,wait90;
 	private ScreenAction screenAction;
 
-	private static final LocalTime SKN_CUTOFF_TIME = LocalTime.parse("15:00");
-	private static final LocalTime RTGS_CUTOFF_TIME = LocalTime.parse("16:00");
-	
 	private boolean newPayee,afterCutoff;
+
+	private static HashMap<String, String> appConfig = AppConfig.getConfig();
+	private static LocalTime SKN_CUTOFF_TIME,RTGS_CUTOFF_TIME,SKN_OP_TIME_FROM,RTGS_OP_TIME_FROM;
+	private static LocalTime SKN_OP_TIME_TO=LocalTime.parse("23:59");
+	private static LocalTime RTGS_OP_TIME_TO=LocalTime.parse("23:59");
 
 	public FundTransfer_component(AndroidDriver<WebElement> driver) {
 
@@ -31,6 +35,18 @@ public class FundTransfer_component  {
 		wait60 = new WebDriverWait(driver,60);
 		wait90 = new WebDriverWait(driver,90);
 		screenAction=new ScreenAction(driver);
+
+		SKN_CUTOFF_TIME=LocalTime.parse(appConfig.get("CUT_OFF_TIME_SKN"));
+
+		String[] sknOpTime=appConfig.get("OP_TIME_SKN").split("\\|\\|");
+		SKN_OP_TIME_FROM=LocalTime.parse(sknOpTime[0]);
+		if(!sknOpTime[1].equals("24:00"))SKN_OP_TIME_TO=LocalTime.parse(sknOpTime[1]);
+
+		RTGS_CUTOFF_TIME=LocalTime.parse(appConfig.get("CUT_OFF_TIME_RTGS"));
+		String[] rtgsOpTime=appConfig.get("OP_TIME_RTGS").split("\\|\\|");
+		RTGS_OP_TIME_FROM=LocalTime.parse(rtgsOpTime[0]);
+		if(!rtgsOpTime[1].equals("24:00"))RTGS_OP_TIME_TO=LocalTime.parse(rtgsOpTime[1]);
+
 	}
 
 	public void fundTransferMenu() {
@@ -188,18 +204,20 @@ public class FundTransfer_component  {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'method')] | //*[contains(@text,'metode')]")));
 
 		transferMethod=transferMethod.toLowerCase();
+		LocalTime currentTime = LocalTime.now();
+
 		if(transferMethod.equals("skn")) {
-			
-			LocalTime currentTime = LocalTime.now();
-			if(currentTime.isAfter(SKN_CUTOFF_TIME)&&currentTime.isBefore(LocalTime.parse("23:59")))afterCutoff=true;
+			if(currentTime.isAfter(SKN_OP_TIME_FROM)&&currentTime.isBefore(SKN_OP_TIME_TO))
+				if(currentTime.isAfter(SKN_CUTOFF_TIME)&&currentTime.isBefore(SKN_OP_TIME_TO))afterCutoff=true;
 			driver.findElement(By.xpath("//*[contains(@text,'SKN')] | //*[contains(@text,'skn')]")).click();
 		}
 		else if(transferMethod.equals("network")){
 			driver.findElement(By.xpath("//*[contains(@text,'network')]")).click();
 		}	
 		else {
-			LocalTime currentTime = LocalTime.now();
-			if(currentTime.isAfter(RTGS_CUTOFF_TIME)&&currentTime.isBefore(LocalTime.parse("23:59")))afterCutoff=true;
+			if(currentTime.isAfter(RTGS_OP_TIME_FROM)&&currentTime.isBefore(RTGS_OP_TIME_TO))
+				if(currentTime.isAfter(RTGS_CUTOFF_TIME)&&currentTime.isBefore(RTGS_OP_TIME_TO))afterCutoff=true;
+			
 			driver.findElement(By.xpath("//*[contains(@text,'rtgs')]")).click();
 		}
 		screenAction.scrollUntilElementByXpath("//*[@text='NEXT'] | //*[@text='BERIKUTNYA']").click();
@@ -208,13 +226,13 @@ public class FundTransfer_component  {
 	public void summary() {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
-	
+
 	}
 
 	public void summarySchedule() {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
-	
+
 	}
 
 	public void result(String fromAccountType,String toAccountType) {
@@ -231,7 +249,7 @@ public class FundTransfer_component  {
 	public void resultSchedule(String fromAccountType,String toAccountType,String recurrence) {
 		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
 		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-		
+
 		if(recurrence.equals("one_time"))Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);
 		else Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'process')] | //*[contains(@text,'proses')] ")).isDisplayed(), true);
 
@@ -243,5 +261,4 @@ public class FundTransfer_component  {
 
 		return this.newPayee;
 	}
-	
 }
