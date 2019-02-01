@@ -25,7 +25,11 @@ public class CardlessWithdrawal  extends DeviceSetup{
 				DEFAULT_PROPERTIES.getProperty("DEF_CARDLESS_AMOUNT"),
 				DEFAULT_PROPERTIES.getProperty("DEF_CARDLESS_DESC"));
 	}
-
+	public CardlessWithdrawal(String fromAccountType,String amount,String desc) throws IOException
+	{
+		this(DEFAULT_PROPERTIES.getProperty("DEF_AUTOMATION_USERNAME"),fromAccountType,amount,desc);
+		
+	}
 	public CardlessWithdrawal(String username,String fromAccountType,String amount,String desc) throws IOException
 	{
 		super(false,username);

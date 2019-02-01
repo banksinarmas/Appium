@@ -31,6 +31,10 @@ public class Schedule_TransferInbank extends DeviceSetup{
 				DEFAULT_PROPERTIES.getProperty("DEF_SCHEDULE_RECURRENCE"),
 				DEFAULT_PROPERTIES.getProperty("DEF_SCHEDULE_FREQUENCY"));
 	}
+	public Schedule_TransferInbank(String fromAccountType,String toAccountType,String amount,String desc,String recurrence,String frequency) throws IOException {
+
+		this(DEFAULT_PROPERTIES.getProperty("DEF_AUTOMATION_USERNAME"),fromAccountType,toAccountType,amount,desc,recurrence,frequency);
+	}
 
 	public Schedule_TransferInbank(String username,String fromAccountType,String toAccountType,String amount,String desc,String recurrence,String frequency) throws IOException {
 		super(false,username);
@@ -60,49 +64,49 @@ public class Schedule_TransferInbank extends DeviceSetup{
 	@Test
 	private void Test01_Login() throws Exception
 	{	
-		
+
 		easyPin_comp.loginEasyPin(easyPin);
 	}
 
 	@Test(dependsOnMethods="Test01_Login")
 	private void Test02_FundTransfer_Menu() throws Exception
 	{	
-		
+
 		fundTransfer_comp.fundTransferMenu();
 	}	
 
 	@Test(dependsOnMethods="Test02_FundTransfer_Menu")
 	public void Test03_Select_Payee_Page() throws Exception
 	{
-		
+
 		fundTransfer_comp.selectPayee(toAccount);
 	}
 
 	@Test(dependsOnMethods="Test03_Select_Payee_Page")
 	public void Test04_Select_Account_Page() throws Exception
 	{
-		
+
 		fundTransfer_comp.selectAccountSchedule(fromAccount,amount,desc);
 	}
 
 	@Test(dependsOnMethods="Test04_Select_Account_Page")
 	public void Test05_Schedule_Page() throws Exception
 	{
-		
+
 		fundTransfer_comp.selectSchedule(recurrence,frequency);
 	}
 
 	@Test(dependsOnMethods="Test05_Schedule_Page" )
 	public void Test06_Summary_Page() throws Exception
 	{
-		
+
 		fundTransfer_comp.summarySchedule();
 	}
 
 	@Test(dependsOnMethods="Test06_Summary_Page")
 	public void Test07_EasyPin_Page() throws Exception
 	{	
-		
+
 		if(Long.parseLong(amount)>Long.parseLong(appConfig.get("EASY_PIN_MAX_AMOUNT")) || fundTransfer_comp.isNewPayee())
 			otp_comp.inputOTP();
 		else
@@ -112,7 +116,7 @@ public class Schedule_TransferInbank extends DeviceSetup{
 	@Test(dependsOnMethods="Test07_EasyPin_Page")
 	public void Test08_Result_Page() throws Exception
 	{
-		
+
 		fundTransfer_comp.resultSchedule(fromAccountType,toAccountType,recurrence);
 	}
 

@@ -12,8 +12,8 @@ public class Single_CardlessWithdrawal {
 
 	
 	@Factory(dataProvider="cardlessWdr")
-	private Object[] cardlessCreateInstances(String username,String fromAccountType,String amount,String desc) throws IOException {
-		return new Object[] {new CardlessWithdrawal(username,fromAccountType,amount,desc)};
+	private Object[] cardlessCreateInstances(String fromAccountType,String amount,String desc) throws IOException {
+		return new Object[] {new CardlessWithdrawal(fromAccountType,amount,desc)};
 	}
 
 	@DataProvider(name="cardlessWdr")

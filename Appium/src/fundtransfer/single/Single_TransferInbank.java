@@ -12,8 +12,8 @@ public class Single_TransferInbank {
 
 	
 	@Factory(dataProvider="inbank" )
-	private Object[] inbankCreateInstances(String username,String fromAccountType,String toAccountType,String amount,String desc) throws IOException {
-		return new Object[] {new TransferInbank(username,fromAccountType,toAccountType,amount,desc)};
+	private Object[] inbankCreateInstances(String fromAccountType,String toAccountType,String amount,String desc) throws IOException {
+		return new Object[] {new TransferInbank(fromAccountType,toAccountType,amount,desc)};
 	}
 
 	@DataProvider(name="inbank")

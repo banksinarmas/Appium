@@ -11,8 +11,8 @@ import framework.LoadTestCase;
 public class Single_BillPayment_OtherMenu {
 
 	@Factory(dataProvider="bp_othermenu")
-	private Object[] bpOtherMenuCreateInstances(String username,String fromAccountType,String billerName,String subscriberNo,String amount,String desc) throws IOException {
-		return new Object[] {new BillPayment_OtherMenu(username,fromAccountType,billerName,subscriberNo,amount,desc)};
+	private Object[] bpOtherMenuCreateInstances(String fromAccountType,String billerName,String subscriberNo,String amount,String desc) throws IOException {
+		return new Object[] {new BillPayment_OtherMenu(fromAccountType,billerName,subscriberNo,amount,desc)};
 	}
 
 	@DataProvider(name="bp_othermenu")

@@ -10,7 +10,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class OTP_component {
 	
-	private WebDriverWait wait10,wait60;
+	private WebDriverWait wait10,wait30;
 	private AndroidDriver<WebElement> driver;
 	private static final String OTP_NUMBER="123456";
 	private ScreenAction screenAction;
@@ -18,14 +18,14 @@ public class OTP_component {
 	public OTP_component(AndroidDriver<WebElement> driver) {	
 		this.driver=driver;
 		wait10= new WebDriverWait(driver,10);
-		wait60= new WebDriverWait(driver,60);
+		wait30= new WebDriverWait(driver,30);
 		
 		screenAction=new ScreenAction(driver);
 	}
 	
 	public void inputOTP() throws Exception
 	{
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'SMS')]"))).isDisplayed();
 		
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(OTP_NUMBER);
 		

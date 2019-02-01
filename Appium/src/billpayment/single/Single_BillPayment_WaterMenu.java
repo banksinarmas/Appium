@@ -11,8 +11,8 @@ import framework.LoadTestCase;
 public class Single_BillPayment_WaterMenu {
 
 	@Factory(dataProvider="bp_watermenu")
-	private Object[] bpWaterMenuCreateInstances(String username,String fromAccountType,String billerName,String subscriberNo,String desc) throws IOException {
-		return new Object[] {new BillPayment_WaterMenu(username,fromAccountType,billerName,subscriberNo,desc)};
+	private Object[] bpWaterMenuCreateInstances(String fromAccountType,String billerName,String subscriberNo,String desc) throws IOException {
+		return new Object[] {new BillPayment_WaterMenu(fromAccountType,billerName,subscriberNo,desc)};
 	}
 
 	@DataProvider(name="bp_watermenu")

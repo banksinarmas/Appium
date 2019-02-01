@@ -2,22 +2,15 @@ package onboarding.single;
 
 import java.io.IOException;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 
-import framework.LoadTestCase;
+import framework.LoadProperties;
 import onboarding.Login_FreshDevice;
 
 public class Single_Login_FreshDevice {
 
-	@Factory(dataProvider="login_freshDevice")
-	private Object[] loginFreshDeviceCreateInstances(String username) throws IOException {
-		return new Object[] {new Login_FreshDevice(username)};
-	}
-
-	@DataProvider(name="login_freshDevice")
-	private static Object[][] loginFreshDeviceDataProvider() throws IOException {
-		Object[][] dataArray = LoadTestCase.loadFromFile("Onboarding/Single/Single_Login_FreshDevice.txt");
-		return dataArray;
+	@Factory
+	private Object[] loginFreshDeviceCreateInstances() throws IOException {
+		return new Object[] {new Login_FreshDevice(LoadProperties.getDefaultProperties().getProperty("DEF_AUTOMATION_USERNAME"))};
 	}
 }

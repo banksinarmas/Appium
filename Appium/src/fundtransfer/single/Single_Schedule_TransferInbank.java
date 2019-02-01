@@ -11,8 +11,8 @@ import fundtransfer.Schedule_TransferInbank;
 public class Single_Schedule_TransferInbank {
 
 	@Factory(dataProvider="schinbank")
-	private Object[] schinbankCreateInstances(String username,String fromAccountType,String toAccountType,String amount,String desc,String recurrence,String frequency) throws IOException {
-		return new Object[] {new Schedule_TransferInbank(username,fromAccountType,toAccountType,amount,desc,recurrence,frequency)};
+	private Object[] schinbankCreateInstances(String fromAccountType,String toAccountType,String amount,String desc,String recurrence,String frequency) throws IOException {
+		return new Object[] {new Schedule_TransferInbank(fromAccountType,toAccountType,amount,desc,recurrence,frequency)};
 	}
 
 	@DataProvider(name="schinbank")

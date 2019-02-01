@@ -11,16 +11,16 @@ import io.appium.java_client.android.AndroidDriver;
 public class EasyPin_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait10,wait20,wait30,wait60;
+	private WebDriverWait wait10,wait15,wait30,wait65;
 	private ScreenAction screenAction;
 	
 	public EasyPin_component(AndroidDriver<WebElement> driver) {
 		this.driver=driver;
 
 		wait10 = new WebDriverWait(driver,10);
-		wait20 = new WebDriverWait(driver,20);
+		wait15 = new WebDriverWait(driver,15);
 		wait30 = new WebDriverWait(driver,30);
-		wait60 = new WebDriverWait(driver,60);
+		wait65 = new WebDriverWait(driver,65);
 		
 		screenAction=new ScreenAction(driver);
 	}	
@@ -28,19 +28,13 @@ public class EasyPin_component {
 	public void loginEasyPin(String easyPin) {
 		
 		try {
-			wait20.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}	
-		try {
-			wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"] | //*[@text='Jangan Tampilkan Lagi']"))).click();
+			wait15.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"] | //*[@text='Jangan Tampilkan Lagi']"))).click();
 			driver.findElement(By.xpath("//*[@text='OK']")).click();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOG IN']"))).click();		
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOG IN']"))).click();		
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 		driver.findElementByClassName("android.widget.EditText").sendKeys(easyPin);	
 
@@ -49,7 +43,7 @@ public class EasyPin_component {
 	
 	public void inputEasyPin(String easyPin) throws Exception
 	{
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(easyPin);
 	
 		screenAction.scrollUntilElementByXpath("//*[@text='LANJUTKAN'] | //*[@text='CONTINUE']").click();
@@ -58,7 +52,7 @@ public class EasyPin_component {
 	public void createEasyPin(String easyPin) throws Exception
 	{
 
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).isDisplayed();
 		driver.findElement(By.className("android.widget.EditText")).sendKeys("123456");
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Konfirmasi')] | //*[contains(@text,'Confirm')]"))).isDisplayed();
 		driver.findElement(By.className("android.widget.EditText")).sendKeys("123456");

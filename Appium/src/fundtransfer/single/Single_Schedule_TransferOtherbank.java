@@ -12,8 +12,8 @@ public class Single_Schedule_TransferOtherbank {
 	
 	
 	@Factory(dataProvider="schotbank")
-	private Object[] schotbankCreateInstances(String username,String fromAccountType,String toAccountType,String transferMethod,String amount,String desc,String recurrence,String frequency) throws IOException {
-		return new Object[] {new Schedule_TransferOtherbank(username,fromAccountType,toAccountType,transferMethod,amount,desc,recurrence,frequency)};
+	private Object[] schotbankCreateInstances(String fromAccountType,String toAccountType,String transferMethod,String amount,String desc,String recurrence,String frequency) throws IOException {
+		return new Object[] {new Schedule_TransferOtherbank(fromAccountType,toAccountType,transferMethod,amount,desc,recurrence,frequency)};
 	}
 
 	@DataProvider(name="schotbank")

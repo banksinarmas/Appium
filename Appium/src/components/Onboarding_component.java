@@ -14,7 +14,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class Onboarding_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait5,wait10,wait15,wait20,wait60,wait90;
+	private WebDriverWait wait5,wait10,wait15,wait20,wait65;
 	private ScreenAction screenAction;
 
 	public Onboarding_component(AndroidDriver<WebElement> driver) {
@@ -24,9 +24,8 @@ public class Onboarding_component {
 		wait10 = new WebDriverWait(driver, 10);
 		wait15 = new WebDriverWait(driver, 15);
 		wait20 = new WebDriverWait(driver, 20);
-		wait60 = new WebDriverWait(driver, 60);
-		wait90 = new WebDriverWait(driver, 90);
-			
+		wait65 = new WebDriverWait(driver, 65);
+
 		screenAction= new ScreenAction(driver);
 		
 	}
@@ -44,22 +43,10 @@ public class Onboarding_component {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-	
+
 		try {
-			wait5.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		try {
-			wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"] | //*[@text='Jangan Tampilkan Lagi']"))).click();
+			wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Don't Show This Again\"] | //*[@text='Jangan Tampilkan Lagi']"))).click();
 			driver.findElement(By.xpath("//*[@text='OK']")).click();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		try {
-			wait5.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/button2"))).click();
-			Thread.sleep(1500);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -81,8 +68,8 @@ public class Onboarding_component {
 
 	public void dashboardFreshDevice() {
 		
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		try {
 			Thread.sleep(2000);
@@ -96,7 +83,6 @@ public class Onboarding_component {
 
 	public void logout() throws Exception
 	{	
-		wait90.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']"))).isDisplayed();
 
 		driver.findElement(By.className("android.widget.TextView")).click();
 		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='KELUAR'] | //*[@text='LOG OUT']"))).click();

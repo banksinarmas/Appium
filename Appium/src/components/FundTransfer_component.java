@@ -17,7 +17,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class FundTransfer_component  {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait10,wait30,wait60,wait90;
+	private WebDriverWait wait10,wait30,wait65;
 	private ScreenAction screenAction;
 
 	private boolean newPayee,afterCutoff;
@@ -32,8 +32,7 @@ public class FundTransfer_component  {
 		this.driver=driver;
 		wait10 = new WebDriverWait(driver,10);
 		wait30 = new WebDriverWait(driver,30);
-		wait60 = new WebDriverWait(driver,60);
-		wait90 = new WebDriverWait(driver,90);
+		wait65 = new WebDriverWait(driver,65);
 		screenAction=new ScreenAction(driver);
 
 		SKN_CUTOFF_TIME=LocalTime.parse(appConfig.get("CUT_OFF_TIME_SKN"));
@@ -50,8 +49,8 @@ public class FundTransfer_component  {
 	}
 
 	public void fundTransferMenu() {
-		WebElement ftElement = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SEND'] | //*[@text='KIRIM']")));
-		wait90.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		WebElement ftElement = wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SEND'] | //*[@text='KIRIM']")));
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		try {
 			Thread.sleep(1000);
 
@@ -98,7 +97,7 @@ public class FundTransfer_component  {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+			wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 			WebElement inputPayeeName = driver.findElements(By.className("android.widget.EditText")).get(1);
 			if(inputPayeeName.getAttribute("text").isEmpty()) inputPayeeName.sendKeys("TEST PAYEE");
@@ -224,7 +223,7 @@ public class FundTransfer_component  {
 	}
 
 	public void summary() {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'confirm')] | //*[contains(@text,'Konfirmasi')]"))).isDisplayed();
 		screenAction.scrollUntilElementByXpath("//*[@text='TRANSFER'] | //*[@text='PEMINDAHAN DANA']").click();
 
 	}
@@ -236,8 +235,8 @@ public class FundTransfer_component  {
 	}
 
 	public void result(String fromAccountType,String toAccountType) {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		if(afterCutoff || (fromAccountType.contains("NORMAL") && !toAccountType.contains("BLOCK")))
 			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);
@@ -247,8 +246,8 @@ public class FundTransfer_component  {
 
 	}
 	public void resultSchedule(String fromAccountType,String toAccountType,String recurrence) {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		if(recurrence.equals("one_time"))Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);
 		else Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'process')] | //*[contains(@text,'proses')] ")).isDisplayed(), true);

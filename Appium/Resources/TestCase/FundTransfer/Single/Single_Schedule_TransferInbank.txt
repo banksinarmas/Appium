@@ -1,3 +1,3 @@
-#username,fromAccountType,toAccountType,amount,desc,recurrence,frequency
-automation1,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_NORMAL,1001,sch inbank,one_time,0x
-automation1,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_NORMAL,1002,sch inbank,once_a_month,5x
+#fromAccountType,toAccountType,amount,desc,recurrence,frequency
+FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_NORMAL,1001,sch inbank,one_time,0x
+FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_NORMAL,1002,sch inbank,once_a_month,5x

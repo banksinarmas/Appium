@@ -27,6 +27,10 @@ public class BillPayment_WaterMenu extends DeviceSetup{
 				DEFAULT_PROPERTIES.getProperty("DEF_WATER_SUBSCRIBER_NO"),
 				DEFAULT_PROPERTIES.getProperty("DEF_WATER_DESC"));
 	}
+	
+	public BillPayment_WaterMenu(String fromAccountType,String billerName,String subscriberNo,String desc) throws IOException {
+		this(DEFAULT_PROPERTIES.getProperty("DEF_AUTOMATION_USERNAME"),fromAccountType,billerName,subscriberNo,desc);
+	}
 
 	public BillPayment_WaterMenu(String username,String fromAccountType,String billerName,String subscriberNo,String desc) throws IOException {
 		super(false,username);

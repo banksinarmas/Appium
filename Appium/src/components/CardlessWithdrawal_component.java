@@ -12,7 +12,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class CardlessWithdrawal_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait10,wait30,wait60;
+	private WebDriverWait wait10,wait30,wait65;
 	private FundTransfer_component fundTransfer_comp;
 	private ScreenAction screenAction;
 	
@@ -21,14 +21,15 @@ public class CardlessWithdrawal_component {
 		this.driver=driver;
 		wait10=new WebDriverWait(driver, 10);
 		wait30=new WebDriverWait(driver, 30);
-		wait60=new WebDriverWait(driver, 60);
+		wait65=new WebDriverWait(driver, 60);
+
 		fundTransfer_comp=new FundTransfer_component(driver);
 		screenAction=new ScreenAction(driver);
 	}
 	
 	public void cardlessWdrMenu() {
-		WebElement cardlessElement = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='TARIK'] | //*[@text='CASH']")));	
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		WebElement cardlessElement = wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='TARIK'] | //*[@text='CASH']")));	
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		
 		try {
 			Thread.sleep(1000);
@@ -62,8 +63,8 @@ public class CardlessWithdrawal_component {
 	}
 	
 	public void result(String fromAccountType) {
-		wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 	
 		if(fromAccountType.contains("NORMAL"))
 			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);

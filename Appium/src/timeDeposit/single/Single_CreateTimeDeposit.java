@@ -11,8 +11,8 @@ import timeDeposit.CreateTimeDeposit;
 public class Single_CreateTimeDeposit {
 	
 	@Factory(dataProvider="createTD")
-	private Object[] createTimeDepositCreateInstances(String username,String fromAccountType,String amount,String term,String tdType) throws IOException {
-		return new Object[] {new CreateTimeDeposit(username,fromAccountType,amount,term,tdType)};
+	private Object[] createTimeDepositCreateInstances(String fromAccountType,String amount,String term,String tdType) throws IOException {
+		return new Object[] {new CreateTimeDeposit(fromAccountType,amount,term,tdType)};
 	}
 
 	@DataProvider(name="createTD")

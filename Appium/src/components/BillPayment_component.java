@@ -15,7 +15,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class BillPayment_component {
 
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait10,wait30,wait60,wait70;
+	private WebDriverWait wait10,wait30,wait65;
 	private ScreenAction screenAction;
 
 	public BillPayment_component(AndroidDriver<WebElement> driver) {
@@ -24,16 +24,15 @@ public class BillPayment_component {
 
 		wait10=new WebDriverWait(driver, 10);
 		wait30=new WebDriverWait(driver, 30);
-		wait60=new WebDriverWait(driver, 60);
-		wait70=new WebDriverWait(driver, 70);
+		wait65=new WebDriverWait(driver, 65);
 
 		screenAction = new ScreenAction(driver);
 
 	}
 
 	public void main_billerMenu() {	
-		WebElement billElement = wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PAY'] | //*[@text='BAYAR']")));
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		WebElement billElement = wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PAY'] | //*[@text='BAYAR']")));
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		billElement.click();
 
 	}
@@ -115,14 +114,8 @@ public class BillPayment_component {
 	}
 
 	public void result(String fromAccountType) {
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-		wait70.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'MB-BP-')]"))).isDisplayed();
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'Transaction Number')] | //*[contains(@text,'Nomor transaksi')]"))).isDisplayed();
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 
 		if(fromAccountType.contains("NORMAL"))
 			Assert.assertEquals(driver.findElement(By.xpath("//*[contains(@text,'success')] | //*[contains(@text,'sukses')] ")).isDisplayed(), true);

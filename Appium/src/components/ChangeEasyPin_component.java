@@ -11,7 +11,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class ChangeEasyPin_component {
 	
 	private AndroidDriver<WebElement> driver;
-	private WebDriverWait wait10,wait30,wait60;
+	private WebDriverWait wait10,wait30,wait65;
 	private ScreenAction screenAction;
 	
 	public ChangeEasyPin_component(AndroidDriver<WebElement> driver) {
@@ -19,14 +19,14 @@ public class ChangeEasyPin_component {
 		
 		wait10=new WebDriverWait(driver, 10);
 		wait30=new WebDriverWait(driver, 30);
-		wait60=new WebDriverWait(driver, 60);
+		wait65=new WebDriverWait(driver, 65);
 		
 		screenAction = new ScreenAction(driver);	
 	}
 
 	public void userProfileMenu() {
-		WebElement userProfileMenu=wait60.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PROFIL'] | //*[@text='PROFILE']")));
-		wait60.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		WebElement userProfileMenu=wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PROFIL'] | //*[@text='PROFILE']")));
+		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
 		userProfileMenu.click();
 		
 		try {

@@ -1,5 +1,5 @@
-#username,fromAccountType,toAccountType,transferMethod,amount,desc
-automation1,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_OTBANK,skn,1001,to otbank
-automation1,FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_OTBANK,network,10002,to otbank
-automation1,FROM_ACCOUNT_KONVEN_DORMANT,TO_ACCOUNT_OTBANK,skn,2005,to otbank
-automation1,FROM_ACCOUNT_KONVEN_BLOCK,TO_ACCOUNT_OTBANK,skn,2006,to otbank
+#fromAccountType,toAccountType,transferMethod,amount,desc
+FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_OTBANK,skn,1001,to otbank
+FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_OTBANK,network,10002,to otbank
+FROM_ACCOUNT_KONVEN_DORMANT,TO_ACCOUNT_OTBANK,skn,2005,to otbank
+FROM_ACCOUNT_KONVEN_BLOCK,TO_ACCOUNT_OTBANK,skn,2006,to otbank

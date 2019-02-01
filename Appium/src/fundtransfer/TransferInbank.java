@@ -29,9 +29,14 @@ public class TransferInbank  extends DeviceSetup{
 				DEFAULT_PROPERTIES.getProperty("DEF_INBANK_DESC"));
 	}
 
+	public TransferInbank(String fromAccountType,String toAccountType,String amount,String desc) throws IOException {
+		
+		this(DEFAULT_PROPERTIES.getProperty("DEF_AUTOMATION_USERNAME"),fromAccountType,toAccountType,amount,desc);
+	}
+	
 	public TransferInbank(String username,String fromAccountType,String toAccountType,String amount,String desc) throws IOException {
 		super(false,username);
-		
+
 		this.username=username;	
 		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
@@ -43,14 +48,14 @@ public class TransferInbank  extends DeviceSetup{
 		this.desc=desc;	
 	}
 
-	
+
 	@BeforeClass
 	private void loadComponent() throws Exception{
 		easyPin_comp= new EasyPin_component(driver);
 		otp_comp=new OTP_component(driver);
 		fundTransfer_comp= new FundTransfer_component(driver);
 	}
-	
+
 	@Test
 	private void Test01_Login() throws Exception
 	{		
