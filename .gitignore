@@ -1,5 +1,5 @@
 target/
 Screenshots/
 test-output/
-!allure-results/environment.properties
 allure-results/*
+!environment.properties

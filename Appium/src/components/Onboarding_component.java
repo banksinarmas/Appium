@@ -34,7 +34,7 @@ public class Onboarding_component {
 
 		try {
 			wait15.until(ExpectedConditions.presenceOfElementLocated(By.id("com.android.packageinstaller:id/permission_allow_button"))).click();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
