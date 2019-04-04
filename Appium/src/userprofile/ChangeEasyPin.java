@@ -16,7 +16,7 @@ public class ChangeEasyPin extends DeviceSetup {
 	private EasyPin_component easyPin_comp;
 	private ChangeEasyPin_component changeEasyPin_comp;
 
-	private String username,easyPin,currentPassword,newEasyPin;
+	private String username,easyPin,newEasyPin;
 	
 	public ChangeEasyPin() throws IOException {
 		this(DEFAULT_PROPERTIES.getProperty("DEF_USERNAME"));	
@@ -28,7 +28,6 @@ public class ChangeEasyPin extends DeviceSetup {
 		this.username=username;
 		Properties prop = LoadProperties.getUserProperties(this.username);
 		this.easyPin=prop.getProperty("EASYPIN");
-		this.currentPassword=prop.getProperty("PASSWORD");
 		
 		this.newEasyPin=easyPin;
 		
@@ -47,26 +46,22 @@ public class ChangeEasyPin extends DeviceSetup {
 	}
 
 	@Test(dependsOnMethods="Test01_Login")
-	private void Test02_User_Profile_Menu() throws Exception
+	private void Test02_Settings_Menu() throws Exception
 	{		
-		changeEasyPin_comp.changeEasyPinMenu();
+		changeEasyPin_comp.settingsMenu();
 	}
 	
-	@Test(dependsOnMethods="Test02_User_Profile_Menu")
+	@Test(dependsOnMethods="Test02_Settings_Menu")
 	private void Test03_Change_EasyPin_Menu() throws Exception
 	{		
 		changeEasyPin_comp.changeEasyPinMenu();
 	}
 	
 	@Test(dependsOnMethods= "Test03_Change_EasyPin_Menu")
-	private void Test04_Create_New_EasyPin() throws Exception
+	private void Test04_ChangeEasyPin() throws Exception
 	{		
-		easyPin_comp.createEasyPin(newEasyPin);
+		changeEasyPin_comp.changeEasyPin(easyPin,newEasyPin);
 	}
-	@Test(dependsOnMethods= "Test04_Create_New_EasyPin")
-	private void Test05_Validate_Password_Page() throws Exception
-	{	
-		changeEasyPin_comp.validatePassword(currentPassword);
-	}
+
 
 }

@@ -85,7 +85,8 @@ public class Onboarding_component {
 	{	
 
 		driver.findElement(By.className("android.widget.TextView")).click();
-		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='KELUAR'] | //*[@text='LOG OUT']"))).click();
+		
+		screenAction.scrollUntilElementByXpath("//*[@text='Keluar'] | //*[@text='Log Out']").click();
 		wait20.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text ='LOG IN']"))).isDisplayed();
 	}
 }

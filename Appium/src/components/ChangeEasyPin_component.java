@@ -1,5 +1,7 @@
 package components;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,18 +26,13 @@ public class ChangeEasyPin_component {
 		screenAction = new ScreenAction(driver);	
 	}
 
-	public void userProfileMenu() {
-		WebElement userProfileMenu=wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='PROFIL'] | //*[@text='PROFILE']")));
+	public void settingsMenu() {
+		wait65.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']")));
 		wait65.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
-		userProfileMenu.click();
+
+		driver.findElement(By.className("android.widget.TextView")).click();
 		
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		driver.findElements(By.className("android.widget.TextView")).get(2).click();
+		screenAction.scrollUntilElementByXpath("//*[@text='Settings'] | //*[@text='Pengaturan']").click();
 		
 	}
 	
@@ -44,14 +41,22 @@ public class ChangeEasyPin_component {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'EasyPIN')]"))).click();
 	}
 	
-	public void validatePassword(String currentPassword) {
+	public void changeEasyPin(String currentEasyPin,String newEasyPin) {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Perbarui EasyPIN'] | //*[@text='Update EasyPIN'] "))).isDisplayed();
-		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='android.widget.EditText']"))).sendKeys(currentPassword);
 		
-		screenAction.scrollUntilElementByXpath("//*[@text='Konfirmasi'] | //*[@text='Confirm']").click();
+		List<WebElement> listInput= driver.findElements(By.className("android.widget.EditText"));
+		
+		listInput.get(0).sendKeys(currentEasyPin);
+		listInput.get(1).sendKeys(newEasyPin);
+		listInput.get(2).sendKeys(newEasyPin);
+				
+		screenAction.scrollUntilElementByXpath("//*[@text='BERIKUTNYA'] | //*[@text='Next']").click();
 		
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.id("android:id/alertTitle"))).isDisplayed();
-		driver.findElement(By.id("android:id/button1")).click();			
+		driver.findElement(By.id("android:id/button1")).click();
+		
+		wait30.until(ExpectedConditions.invisibilityOfElementLocated(By.className("android.widget.ProgressBar")));
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='HOME'] | //*[@text='BERANDA']")));
 	}
 	
 
