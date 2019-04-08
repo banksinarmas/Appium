@@ -26,6 +26,8 @@ public class TestListener implements ITestListener{
 	private String methodCase,username,apkVersion;
 
 	private static final String SCREENSHOT_FOLDER="Screenshots";
+	
+	//Change this flag to true to save screenshot on Screenshots folder
 	private static boolean SCREENSHOT_FLAG=false;
 
 	@Override
@@ -109,7 +111,6 @@ public class TestListener implements ITestListener{
 		
 		this.apkVersion=instance.getClass().getSuperclass().getDeclaredField("apkVersion").get(instance).toString();
 		methodCase+="v"+apkVersion+"_CASE(";
-
 
 		for(Field field : instance.getClass().getDeclaredFields()) {
 

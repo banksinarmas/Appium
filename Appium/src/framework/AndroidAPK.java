@@ -34,7 +34,8 @@ public class AndroidAPK {
 		WebDriverWait wait30 = new WebDriverWait(driver,30);
 		WebDriverWait wait50 = new WebDriverWait(driver,50);
 
-		WebElement latestVersionElement= wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@content-desc,'Android app') and not(contains(@content-desc,'UAT'))] ")));
+		WebElement latestVersionElement= new ScreenAction(driver).scrollUntilElementByXpath("//*[contains(@content-desc,'Android app') and not(contains(@content-desc,'UAT'))] ");
+		
 		String latestVersion= latestVersionElement.getAttribute("content-desc");
 		latestVersion=latestVersion.substring(latestVersion.indexOf("1.0"),latestVersion.indexOf(" Android"));
 		String currentVersion=getApkVersion(deviceID);
