@@ -24,7 +24,7 @@ public class AndroidAPK {
 		this.systemPort=systemPort;
 	}
 
-	public void download() throws Exception {
+	public void download(String apkVersion) throws Exception {
 
 		//delete simobiplus app-release.apk from device
 		adbCommand("cmd /c adb -s "+deviceID+" shell \"cd sdcard/Download && rm * \"");
@@ -33,15 +33,14 @@ public class AndroidAPK {
 
 		WebDriverWait wait30 = new WebDriverWait(driver,30);
 		WebDriverWait wait50 = new WebDriverWait(driver,50);
-
-		WebElement latestVersionElement= new ScreenAction(driver).scrollUntilElementByXpath("//*[contains(@content-desc,'Android app') and not(contains(@content-desc,'UAT'))] ");
-		
-		String latestVersion= latestVersionElement.getAttribute("content-desc");
-		latestVersion=latestVersion.substring(latestVersion.indexOf("1.0"),latestVersion.indexOf(" Android"));
+	
+		WebElement latestVersionElement= new ScreenAction(driver).scrollUntilElementByXpath("//*[contains(@content-desc,'"+apkVersion+"')]");
+	
+		//current simobiplus installed on device
 		String currentVersion=getApkVersion(deviceID);
 
-		if(currentVersion==null || !currentVersion.equals(latestVersion)) {
-			System.out.println("Download will begin soon for apk v"+latestVersion);
+		if(currentVersion==null || !currentVersion.equals(apkVersion)) {
+			System.out.println("Download will begin soon for apk v"+apkVersion);
 
 			latestVersionElement.click();
 			wait50.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.View[@content-desc='click here'] | //android.view.View[@text='click here']"))).click();
