@@ -40,17 +40,22 @@ public class BillPayment_component {
 	public void other_billerMenu(String billerName) throws InterruptedException {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Others'] | //*[@text='Lainnya']"))).click();
 	
-		Thread.sleep(1500);
+		Thread.sleep(2000);
+
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(billerName);
-		
+
 		//get list biller appeared in search box, choose the very bottom
 		List<WebElement> billerList =driver.findElements(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"));
 		billerList.get(billerList.size()-1).click();
 	}
 
-	public void water_billerMenu(String billerName) {
+	public void water_billerMenu(String billerName) throws InterruptedException {
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Water'] | //*[@text='Air']"))).click();
 		
+		Thread.sleep(2000);
+
+		wait30.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.EditText"))).sendKeys(billerName);
+
 		//get list biller appeared in search box, choose the very bottom
 		List<WebElement> billerList =driver.findElements(By.xpath("//android.widget.TextView[contains(@text,'"+billerName+"')]"));
 		billerList.get(billerList.size()-1).click();
@@ -65,12 +70,6 @@ public class BillPayment_component {
 
 	public void selectAccount(String sourceAccount,String amount,String desc) {
 		wait30.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] "))).isDisplayed();
-		List<WebElement> inputFields =driver.findElements(By.className("android.widget.EditText"));
-
-		//input amount if prepaid, leave if its postpaid
-		WebElement inputAmount = driver.findElements(By.className("android.widget.EditText")).get(0);
-		if(inputAmount.getAttribute("text").equals("0")) inputAmount.sendKeys(amount);
-
 		try {
 			Thread.sleep(1200);
 		} catch (InterruptedException e) {
@@ -78,13 +77,14 @@ public class BillPayment_component {
 			e.printStackTrace();
 		}
 
+		//input amount if prepaid, leave if its postpaid
+		WebElement inputAmount = driver.findElements(By.className("android.widget.EditText")).get(0);
+		if(inputAmount.getAttribute("text").equals("0")) inputAmount.sendKeys(amount);
+
 		//select account
 		driver.findElements(By.xpath("//*[@text='Select source account'] | //*[@text='Pilih rekening sumber']")).get(1).click();
 		screenAction.scrollUntilElementByXpath("//*[contains(@text,'"+sourceAccount+"')]").click();
 		wait10.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text,'amount')] | //*[contains(@text,'jumlah')] ")));
-
-		//input desc
-		inputFields.get(1).sendKeys(desc);
 
 		//input bill period if billername is Asuransi Sinarmas or Asuransi MSIG
 		List <WebElement> periodElements= driver.findElements(By.xpath("//*[@text='Bill Period'] | //*[@text='Periode tagihan']"));
