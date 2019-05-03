@@ -26,7 +26,7 @@ public class TestListener implements ITestListener{
 	private String methodCase,username,apkVersion;
 
 	private static final String SCREENSHOT_FOLDER="Screenshots";
-	
+
 	//Change this flag to true to save screenshot on Screenshots folder
 	private static boolean SCREENSHOT_FLAG=false;
 
@@ -68,7 +68,7 @@ public class TestListener implements ITestListener{
 		// TODO Auto-generated method stub
 
 		if(instance!=null) {
-			
+
 			System.out.println("FAILED: "+methodCase+result.getMethod().getMethodName());
 			AndroidDriver<WebElement> driver=((DeviceSetup)instance).getDriver();
 			saveScreenshotFailedTest(driver);
@@ -108,7 +108,7 @@ public class TestListener implements ITestListener{
 	private void setMethodCase() throws Exception{
 
 		if(instance==null) throw new Exception("InstanceIsNullException");
-		
+
 		this.apkVersion=instance.getClass().getSuperclass().getDeclaredField("apkVersion").get(instance).toString();
 		methodCase+="v"+apkVersion+"_CASE(";
 
@@ -120,10 +120,9 @@ public class TestListener implements ITestListener{
 			try {
 				String fieldName=field.getName();
 				Object  obj = field.get(instance);
-				
-				if(obj!=null) {
-					if(instance==null) throw new Exception(fieldName+".ValueMissingExceptionIn");
-				}
+
+				if(obj==null) throw new Exception(fieldName+".ValueMissingExceptionIn");
+
 				String value=field.get(instance).toString();
 				switch (fieldName)
 				{
