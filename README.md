@@ -244,9 +244,11 @@ DEF_USERNAME=automation1
 ## Running test
 
 For running test run suite file in `TestSuite` folder. This can be run directly in eclipse or by using maven command :
+
 Eclipse : `Right click on the suite file which to run > Run As > TestNG Suite files`
 
 Maven command : `mvn -f Appium/pom.xml clean compile surefire:test -Dsurefire.suiteXmlFiles=TestSuite/PATH_TO_SUITE`
+
 i.e for running `TransferInbank` test for single device run `mvn -f Appium/pom.xml clean compile surefire:test -Dsurefire.suiteXmlFiles=TestSuite/FundTransfer/Single/Single_TransferInbank.xml`
 
 ### Full Test
