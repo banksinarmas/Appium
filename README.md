@@ -1,5 +1,5 @@
 # Appium
-Appium is automation testing tools built in client-server architecture to facilitate communication between driver and device. Appium support variety of platform like IOS and Android and each platform has specific driver such as XCUI driver in IOS and uiautomator2 in Android which appium can used to automate test in that particular platform. Driver is a worker which will do a specific task defined in our test code such as identifying element, clicking, taking screenshot,etc.
+Appium is automation testing tools built in client-server architecture to facilitate communication between driver and device. Appium support variety of platform like IOS and Android and each platform has specific driver such as XCUI driver in IOS and uiautomator2 in Android which can be used to automate test in that particular platform. Driver is a worker which will do a specific task defined in our test code such as identifying element, clicking, taking screenshot,etc.
 
 For this repository the testing is done in android platform only which use uiautomator2 as driver
 
