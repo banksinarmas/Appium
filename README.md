@@ -1,17 +1,14 @@
 # Appium
-Android automation test for SimobiPlus
+Appium is automation testing tools built in client-server architecture to facilitate communication between driver and device. Appium support variety of platform like IOS and Android and each platform has specific driver such as XCUI driver in IOS and uiautomator2 in Android which appium can used to automate test in that particular platform. Driver is a worker which will do a specific task defined in our test code such as identifying element, clicking, taking screenshot,etc.
 
-Tools/framework:
+For this repository the testing is done in android platform only which use uiautomator2 as driver
+
+Prerequisite: 
 - Maven
 - TestNG
 - Eclipse
-- Git
-- Allure reporting
-- Appium
-- Android emulator
-
-CI:
-- Jenkins
+- Appium installed through npm
+- Android sdk 
 
 ## Setup
 1. git clone `https://github.com/banksinarmas/Appium.git`
@@ -29,11 +26,8 @@ To make a new test please do the following:
 5. Create `test suite file` which is a configuration to run a factory class
 6. After create `test suite file` don't forget to add the suite file to another suite file to include the test and make sure those test included in `SingleDevice.xml` and `MultiDevice.xml`
 
-### Example
-This is example for Transfer Inbank single device testing
-
-#### Component Class
-`FundTransfer_component` class in `components` package
+### Example: Transfer Inbank Single Device Testing
+#### Component Class: FundTransfer_component in `component` package
 ```
 public class FundTransfer_component  {
 
@@ -56,8 +50,7 @@ public class FundTransfer_component  {
 	...
 }
 ```
-#### Test Class
-`TransferInbank` class in `fundtransfer` package
+#### Test Class: TransferInbank in `fundtransfer` package
 ```
 public class TransferInbank  extends DeviceSetup{
 
@@ -104,17 +97,17 @@ public class TransferInbank  extends DeviceSetup{
 }	
 ```
 
-#### Test Case
-`Single_TransferInbank.txt` in folder `Resources/TestCase/FundTransfer/Single`. Every line represent test scenario related to the test class
+#### Test Case: Single_TransferInbank.txt in  `Resources/TestCase/FundTransfer/Single` folder
+
 ```
+#Every line represent test scenario related to the test class
 #fromAccountType,toAccountType,amount,desc
 FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_NORMAL,1001,to inbank
 FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_SYARIAH_NORMAL,1001,to inbank
 FROM_ACCOUNT_KONVEN_NORMAL,TO_ACCOUNT_KONVEN_FOREX,20003,to inbank
 ```
 
-#### Factory class
-`Single_TransferInbank` class in `fundtransfer.single` package
+#### Factory class: Single_TransferInbank in `fundtransfer.single` package
 ```
 public class Single_TransferInbank {
 
@@ -131,25 +124,7 @@ public class Single_TransferInbank {
 }
 ```
 
-#### Test Suite file
-`Single_TransferInbank.xml` in folder `TestSuite/FundTransfer/Single`
-This suite is for running `TransferInbank` test scenario only
-```
-<?xml version = "1.0" encoding = "UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
-<suite name="FundTransfer" >
-	<test name="TransferInbank"  thread-count="8" group-by-instances="true" >
-		<classes>
-			<class name="fundtransfer.single.Single_TransferInbank" />
-		</classes>
-	</test>
-</suite>
-
-```
-
-`Single_FundTransfer.xml` in folder `TestSuite/FundTransfer/Single`
-This suite is for running every Fund Transfer test scenario
+#### Test Suite file: Single_FundTransfer.xml in `TestSuite/FundTransfer/Single` folder
 ```
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
@@ -178,9 +153,21 @@ This suite is for running every Fund Transfer test scenario
 </suite>
 ```
 
-`SingleDevice.xml` in `TestSuite` folder
-This suite is for running every automation test available. Note that `Single_FundTransfer.xml` is included in this suite file 
-`<suite-file path="TestSuite/Onboarding/Single/Single_Login_FreshDevice.xml" />`. This suite is the config used in the automation test scenario which is run in jenkins.
+Or if you prefer to run test for TransferInbank only you can do as following :
+```
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="FundTransfer" >
+	<test name="TransferInbank"  thread-count="8" group-by-instances="true" >
+		<classes>
+			<class name="fundtransfer.single.Single_TransferInbank" />
+		</classes>
+	</test>
+</suite>
+```
+
+For running this suite in automation the test suite must be included in `Single_FundTransfer.xml` or `Multi_FundTransfer.xml` in `TestSuite` folder
 
 ```
 <?xml version = "1.0" encoding = "UTF-8"?>
@@ -188,12 +175,9 @@ This suite is for running every automation test available. Note that `Single_Fun
 
 <suite name="single-device-testing">
 	<suite-files>
-		<suite-file path="TestSuite/Onboarding/Single/Single_Login_FreshDevice.xml" />
+		...
 		<suite-file path="TestSuite/FundTransfer/Single/Single_FundTransfer.xml" />
-		<suite-file path="TestSuite/BillPayment/Single/Single_BillPayment.xml" />
-		<suite-file path="TestSuite/TimeDeposit/Single/Single_CreateTimeDeposit.xml" />
-		<suite-file path="TestSuite/CardlessWithdrawal/Single/Single_CardlessWithdrawal.xml" />
-		<suite-file path="TestSuite/UserProfile/Single/Single_ChangeEasyPin.xml" />
+		...
 	</suite-files>
 </suite>
 ```
@@ -204,11 +188,9 @@ To make user and device avail for testing, please do the following:
 2. Add **username linked to device properties** in file `device.properties` in `Resources/properties`
 3. Edit `default.properties` file, change `DEF_USERNAME` value to the new username, for changing automation user used, edit `DEF_AUTOMATION_USERNAME` value
 
-### Example
-This example is using username `automation1` and device `J7AXGF00R1006RA`
+### Example: Username `automation1` and device `J7AXGF00R1006RA`
 
-#### User properties
-Ex. User used is **automation1** so the file `automation1` is created in folder `Resources/properties/User`
+#### User properties : automation1 in folder `Resources/properties/User`
 
 ```
 #Credential
@@ -243,16 +225,15 @@ CREDIT_CARD_NO
 
 ```
 
-#### Device properties
-User **automation1** is linked to device **J7AXGF00R1006RA** in `device.properties` in folder `Resources/properties`
+#### Device properties: J7AXGF00R1006RA in folder `Resources/properties`
+
 ```
 ...
 #Asus zenfone L1
 automation1=J7AXGF00R1006RA,4732,8209
 ```
+
 #### Default properties
-Change `DEF_USERNAME` to the **automation** in `default.properties` in folder `Resources/properties`
-If you want to change the automation user used change `DEF_USERNAME` as well
 ```
 ###Default username and account type 
 DEF_AUTOMATION_USERNAME=automation1
