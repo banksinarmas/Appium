@@ -48,14 +48,16 @@ public class DeviceSetup  {
 
 		//if setup is fresh device this will check the latest apk, download apk, and launch app after cleared its data
 		boolean noReset=true;
+		
+		//get apkversion from travis last build version
+		apkVersion="1.0."+TravisCheckout.getLastBuildVersion();
 		if(freshDevice) {
 			AndroidAPK apk = new AndroidAPK(deviceID,port,systemPort);
-			apk.download();
+			apk.download(apkVersion);
 			apk.install();
 			noReset=false;
 		}
 		
-		apkVersion=AndroidAPK.getApkVersion(deviceID);
 		System.out.println("Launching apk version: "+apkVersion +" on device: "+deviceID);
 
 		//launch simobiplus app 
