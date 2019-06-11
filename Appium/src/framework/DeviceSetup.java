@@ -17,7 +17,7 @@ public class DeviceSetup  {
 	private AppiumServer appium;
 	protected AndroidDriver<WebElement> driver;
 
-	protected String deviceID,apkVersion;
+	protected String deviceID,apkVersion,lastApkVersion;
 	private int port,systemPort;
 	private boolean freshDevice;
 
@@ -50,14 +50,15 @@ public class DeviceSetup  {
 		boolean noReset=true;
 		
 		//get apkversion from travis last build version
-		apkVersion="1.0."+TravisCheckout.getLastBuildVersion();
+		lastApkVersion="1.0."+TravisCheckout.getLastBuildVersion();
 		if(freshDevice) {
 			AndroidAPK apk = new AndroidAPK(deviceID,port,systemPort);
-			apk.download(apkVersion);
+			apk.download(lastApkVersion);
 			apk.install();
 			noReset=false;
 		}
 		
+		apkVersion=AndroidAPK.getApkVersion(deviceID);
 		System.out.println("Launching apk version: "+apkVersion +" on device: "+deviceID);
 
 		//launch simobiplus app 
